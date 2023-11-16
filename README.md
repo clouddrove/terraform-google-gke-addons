@@ -53,11 +53,7 @@ We have [*fifty plus terraform modules*][terraform_modules]. A few of them are c
 ## Prerequisites
 
 This module has a few dependencies: 
-
-- [Terraform 1.x.x](https://learn.hashicorp.com/terraform/getting-started/install.html)
-- [Go](https://golang.org/doc/install)
-- [github.com/stretchr/testify/assert](https://github.com/stretchr/testify)
-- [github.com/gruntwork-io/terratest/modules/terraform](https://github.com/gruntwork-io/terratest)
+- [Terraform 1.4.6](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
 
 
@@ -82,11 +78,15 @@ Here are some examples of how you can use this module in your inventory structur
 
 ## Inputs
 
-No input.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| label\_order | Label order, e.g. `name`,`environment`. | `list(string)` | <pre>[<br>  "name",<br>  "environment"<br>]</pre> | no |
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| label\_order | Label order. |
 
 
 
