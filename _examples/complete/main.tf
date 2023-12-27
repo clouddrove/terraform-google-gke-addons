@@ -3,24 +3,22 @@
 ###############################################################################
 
 
-locals {
-  network_name         = "dev-vpc"
-  region               = "us-west1"
-  secondary-range-name = "test-seconadry-range"
-}
+
 
 
 module "dev-vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 8.0"
 
-  project_id   = var.dev_project_id
+#   project_id   = var.dev_project_id
+  project_id   = local.project_id
   network_name = local.network_name
   routing_mode = "GLOBAL"
 
+  
   subnets = [
     {
-      subnet_name               = "${local.network_name}-subnet-private-1"
+      subnet_name               = "subnet-private-1"
       subnet_ip                 = "10.20.0.0/24"
       subnet_region             = local.region
       subnet_private_access     = true
@@ -30,7 +28,7 @@ module "dev-vpc" {
       subnet_flow_logs_interval = "INTERVAL_10_MIN"
     },
     {
-      subnet_name               = "${local.network_name}-subnet-public-1"
+      subnet_name               = "subnet-public-1"
       subnet_ip                 = "10.20.1.0/24"
       subnet_region             = local.region
       subnet_private_access     = false
@@ -41,18 +39,19 @@ module "dev-vpc" {
     },
   ]
 
-  secondary_ranges = {
-    ("dev-vpc-subnet-private-1") = [
-      {
-        range_name    = local.secondary-range-name
-        ip_cidr_range = "10.52.0.0/14"
-      },
-      {
-        range_name    = local.secondary-range-name
-        ip_cidr_range = "10.56.0.0/20"
-      },
-    ]
-  }
+secondary_ranges = {
+  ("subnet-private-1") = [
+    {
+      range_name    = "secondary-range-name-1"  # Unique name for the first secondary IP range
+      ip_cidr_range = "10.52.0.0/14"
+    },
+    {
+      range_name    = "secondary-range-name-2"  # Unique name for the second secondary IP range
+      ip_cidr_range = "10.56.0.0/20"
+    },
+  ]
+}
+
 
   firewall_rules = [
     {
@@ -80,17 +79,17 @@ module "dev-vpc" {
 # GCP GKE
 ###############################################################################
 
-module "gke-test" {
+module "gke-dev" {
   source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
   version                           = "29.0.0"
-  project_id                        = var.project_id
-  name                              = var.cluster_name_suffix
-  region                            = var.region
-  zones                             = var.zones
-  network                           = var.network
-  subnetwork                        = var.subnetwork
-  ip_range_pods                     = var.ip_range_pods
-  ip_range_services                 = var.ip_range_services
+  project_id                        = local.project_id
+  name                              = local.cluster_name 
+  region                            = local.region 
+  zones                             = []
+  network                           = local.network_name
+  subnetwork                        = "subnet-private-1"
+  ip_range_pods                     = ""
+  ip_range_services                 = ""
   create_service_account            = true
   remove_default_node_pool          = true
   disable_legacy_metadata_endpoints = false
@@ -100,14 +99,14 @@ module "gke-test" {
 
     {
       name                         = "general-1"
-      machine_type                 = var.machine_type_general-1
-      node_locations               = var.node_locations
+      machine_type                 = "g1-small"
+      node_locations               = "us-west1-a"
       min_count                    = 1
       max_count                    = 5
       local_ssd_count              = 0
       spot                         = false
-      disk_size_gb                 = var.disk_size_gb_general-1
-      disk_type                    = var.disk_type_general-1
+      disk_size_gb                 = 20
+      disk_type                    = "pd-standard"
       image_type                   = "ubuntu_containerd"
       enable_gcfs                  = false
       enable_gvnic                 = false
@@ -121,14 +120,14 @@ module "gke-test" {
     },
     {
       name                         = "general-2"
-      machine_type                 = var.machine_type_general-2
-      node_locations               = var.node_locations
+      machine_type                 = "g1-small"
+      node_locations               = "us-west1-a"
       min_count                    = 1
       max_count                    = 3
       local_ssd_count              = 0
       spot                         = false
-      disk_size_gb                 = var.disk_size_gb_general-2
-      disk_type                    = var.disk_type_general-2
+      disk_size_gb                 = 20
+      disk_type                    = "pd-standard"
       image_type                   = "ubuntu_containerd"
       enable_gcfs                  = false
       enable_gvnic                 = false
@@ -186,20 +185,21 @@ module "gke-test" {
 ###############################################################################
 
 
-module "addons" {
-  source = "../../"
+# module "addons" {
+#   source = "../../"
 
-  depends_on       = [module.gke_test]
-  gke_cluster_name = module.gke_test.name
+#   depends_on       = [module.gke_test]
+#   gke_cluster_name = module.gke_test.name
 
-  # -- Enable Addons
-  metrics_server             = true
-  ingress_nginx              = true
-  certification_manager      = true
-  horizontal_pod_autoscaling = true
-  http_load_balancing        = true
-  filestore_csi_driver       = true
-  istio                      = true
-  dns_cache                  = false
+#   # -- Enable Addons
+#   metrics_server             = true
+#   ingress_nginx              = true
+#   certification_manager      = true
+#   horizontal_pod_autoscaling = true
+#   http_load_balancing        = true
+#   filestore_csi_driver       = true
+#   istio                      = true
+#   dns_cache                  = false
+#   kalm_config                = false
 
-}
+# }
