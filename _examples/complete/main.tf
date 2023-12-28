@@ -76,7 +76,7 @@ secondary_ranges = {
 # GCP GKE
 ###############################################################################
 
-module "gke-dev" {
+module "gke" {
   source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
   version                           = "29.0.0"
   project_id                        = local.project_id
@@ -186,18 +186,15 @@ module "gke-dev" {
 ###############################################################################
 
 
-# module "addons" {
-#   source = "../../"
 
-#   depends_on       = [module.gke_test]
-#   gke_cluster_name = module.gke_test.name
 
-#   # -- Enable Addons
-#   metrics_server             = true
-#   ingress_nginx              = true
-#   certification_manager      = true
-#   istio                      = true
-#   dns_cache                  = false
-#   kalm_config                = false
+module "addons" {
+  source = "../../"
 
-# }
+  depends_on       = [module.eks]
+  gke_cluster_name = module.gke.name
+
+  # -- Enable Addons
+  cluster_autoscaler           = true
+
+ }

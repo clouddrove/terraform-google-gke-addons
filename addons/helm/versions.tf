@@ -6,5 +6,9 @@ terraform {
       source  = "hashicorp/helm"
       version = ">= 2.4.1"
     }
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 3.72"
+    }
   }
 }
