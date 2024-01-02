@@ -1,75 +1,64 @@
 ###############################################################################
 # Resources
 ###############################################################################
-
-
-module "dev-vpc" {
-  source  = "terraform-google-modules/network/google"
-  version = "~> 8.0"
-
-#   project_id   = var.dev_project_id
-  project_id   = local.project_id
-  network_name = local.network_name
-  routing_mode = "GLOBAL"
-
-  
-  subnets = [
-    {
-      subnet_name               = "subnet-private-1"
-      subnet_ip                 = "10.20.0.0/24"
-      subnet_region             = local.region
-      subnet_private_access     = true
-      subnet_flow_logs          = true
-      subnet_flow_logs_sampling = "0.5"
-      subnet_flow_logs_metadata = "INCLUDE_ALL_METADATA"
-      subnet_flow_logs_interval = "INTERVAL_10_MIN"
-    },
-    {
-      subnet_name               = "subnet-public-1"
-      subnet_ip                 = "10.20.1.0/24"
-      subnet_region             = local.region
-      subnet_private_access     = false
-      subnet_flow_logs          = true
-      subnet_flow_logs_sampling = "0.5"
-      subnet_flow_logs_metadata = "INCLUDE_ALL_METADATA"
-      subnet_flow_logs_interval = "INTERVAL_10_MIN"
-    },
-  ]
-
-secondary_ranges = {
-  ("subnet-private-1") = [
-    {
-      range_name    = "secondary-range-name-1"  # Unique name for the first secondary IP range
-      ip_cidr_range = "10.52.0.0/14"
-    },
-    {
-      range_name    = "secondary-range-name-2"  # Unique name for the second secondary IP range
-      ip_cidr_range = "10.56.0.0/20"
-    },
-  ]
+provider "google" {
+  project = local.project_id
+  # region  = var.gcp_region
+  # zone    = var.gcp_zone
 }
 
 
-  firewall_rules = [
+module "vpc" {
+  source = "terraform-google-modules/network/google//modules/vpc"
+  # version = "1.0.0"
+
+  network_name = "${local.name}-vpc"
+  project_id   = local.gcp_project_id
+}
+
+module "subnets" {
+  source = "terraform-google-modules/network/google//modules/subnets"
+
+  project_id   = local.gcp_project_id
+  network_name = module.vpc.network_id
+
+  subnets = [
     {
-      name      = "test-allow-all"
-      direction = "INGRESS"
-      priority  = 10000
-
-      log_config = {
-        metadata = "INCLUDE_ALL_METADATA"
-      }
-
-      allow = [{
-        protocol = "tcp"
-        ports    = ["1-65535"]
-        }
-      ]
-      ranges = [
-        "10.20.0.0/24", "10.20.1.0/24", "10.10.0.0/24", "10.10.1.0/24"
-      ]
+      subnet_name   = "subnet-01"
+      subnet_ip     = "10.10.10.0/24"
+      subnet_region = "us-central1"
     },
+    {
+      subnet_name           = "subnet-private-1"
+      subnet_ip             = "10.10.20.0/24"
+      subnet_region         = "us-central1"
+      subnet_private_access = "true"
+      subnet_flow_logs      = "true"
+      purpose               = "INTERNAL_HTTPS_LOAD_BALANCER"
+      role                  = "ACTIVE"
+    },
+    {
+      subnet_name                  = "subnet-public-1"
+      subnet_ip                    = "10.10.30.0/24"
+      subnet_region                = "us-central1"
+      subnet_flow_logs             = "true"
+      subnet_flow_logs_interval    = "INTERVAL_10_MIN"
+      subnet_flow_logs_sampling    = 0.7
+      subnet_flow_logs_metadata    = "INCLUDE_ALL_METADATA"
+      subnet_flow_logs_filter_expr = "true"
+    }
   ]
+
+  secondary_ranges = {
+    subnet-01 = [
+      {
+        range_name    = "subnet-01-secondary-01"
+        ip_cidr_range = "192.168.64.0/24"
+      },
+    ]
+
+    subnet-02 = []
+  }
 }
 
 ###############################################################################
@@ -77,14 +66,14 @@ secondary_ranges = {
 ###############################################################################
 
 module "gke" {
-  source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
-  version                           = "29.0.0"
+  source = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
+  # version                           = "29.0.0"
   project_id                        = local.project_id
-  name                              = local.cluster_name 
-  region                            = local.region 
+  name                              = local.cluster_name
+  region                            = local.region
   zones                             = []
-  network                           = local.network_name
-  subnetwork                        = "subnet-private-1"
+  network                           = module.vpc.vpc_id
+  subnetwork                        = module.subnet.id
   ip_range_pods                     = ""
   ip_range_services                 = ""
   horizontal_pod_autoscaling        = true
@@ -191,10 +180,26 @@ module "gke" {
 module "addons" {
   source = "../../"
 
-  depends_on       = [module.eks]
+  # depends_on = [module.gke] # Define module.gke as a single-item list
+
   gke_cluster_name = module.gke.name
 
   # -- Enable Addons
-  cluster_autoscaler           = true
 
- }
+  # cluster_autoscaler           = false
+  ingress_nginx = true
+
+
+
+  # -- Path of override-values.yaml file
+
+  ingress_nginx_helm_config = { values = [file("./config/override-ingress-nginx.yaml")] }
+
+
+  # -- Override Helm Release attributes
+  ingress_nginx_extra_configs = var.ingress_nginx_extra_configs
+
+}
+
+
+

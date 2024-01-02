@@ -1,5 +1,5 @@
 variable "helm_config" {
-  description = "Helm provider config for Cluster Autoscaler"
+  description = "Helm provider config for Nginx Ingress"
   type        = any
   default     = {}
 }
@@ -19,20 +19,11 @@ variable "addon_context" {
     # aws_partition_id               = string
     gcp_region_name = string
     gke_cluster_id  = string
-    # tags                           = map(string)
   })
 }
 
-variable "gke_cluster_name" {
-  type    = string
-  default = ""
-}
-variable "project_id" {
-  type    = string
-  default = ""
-}
-
-variable "account_id" {
-  type    = string
-  default = ""
+variable "ingress_nginx_extra_configs" {
+  description = "Nginx ingress extra config"
+  type        = any
+  default     = {}
 }

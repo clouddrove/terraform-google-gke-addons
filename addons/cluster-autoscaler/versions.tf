@@ -1,18 +1,18 @@
 terraform {
-  required_version = ">= 1.6.4"
+  required_version = ">= 0.13.0"
 
   required_providers {
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
-    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.0.0"
+      version = ">= 2.10"
     }
     google = {
-      source  = "hashicorp/google"
-      version = ">= 5.10.0"
+      version = ">= 5.0.0"
     }
   }
+}
+
+provider "google" {
+  project = var.project_id
+  region  = "us-central1"
 }

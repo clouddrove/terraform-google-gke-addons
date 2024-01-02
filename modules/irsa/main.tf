@@ -33,10 +33,10 @@ resource "google_service_account" "service_account" {
 }
 
 resource "google_project_iam_binding" "example_binding" {
-  service_account_id = "${google_service_account.service_account.email}"
+  service_account_id = google_service_account.service_account.email
   project            = var.project_id
   role               = "roles/iam.workloadIdentityUser"
-  
+
 
   members = [
     "serviceAccount:your-project-id.svc.id.goog[${var.kubernetes_namespace}/${var.kubernetes_service_account}]",

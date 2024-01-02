@@ -142,24 +142,24 @@ variable "karpenter_iampolicy_json_content" {
 #   default     = null
 # }
 
-# #------------------ INGRESS NGINX -------------------------
-# variable "ingress_nginx" {
-#   description = "Enable ingress nginx add-on"
-#   type        = bool
-#   default     = false
-# }
+#------------------ INGRESS NGINX -------------------------
+variable "ingress_nginx" {
+  description = "Enable ingress nginx add-on"
+  type        = bool
+  default     = false
+}
 
-# variable "ingress_nginx_helm_config" {
-#   description = "Path to override-values.yaml for Ingress Nginx Helm Chart"
-#   type        = any
-#   default     = null
-# }
+variable "ingress_nginx_helm_config" {
+  description = "Path to override-values.yaml for Ingress Nginx Helm Chart"
+  type        = any
+  default     = null
+}
 
-# variable "ingress_nginx_extra_configs" {
-#   description = "Override attributes of helm_release terraform resource"
-#   type        = any
-#   default     = null
-# }
+variable "ingress_nginx_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = null
+}
 
 # #-----------KUBECLARITY---------------------------
 # variable "kubeclarity" {

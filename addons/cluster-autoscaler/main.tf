@@ -24,7 +24,7 @@ module "helm_addon" {
     }
   ]
 
-    # -- IRSA Configurations
+  # -- IRSA Configurations
   irsa_config = {
     irsa_iam_policies                 = ["roles/storage.admin", "roles/pubsub.publisher"]
     create_kubernetes_service_account = true
@@ -32,7 +32,7 @@ module "helm_addon" {
     kubernetes_namespace              = local.default_helm_config.namespace
     account_id                        = var.account_id
     project_id                        = var.account_id
-    }
+  }
 
 }
 

@@ -64,7 +64,7 @@ resource "helm_release" "addon" {
 module "irsa" {
   source = "../../modules/irsa"
 
-  count = length(var.irsa_config) > 0 ? 1 : 0
+  # count = length(var.irsa_config) > 0 ? 1 : 0
   // GCP GKE Configuration
 
   create_kubernetes_namespace       = try(var.irsa_config.create_kubernetes_namespace, true)
