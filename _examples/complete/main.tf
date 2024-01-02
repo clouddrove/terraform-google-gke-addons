@@ -177,29 +177,29 @@ module "gke" {
 
 
 
-module "addons" {
-  source = "../../"
+# module "addons" {
+#   source = "../../"
 
-  # depends_on = [module.gke] # Define module.gke as a single-item list
+#   # depends_on = [module.gke] # Define module.gke as a single-item list
 
-  gke_cluster_name = module.gke.name
+#   gke_cluster_name = module.gke.name
 
-  # -- Enable Addons
+#   # -- Enable Addons
 
-  # cluster_autoscaler           = false
-  ingress_nginx = true
-
-
-
-  # -- Path of override-values.yaml file
-
-  ingress_nginx_helm_config = { values = [file("./config/override-ingress-nginx.yaml")] }
+#   # cluster_autoscaler           = false
+#   ingress_nginx = true
 
 
-  # -- Override Helm Release attributes
-  ingress_nginx_extra_configs = var.ingress_nginx_extra_configs
 
-}
+#   # -- Path of override-values.yaml file
+
+#   ingress_nginx_helm_config = { values = [file("./config/override-ingress-nginx.yaml")] }
+
+
+#   # -- Override Helm Release attributes
+#   ingress_nginx_extra_configs = var.ingress_nginx_extra_configs
+
+# }
 
 
 

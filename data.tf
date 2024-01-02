@@ -1,5 +1,5 @@
 data "google_client_config" "current" {}
-data "gcp_partition" "current" {}
+# data "gcp_partition" "current" {}
 # data "gcp_caller_identity" "current" {}
 data "gcp_region" "current" {}
 data "gcp_gke_cluster" "gke_cluster" {

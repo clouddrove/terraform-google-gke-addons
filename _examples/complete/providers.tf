@@ -1,21 +1,10 @@
 
 
-provider "helm" {
-  kubernetes {
-    host                   = module.eks.cluster_endpoint
-    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-    token                  = data.aws_eks_cluster_auth.eks_cluster.token
-  }
-}
 
-# provider "kubectl" {
-#   host                   = module.eks.cluster_endpoint
-#   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-#   token                  = data.aws_eks_cluster_auth.eks_cluster.token
-# }
 provider "kubernetes" {
-  host                   = "https://${module.gke-dev.endpoint}"
-  cluster_ca_certificate = base64decode(module.gke-dev.ca_certificate)
+  host                   = "https://${module.gke.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
 # provider "google" {
