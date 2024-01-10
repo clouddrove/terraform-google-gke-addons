@@ -16,11 +16,15 @@ module "helm_addon" {
     },
     {
       name  = "rbac.serviceAccount.create"
-      value = "false"
+      value = "true"
     },
     {
       name  = "rbac.serviceAccount.name"
       value = "${local.name}-sa"
+    },
+    {
+      name  = "cloudProvider"
+      value = "gce"
     }
   ]
 

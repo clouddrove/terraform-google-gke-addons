@@ -12,15 +12,14 @@ affinity:
 
 
 ## Using limits and requests
-# resources:
-#   limits:
-#     cpu: 300m
-#     memory: 250Mi
-#   requests:
-#     cpu: 50m
-#     memory: 150Mi
+resourc_helm_configes:
+  limits:
+    cpu: 300m
+    memory: 250Mi
+  requests:
+    cpu: 50m
+    memory: 150Mi
 
 podAnnotations:
   co.elastic.logs/enabled: "true"
-  
-cloudProvider: gce
+
