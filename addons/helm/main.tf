@@ -64,15 +64,12 @@ resource "helm_release" "addon" {
 module "irsa" {
   source = "../../modules/irsa"
 
-  # count = length(var.irsa_config) > 0 ? 1 : 0
-  // GCP GKE Configuration
+  count = length(var.irsa_config) > 0 ? 1 : 0
 
-  create_kubernetes_namespace       = try(var.irsa_config.create_kubernetes_namespace, true)
-  create_kubernetes_service_account = try(var.irsa_config.create_kubernetes_service_account, true)
-  kubernetes_namespace              = lookup(var.irsa_config, "kubernetes_namespace", "")
-  kubernetes_service_account        = lookup(var.irsa_config, "kubernetes_service_account", "")
-  kubernetes_svc_image_pull_secrets = try(var.irsa_config.kubernetes_svc_image_pull_secrets, null)
-  irsa_iam_policies                 = lookup(var.irsa_config, "irsa_iam_policies", null)
-  account_id                        = lookup(var.irsa_config, "account_id", "")
-  project_id                        = lookup(var.irsa_config, "project_id", "")
+  create_kubernetes_namespace = try(var.irsa_config.create_kubernetes_namespace, true)
+  environment                 = try(var.irsa_config.environment, null)
+  project_id                  = try(var.irsa_config.project_id, null)
+  GCP_GSA_NAME                = try(var.irsa_config.GCP_GSA_NAME, null)
+  GCP_KSA_NAME                = try(var.irsa_config.GCP_GSA_NAME, null)
+  namespace                   = try(var.irsa_config.namespace, null)
 }

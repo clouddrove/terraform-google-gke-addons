@@ -1,25 +1,33 @@
 variable "helm_config" {
-  description = "Helm chart config. Repository and version required. See https://registry.terraform.io/providers/hashicorp/helm/latest/docs"
+  description = "Helm provider config for Cluster Autoscaler"
   type        = any
   default     = {}
 }
 
-variable "set_values" {
-  description = "Forced set values"
-  type        = any
-  default     = []
+variable "gke_cluster_name" {
+  type    = string
+  default = ""
 }
 
-variable "set_sensitive_values" {
-  description = "Forced set_sensitive values"
+variable "cluster_autoscaler_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
   type        = any
-  default     = []
+  default     = {}
 }
 
-variable "manage_via_gitops" {
-  description = "Determines if the add-on should be managed via GitOps"
-  type        = bool
-  default     = false
+variable "iampolicy_json_content" {
+  description = "Custom IAM Policy for ClusterAutoscaler IRSA"
+  type        = string
+  default     = null
+}
+
+variable "addon_context" {
+  description = "Input configuration for the addon"
+  type = object({
+    gcp_region_name = string
+    gke_cluster_id  = string
+    tags            = map(string)
+  })
 }
 
 variable "irsa_config" {
@@ -28,16 +36,16 @@ variable "irsa_config" {
   default     = {}
 }
 
-variable "addon_context" {
-  description = "IRSA Input configuration for the addon"
-  type        = any
-}
-
 variable "project_id" {
   description = "GCP project ID"
   type        = string
 }
 
+
+# variable "kubernetes_namespace" {
+#   description = "Kubernetes Namespace name"
+#   type        = string
+# }
 
 variable "create_kubernetes_namespace" {
   description = "Should the module create the namespace"
@@ -61,3 +69,11 @@ variable "GCP_KSA_NAME" {
   type        = string
   default     = "keda-operator"
 }
+
+variable "reloader_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
+}
+
+

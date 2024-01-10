@@ -5,7 +5,7 @@ locals {
     name                       = try(var.cluster_autoscaler_extra_configs.name, local.name)
     chart                      = try(var.cluster_autoscaler_extra_configs.chart, local.name)
     repository                 = try(var.cluster_autoscaler_extra_configs.repository, "https://kubernetes.github.io/autoscaler")
-    version                    = try(var.cluster_autoscaler_extra_configs.version, "9.29.0")
+    version                    = try(var.cluster_autoscaler_extra_configs.version, "9.34.1")
     namespace                  = try(var.cluster_autoscaler_extra_configs.namespace, "kube-system")
     description                = "Cluster Autoscaler helm Chart deployment configuration"
     timeout                    = try(var.cluster_autoscaler_extra_configs.timeout, "600")

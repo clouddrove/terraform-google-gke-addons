@@ -1,51 +1,60 @@
-#-------------INGRESS NGINX-------------------
-resource "local_file" "ingress_nginx_helm_config" {
-  count    = var.ingress_nginx && (var.ingress_nginx_helm_config == null) ? 1 : 0
+#----------------------------- CLUSTER AUTOSCALER ----------------------------
+resource "local_file" "cluster_autoscaler_helm_config" {
+  count    = var.cluster_autoscaler && (var.cluster_autoscaler_helm_config == null) ? 1 : 0
   content  = <<EOT
+## Node affinity for particular node in which labels key is "Infra-Services" and value is "true"
+
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: "eks.amazonaws.com/nodegroup"
+        - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "critical"
+          - "general-1"
 
 
 ## Using limits and requests
-
-resources:
+resourc_helm_configes:
   limits:
-    cpu: 150m
-    memory: 150Mi
+    cpu: 300m
+    memory: 250Mi
   requests:
-    cpu: 100m
-    memory: 90Mi
+    cpu: 50m
+    memory: 150Mi
 
 podAnnotations:
   co.elastic.logs/enabled: "true"
 
-## Override values for ingress nginx
-
-controller:
-  service:
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-      service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
-      service.beta.kubernetes.io/aws-load-balancer-type: nlb
-      service.beta.kubernetes.io/aws-load-balancer-external: "true"
-    external:
-      enabled: true
-    internal:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: nginx
-        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
-        service.beta.kubernetes.io/aws-load-balancer-type: nlb
-        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
   EOT
-  filename = "${path.module}/override_values/ingress_nginx.yaml"
+  filename = "${path.module}/override_values/cluster_autoscaler.yaml"
+}
+
+resource "local_file" "reloader_helm_config" {
+  count    = var.reloader && (var.reloader_helm_config == null) ? 1 : 0
+  content  = <<EOT
+
+reloader:
+  deployment:
+    # If you wish to run multiple replicas set reloader.enableHA = true
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: "cloud.google.com/gke-nodepool"
+              operator: In
+              values:
+              - "general-1"
+
+    resources:
+      limits:
+        cpu: "100m"
+        memory: "512Mi"
+      requests:
+        cpu: "10m"
+        memory: "128Mi"
+  EOT
+  filename = "${path.module}/override_vales/reloader.yaml"
 }

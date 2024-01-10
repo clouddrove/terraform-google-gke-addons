@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Outputs
 # ------------------------------------------------------------------------------
-output "label_order" {
-  value       = local.label_order
-  description = "Label order."
-}
+# output "label_order" {
+#   value       = local.label_order
+#   description = "Label order."
+# }

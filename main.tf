@@ -1,23 +1,17 @@
-# ------------------------------------------------------------------------------
-# Modules
-# ------------------------------------------------------------------------------
 module "cluster_autoscaler" {
-  # count                            = var.cluster_autoscaler ? 1 : 0
-  source            = "./addons/cluster-autoscaler"
-  helm_config       = var.cluster_autoscaler_helm_config != null ? var.cluster_autoscaler_helm_config : { values = [local_file.cluster_autoscaler_helm_config[count.index].content] }
-  manage_via_gitops = var.manage_via_gitops
-  addon_context     = local.addon_context
-  gke_cluster_name  = data.gcp_gke_cluster.gke_cluster.name
-  account_id        = data.gcp_caller_identity.current.account_id
-  project_id        = data.gcp_caller_identity.current.project_id
-  # cluster_autoscaler_extra_configs = var.cluster_autoscaler_extra_configs
+  source           = "./addons/cluster-autoscaler"
+  count            = var.cluster_autoscaler ? 1 : 0
+  environment      = var.environment
+  project_id       = var.project_id
+  gke_cluster_name = data.google_container_cluster.my_cluster.name
+  addon_context    = local.addon_context
 }
 
-module "ingress_nginx" {
-  count                       = var.ingress_nginx ? 1 : 0
-  source                      = "./addons/ingress-nginx"
-  helm_config                 = var.ingress_nginx_helm_config != null ? var.ingress_nginx_helm_config : { values = [local_file.ingress_nginx_helm_config[count.index].content] }
-  manage_via_gitops           = var.manage_via_gitops
-  addon_context               = local.addon_context
-  ingress_nginx_extra_configs = var.ingress_nginx_extra_configs
+module "reloader" {
+  source           = "./addons/reloader"
+  count            = var.reloader ? 1 : 0
+  environment      = var.environment
+  project_id       = var.project_id
+  gke_cluster_name = data.google_container_cluster.my_cluster.name
+  addon_context    = local.addon_context
 }
