@@ -82,7 +82,7 @@ module "gke" {
   node_pools = [
 
     {
-      name                         = "general-1"
+      name                         = "general"
       machine_type                 = "g1-small"
       node_locations               = "${local.region}-a"
       min_count                    = 1
@@ -103,7 +103,7 @@ module "gke" {
       enable_node_pool_autoscaling = true
     },
     {
-      name                         = "general-2"
+      name                         = "critical"
       machine_type                 = "g1-small"
       node_locations               = "${local.region}-b"
       min_count                    = 1
@@ -176,6 +176,7 @@ module "addons" {
   project_id       = local.gcp_project_id
   environment      = "test"
 
-  cluster_autoscaler = true
-  reloader           = true
+  cluster_autoscaler    = false
+  reloader              = false
+  certification_manager = true
 }
