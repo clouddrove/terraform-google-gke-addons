@@ -176,7 +176,8 @@ module "addons" {
   project_id       = local.gcp_project_id
   environment      = "test"
 
-  cluster_autoscaler    = false
-  reloader              = false
+  cluster_autoscaler    = true
+  reloader              = true
+  ingress-nginx         = true
   certification_manager = true
 }
