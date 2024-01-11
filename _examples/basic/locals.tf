@@ -8,7 +8,7 @@ locals {
   tags = {
     Name        = local.name
     Environment = local.environment
-    GithubRepo  = "terraform-helm-eks-addons"
+    GithubRepo  = "terraform-helm-gke-addons"
     GithubOrg   = "clouddrove"
   }
 }

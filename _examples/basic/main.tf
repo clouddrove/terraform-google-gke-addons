@@ -3,6 +3,11 @@ provider "google" {
   project = local.gcp_project_id
 }
 
+###############################################################################
+# GCP NETWORKING RESOURCES
+###############################################################################
+
+
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 8.1"
@@ -31,7 +36,7 @@ module "vpc" {
       subnet_region         = "us-central1"
       subnet_private_access = "true"
       subnet_flow_logs      = "true"
-      description           = "This subnet has a description"
+      description           = "This subnet has used for GKE"
     }
   ]
 
@@ -178,4 +183,5 @@ module "addons" {
 
   cluster_autoscaler = true
   reloader           = true
+  ingress-nginx      = true
 }
