@@ -71,6 +71,12 @@ variable "ingress_nginx_extra_configs" {
   default     = {}
 }
 
+variable "ingress_nginx_helm_config" {
+  description = "Path to override-values.yaml for Ingress Nginx Helm Chart"
+  type        = any
+  default     = null
+}
+
 variable "ingress-nginx" {
   description = "Enable Reloader add-on"
   type        = bool
