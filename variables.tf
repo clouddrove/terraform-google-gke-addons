@@ -62,3 +62,17 @@ variable "reloader_extra_configs" {
   type        = any
   default     = {}
 }
+
+#-----------Ingress-Nginx----------------
+
+variable "ingress_nginx_extra_configs" {
+  description = "Nginx ingress extra config"
+  type        = any
+  default     = {}
+}
+
+variable "ingress-nginx" {
+  description = "Enable Reloader add-on"
+  type        = bool
+  default     = false
+}

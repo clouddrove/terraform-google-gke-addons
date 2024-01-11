@@ -24,12 +24,4 @@ module "helm_addon" {
     }
   ]
 
-  # -- IRSA Configurations
-  # irsa_config = {
-  #   environment  = var.environment
-  #   project_id   = var.project_id
-  #   GCP_GSA_NAME = "${local.name}-sa"
-  #   GCP_KSA_NAME = "${local.name}-sa"
-  #   namespace    = "kube-system"
-  # }
 }
