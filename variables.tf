@@ -43,13 +43,6 @@ variable "cluster_autoscaler_extra_configs" {
   type        = any
   default     = {}
 }
-
-variable "cluster_autoscaler_iampolicy_json_content" {
-  description = "Custom IAM Policy for ClusterAutoscaler IRSA"
-  type        = string
-  default     = null
-}
-
 #-----------RELOADER------------------
 
 variable "reloader" {

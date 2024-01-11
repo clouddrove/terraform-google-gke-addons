@@ -9,18 +9,6 @@ variable "gke_cluster_name" {
   default = ""
 }
 
-variable "cluster_autoscaler_extra_configs" {
-  description = "Override attributes of helm_release terraform resource"
-  type        = any
-  default     = {}
-}
-
-variable "iampolicy_json_content" {
-  description = "Custom IAM Policy for ClusterAutoscaler IRSA"
-  type        = string
-  default     = null
-}
-
 variable "addon_context" {
   description = "Input configuration for the addon"
   type = object({
@@ -46,12 +34,6 @@ variable "project_id" {
 #   description = "Kubernetes Namespace name"
 #   type        = string
 # }
-
-variable "create_kubernetes_namespace" {
-  description = "Should the module create the namespace"
-  type        = bool
-  default     = true
-}
 
 variable "environment" {
   description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
