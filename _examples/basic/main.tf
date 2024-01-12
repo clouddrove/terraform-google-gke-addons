@@ -180,9 +180,10 @@ module "addons" {
   gke_cluster_name = module.gke.name
   project_id       = local.gcp_project_id
   environment      = "test"
+  region = local.region
 
   cluster_autoscaler    = false
   reloader              = false
-  ingress-nginx         = false
-  certification_manager = false
+  ingress_nginx         = false
+  certification_manager = true
 }
