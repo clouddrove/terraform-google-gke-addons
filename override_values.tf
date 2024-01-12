@@ -62,7 +62,7 @@ reloader:
 
 #--------------------------------------- Ingress-Nginx -----------------------------------
 resource "local_file" "ingress-nginx" {
-  count    = var.ingress-nginx && (var.ingress-nginx == null) ? 1 : 0
+  count    = var.ingress_nginx && (var.ingress_nginx == null) ? 1 : 0
   content  = <<EOT
 ## Node affinity for particular node in which labels key is "Infra-Services" and value is "true"
 

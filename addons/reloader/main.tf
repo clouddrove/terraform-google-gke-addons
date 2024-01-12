@@ -4,6 +4,7 @@ module "helm_addon" {
   project_id    = var.project_id
   environment   = var.environment
   addon_context = var.addon_context
+  namespace     = local.default_helm_config.namespace
 
   set_values = [
     {

@@ -20,12 +20,12 @@ module "reloader" {
 
 module "ingress-nginx" {
   source           = "./addons/ingress-nginx"
-  count            = var.ingress-nginx ? 1 : 0
+  count            = var.ingress_nginx ? 1 : 0
   environment      = var.environment
   project_id       = var.project_id
   gke_cluster_name = data.google_container_cluster.my_cluster.name
   addon_context    = local.addon_context
-  helm_config      = var.istio_ingress_helm_config != null ? var.istio_ingress_helm_config : { values = [local_file.istio_ingress_helm_config[count.index].content] }
+  helm_config      = var.ingress_nginx_helm_config != null ? var.ingress_nginx_helm_config : { values = [local_file.ingress_nginx_helm_config[count.index].content] }
 }
 
 
