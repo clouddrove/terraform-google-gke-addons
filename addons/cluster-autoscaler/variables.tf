@@ -55,11 +55,11 @@ variable "environment" {
 variable "GCP_GSA_NAME" {
   description = "Google Cloud Service Account name"
   type        = string
-  default     = "keda"
+  default     = "cluster-autoscaler"
 }
 
 variable "GCP_KSA_NAME" {
   description = "Google Kubernetes Service Account name"
   type        = string
-  default     = "keda-operator"
+  default     = "kube-system"
 }

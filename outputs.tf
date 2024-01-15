@@ -1,8 +1,4 @@
 #----------- CLUSTER AUTOSCALER ----------------
-# output "cluster_autoscaler_service_account" {
-#   value       = module.cluster_autoscaler[*].service_account
-#   description = "name of cluster-autoscaler service-account"
-# }
 output "cluster_autoscaler_namespace" {
   value       = module.cluster_autoscaler[*].namespace
   description = "Namespace where cluster-autoscaler is installed"

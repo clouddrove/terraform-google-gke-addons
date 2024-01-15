@@ -46,6 +46,12 @@ module "vpc" {
         range_name    = "${local.name}-subnet-private-1-secondary-01"
         ip_cidr_range = "192.168.64.0/24"
       },
+    ],
+    subnet-public-2 = [
+      {
+        range_name    = "${local.name}-subnet-private-2-secondary-01"
+        ip_cidr_range = "192.168.128.0/24"
+      },
     ]
   }
 
@@ -65,8 +71,8 @@ module "vpc" {
 ###############################################################################
 
 module "gke" {
-  source = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
-  # version                           = "29.0.0"
+  source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
+  version                           = "29.0.0"
   project_id                        = local.gcp_project_id
   name                              = local.cluster_name
   region                            = local.region
@@ -87,7 +93,7 @@ module "gke" {
   node_pools = [
 
     {
-      name                         = "general-1"
+      name                         = "general"
       machine_type                 = "g1-small"
       node_locations               = "${local.region}-a"
       min_count                    = 1
@@ -108,7 +114,7 @@ module "gke" {
       enable_node_pool_autoscaling = true
     },
     {
-      name                         = "general-2"
+      name                         = "critical"
       machine_type                 = "g1-small"
       node_locations               = "${local.region}-b"
       min_count                    = 1
@@ -180,10 +186,10 @@ module "addons" {
   gke_cluster_name = module.gke.name
   project_id       = local.gcp_project_id
   environment      = "test"
-  region = local.region
+  region           = local.region
 
-  cluster_autoscaler    = false
-  reloader              = false
-  ingress_nginx         = false
+  cluster_autoscaler    = true
+  reloader              = true
+  ingress_nginx         = true
   certification_manager = true
 }
