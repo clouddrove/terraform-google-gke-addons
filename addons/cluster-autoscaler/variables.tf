@@ -41,12 +41,6 @@ variable "project_id" {
   type        = string
 }
 
-
-# variable "kubernetes_namespace" {
-#   description = "Kubernetes Namespace name"
-#   type        = string
-# }
-
 variable "create_kubernetes_namespace" {
   description = "Should the module create the namespace"
   type        = bool
@@ -61,11 +55,11 @@ variable "environment" {
 variable "GCP_GSA_NAME" {
   description = "Google Cloud Service Account name"
   type        = string
-  default     = "keda"
+  default     = "cluster-autoscaler"
 }
 
 variable "GCP_KSA_NAME" {
   description = "Google Kubernetes Service Account name"
   type        = string
-  default     = "keda-operator"
+  default     = "kube-system"
 }

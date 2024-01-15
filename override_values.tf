@@ -4,6 +4,8 @@ resource "local_file" "cluster_autoscaler_helm_config" {
   content  = <<EOT
 ## Node affinity for particular node in which labels key is "Infra-Services" and value is "true"
 
+## Node affinity for particular node in which labels key is "Infra-Services" and value is "true"
+
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
@@ -12,8 +14,7 @@ affinity:
         - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "general-1"
-
+          - "critical"
 
 ## Using limits and requests
 resourc_helm_configes:
@@ -26,6 +27,22 @@ resourc_helm_configes:
 
 podAnnotations:
   co.elastic.logs/enabled: "true"
+
+additionalLabels: {}
+affinity: {}
+autoDiscovery:
+  clusterName: ${data.google_container_cluster.my_cluster.name}
+  labels: []
+  roles:
+  - worker
+  tags:
+  - k8s.io/cluster-autoscaler/enabled
+  - k8s.io/cluster-autoscaler/{{ .Values.autoDiscovery.clusterName }}
+
+cloudProvider: gce
+
+extraArgs:
+  leader-elect: false
 
   EOT
   filename = "${path.module}/override_values/cluster_autoscaler.yaml"
@@ -47,7 +64,7 @@ reloader:
             - key: "cloud.google.com/gke-nodepool"
               operator: In
               values:
-              - "general-1"
+              - "critical"
 
     resources:
       limits:
@@ -60,11 +77,42 @@ reloader:
   filename = "${path.module}/override_vales/reloader.yaml"
 }
 
-#--------------------------------------- Ingress-Nginx -----------------------------------
-resource "local_file" "ingress-nginx" {
-  count    = var.ingress-nginx && (var.ingress-nginx == null) ? 1 : 0
+#-------------INGRESS NGINX-------------------
+resource "local_file" "ingress_nginx_helm_config" {
+  count    = var.ingress_nginx && (var.ingress_nginx_helm_config == null) ? 1 : 0
   content  = <<EOT
-## Node affinity for particular node in which labels key is "Infra-Services" and value is "true"
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: "cloud.google.com/gke-nodepool"
+          operator: In
+          values:
+          - "critical"
+
+
+## Using limits and requests
+
+resources:
+  limits:
+    cpu: 150m
+    memory: 150Mi
+  requests:
+    cpu: 100m
+    memory: 90Mi
+
+podAnnotations:
+  co.elastic.logs/enabled: "true"
+  
+  EOT
+  filename = "${path.module}/override_values/ingress_nginx.yaml"
+}
+
+#---------------------- CERTIFICATION-MANAGER --------------------------
+resource "local_file" "certification_manager_helm_config" {
+  count    = var.certification_manager && (var.certification_manager_helm_config == null) ? 1 : 0
+  content  = <<EOT
 
 affinity:
   nodeAffinity:
@@ -74,21 +122,18 @@ affinity:
         - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "general-1"
+          - "critical"
 
-
-## Using limits and requests
-resourc_helm_configes:
+resources:
   limits:
-    cpu: 100m
-    memory: 512Mi
+    cpu: 200m
+    memory: 250Mi
   requests:
-    cpu: 10m
-    memory: 128Mi
+    cpu: 50m
+    memory: 150Mi
 
-podAnnotations:
-  co.elastic.logs/enabled: "true"
+installCRDs: true
 
   EOT
-  filename = "${path.module}/override_values/ingress_nginx.yaml"
+  filename = "${path.module}/override_values/certification_manager.yaml"
 }

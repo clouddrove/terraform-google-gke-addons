@@ -25,6 +25,11 @@ variable "environment" {
   type        = string
 }
 
+variable "region" {
+  type    = string
+  default = ""
+}
+
 #-----------CLUSTER AUTOSCALER------------------
 variable "cluster_autoscaler" {
   description = "Enable Cluster Autoscaler add-on"
@@ -77,8 +82,28 @@ variable "ingress_nginx_helm_config" {
   default     = null
 }
 
-variable "ingress-nginx" {
+variable "ingress_nginx" {
   description = "Enable Reloader add-on"
   type        = bool
   default     = false
+}
+
+
+#-----------CERTIFICATION-MANAGER----------------------
+variable "certification_manager" {
+  description = "Enable certification_manager add-on"
+  type        = bool
+  default     = false
+}
+
+variable "certification_manager_helm_config" {
+  description = "Path to override-values.yaml for Certification Manager Chart"
+  type        = any
+  default     = null
+}
+
+variable "certification_manager_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
 }

@@ -15,12 +15,6 @@ variable "gke_cluster_name" {
   default = ""
 }
 
-variable "iampolicy_json_content" {
-  description = "Custom IAM Policy for ClusterAutoscaler IRSA"
-  type        = string
-  default     = null
-}
-
 variable "project_id" {
   description = "GCP project ID"
   type        = string

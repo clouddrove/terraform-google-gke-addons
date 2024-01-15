@@ -61,3 +61,9 @@ variable "GCP_KSA_NAME" {
   type        = string
   default     = "keda-operator"
 }
+
+variable "namespace" {
+  description = "Google Kubernetes Service Account name"
+  type        = string
+  default     = "kube-system"
+}

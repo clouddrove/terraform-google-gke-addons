@@ -29,12 +29,6 @@ variable "project_id" {
   type        = string
 }
 
-
-# variable "kubernetes_namespace" {
-#   description = "Kubernetes Namespace name"
-#   type        = string
-# }
-
 variable "environment" {
   description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
   type        = string

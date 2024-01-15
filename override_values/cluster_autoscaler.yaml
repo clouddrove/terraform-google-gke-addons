@@ -1,5 +1,7 @@
 ## Node affinity for particular node in which labels key is "Infra-Services" and value is "true"
 
+## Node affinity for particular node in which labels key is "Infra-Services" and value is "true"
+
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
@@ -8,11 +10,10 @@ affinity:
         - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "general-1"
+          - "critical"
 
-
-# Using limits and requests
-resources:
+## Using limits and requests
+resourc_helm_configes:
   limits:
     cpu: 300m
     memory: 250Mi
@@ -22,7 +23,20 @@ resources:
 
 podAnnotations:
   co.elastic.logs/enabled: "true"
-  
+
+additionalLabels: {}
+affinity: {}
+autoDiscovery:
+  clusterName: test-cluster
+  labels: []
+  roles:
+  - worker
+  tags:
+  - k8s.io/cluster-autoscaler/enabled
+  - k8s.io/cluster-autoscaler/{{ .Values.autoDiscovery.clusterName }}
+
 cloudProvider: gce
 
+extraArgs:
+  leader-elect: false
 

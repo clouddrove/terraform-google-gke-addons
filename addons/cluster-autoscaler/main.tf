@@ -34,6 +34,17 @@ module "helm_addon" {
     project_id   = var.project_id
     GCP_GSA_NAME = "${local.name}-sa"
     GCP_KSA_NAME = "${local.name}-sa"
-    namespace    = "kube-system"
+    namespace    = local.default_helm_config.namespace
   }
 }
+
+resource "google_project_iam_member" "member-role" {
+  for_each = toset([
+    "roles/compute.instanceAdmin.v1",
+    "roles/iam.serviceAccountTokenCreator"
+  ])
+  role    = each.key
+  member  = "serviceAccount:${var.environment}-${local.name}-sa@${var.project_id}.iam.gserviceaccount.com"
+  project = var.project_id
+}
+
