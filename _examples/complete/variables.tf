@@ -15,7 +15,7 @@ variable "ingress_nginx_extra_configs" {
 }
 
 # ------------------ CERTIFICATION-MANAGER -----------------------------------------------------
-variable "c" {
+variable "certification_manager_extra_configs" {
   type    = any
   default = {}
 }

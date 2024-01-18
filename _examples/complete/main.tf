@@ -182,7 +182,6 @@ module "gke" {
 module "addons" {
   source = "../../"
 
-  depends_on       = [module.gke]
   gke_cluster_name = module.gke.name
   project_id       = local.gcp_project_id
   environment      = local.environment

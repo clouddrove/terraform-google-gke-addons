@@ -74,7 +74,7 @@ reloader:
         cpu: "10m"
         memory: "128Mi"
   EOT
-  filename = "${path.module}/override_vales/reloader.yaml"
+  filename = "${path.module}/override_values/reloader.yaml"
 }
 
 #-------------INGRESS NGINX-------------------

@@ -22,14 +22,6 @@ podAnnotations:
 
 additionalLabels: {}
 affinity: {}
-autoDiscovery:
-  clusterName: ${data.google_container_cluster.my_cluster.name}
-  labels: []
-  roles:
-  - worker
-  tags:
-  - k8s.io/cluster-autoscaler/enabled
-  - k8s.io/cluster-autoscaler/{{ .Values.autoDiscovery.clusterName }}
 
 cloudProvider: gce
 
