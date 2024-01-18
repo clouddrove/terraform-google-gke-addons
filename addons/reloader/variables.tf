@@ -18,7 +18,7 @@ variable "addon_context" {
   })
 }
 
-variable "irsa_config" {
+variable "workload_identity_config" {
   description = "Input configuration for IRSA module"
   type        = any
   default     = {}
@@ -37,13 +37,13 @@ variable "environment" {
 variable "GCP_GSA_NAME" {
   description = "Google Cloud Service Account name"
   type        = string
-  default     = "keda"
+  default     = "kube-system"
 }
 
 variable "GCP_KSA_NAME" {
   description = "Google Kubernetes Service Account name"
   type        = string
-  default     = "keda-operator"
+  default     = "kube-system"
 }
 
 variable "reloader_extra_configs" {

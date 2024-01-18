@@ -42,14 +42,28 @@ output "reloader_repository" {
 
 #----------- INGRESS NGINX ---------------------
 output "ingress-nginx_namespace" {
-  value       = module.ingress-nginx[*].namespace
+  value       = module.ingress_nginx[*].namespace
   description = "Namespace where ingress-nginx is installed"
 }
 output "ingress-nginx_chart_version" {
-  value       = module.ingress-nginx[*].chart_version
+  value       = module.ingress_nginx[*].chart_version
   description = "chart version used for ingress-nginx helmchart"
 }
 output "ingress-nginx_repository" {
-  value       = module.ingress-nginx[*].repository
+  value       = module.ingress_nginx[*].repository
   description = "helm repository url of ingress-nginx"
+}
+
+#----------- KEDA ---------------------
+output "keda_namespace" {
+  value       = module.keda[*].namespace
+  description = "Namespace where keda is installed"
+}
+output "keda_chart_version" {
+  value       = module.keda[*].chart_version
+  description = "chart version used for keda helmchart"
+}
+output "keda_repository" {
+  value       = module.keda[*].repository
+  description = "helm repository url of keda"
 }
