@@ -1,64 +1,69 @@
-###############################################################################
-# Resources
-###############################################################################
+
 provider "google" {
-  project = local.project_id
-  # region  = var.gcp_region
-  # zone    = var.gcp_zone
+  project = local.gcp_project_id
 }
+
+###############################################################################
+# GCP NETWORKING RESOURCES
+###############################################################################
 
 
 module "vpc" {
-  source = "terraform-google-modules/network/google//modules/vpc"
-  # version = "1.0.0"
+  source  = "terraform-google-modules/network/google"
+  version = "~> 8.1"
 
+  project_id   = local.gcp_project_id
   network_name = "${local.name}-vpc"
-  project_id   = local.gcp_project_id
-}
-
-module "subnets" {
-  source = "terraform-google-modules/network/google//modules/subnets"
-
-  project_id   = local.gcp_project_id
-  network_name = module.vpc.network_id
+  routing_mode = "GLOBAL"
 
   subnets = [
     {
-      subnet_name   = "subnet-01"
+      subnet_name   = "${local.name}-subnet-public-1"
       subnet_ip     = "10.10.10.0/24"
       subnet_region = "us-central1"
     },
     {
-      subnet_name           = "subnet-private-1"
+      subnet_name           = "${local.name}-subnet-private-1"
       subnet_ip             = "10.10.20.0/24"
       subnet_region         = "us-central1"
       subnet_private_access = "true"
       subnet_flow_logs      = "true"
-      purpose               = "INTERNAL_HTTPS_LOAD_BALANCER"
-      role                  = "ACTIVE"
+      description           = "This subnet has a description"
     },
     {
-      subnet_name                  = "subnet-public-1"
-      subnet_ip                    = "10.10.30.0/24"
-      subnet_region                = "us-central1"
-      subnet_flow_logs             = "true"
-      subnet_flow_logs_interval    = "INTERVAL_10_MIN"
-      subnet_flow_logs_sampling    = 0.7
-      subnet_flow_logs_metadata    = "INCLUDE_ALL_METADATA"
-      subnet_flow_logs_filter_expr = "true"
+      subnet_name           = "${local.name}-subnet-private-2"
+      subnet_ip             = "10.10.30.0/24"
+      subnet_region         = "us-central1"
+      subnet_private_access = "true"
+      subnet_flow_logs      = "true"
+      description           = "This subnet has used for GKE"
     }
   ]
 
   secondary_ranges = {
-    subnet-01 = [
+    subnet-public-1 = [
       {
-        range_name    = "subnet-01-secondary-01"
+        range_name    = "${local.name}-subnet-private-1-secondary-01"
         ip_cidr_range = "192.168.64.0/24"
       },
+    ],
+    subnet-public-2 = [
+      {
+        range_name    = "${local.name}-subnet-private-2-secondary-01"
+        ip_cidr_range = "192.168.128.0/24"
+      },
     ]
-
-    subnet-02 = []
   }
+
+  routes = [
+    {
+      name              = "egress-internet"
+      description       = "route through IGW to access internet"
+      destination_range = "0.0.0.0/0"
+      tags              = "egress-inet"
+      next_hop_internet = "true"
+    },
+  ]
 }
 
 ###############################################################################
@@ -66,14 +71,14 @@ module "subnets" {
 ###############################################################################
 
 module "gke" {
-  source = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
-  # version                           = "29.0.0"
-  project_id                        = local.project_id
+  source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
+  version                           = "29.0.0"
+  project_id                        = local.gcp_project_id
   name                              = local.cluster_name
   region                            = local.region
   zones                             = []
-  network                           = module.vpc.vpc_id
-  subnetwork                        = module.subnet.id
+  network                           = module.vpc.network_name
+  subnetwork                        = "${local.name}-subnet-private-2"
   ip_range_pods                     = ""
   ip_range_services                 = ""
   horizontal_pod_autoscaling        = true
@@ -88,14 +93,14 @@ module "gke" {
   node_pools = [
 
     {
-      name                         = "general-1"
+      name                         = "general"
       machine_type                 = "g1-small"
-      node_locations               = "us-west1-a"
+      node_locations               = "${local.region}-a"
       min_count                    = 1
       max_count                    = 5
       local_ssd_count              = 0
       spot                         = false
-      disk_size_gb                 = 8
+      disk_size_gb                 = 10
       disk_type                    = "pd-standard"
       image_type                   = "ubuntu_containerd"
       enable_gcfs                  = false
@@ -109,14 +114,14 @@ module "gke" {
       enable_node_pool_autoscaling = true
     },
     {
-      name                         = "general-2"
+      name                         = "critical"
       machine_type                 = "g1-small"
-      node_locations               = "us-west1-a"
+      node_locations               = "${local.region}-b"
       min_count                    = 1
       max_count                    = 3
       local_ssd_count              = 0
       spot                         = false
-      disk_size_gb                 = 8
+      disk_size_gb                 = 10
       disk_type                    = "pd-standard"
       image_type                   = "ubuntu_containerd"
       enable_gcfs                  = false
@@ -174,32 +179,29 @@ module "gke" {
 # GCP ADDONS
 ###############################################################################
 
+module "addons" {
+  source = "../../"
 
+  depends_on       = [module.gke]
+  gke_cluster_name = module.gke.name
+  project_id       = local.gcp_project_id
+  environment      = local.environment
+  region           = local.region
 
+  cluster_autoscaler    = true
+  reloader              = true
+  ingress_nginx         = true
+  certification_manager = true
 
-# module "addons" {
-#   source = "../../"
+  # -- Path of override-values.yaml file
+  cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
+  reloader_helm_config              = { values = [file("./config/reloader/override-reloader.yaml")] }
+  ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
+  certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
 
-#   # depends_on = [module.gke] # Define module.gke as a single-item list
-
-#   gke_cluster_name = module.gke.name
-
-#   # -- Enable Addons
-
-#   # cluster_autoscaler           = false
-#   ingress_nginx = true
-
-
-
-#   # -- Path of override-values.yaml file
-
-#   ingress_nginx_helm_config = { values = [file("./config/override-ingress-nginx.yaml")] }
-
-
-#   # -- Override Helm Release attributes
-#   ingress_nginx_extra_configs = var.ingress_nginx_extra_configs
-
-# }
-
-
-
+  # -- Override Helm Release attributes
+  cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
+  reloader_extra_configs              = var.reloader_extra_configs
+  ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
+  certification_manager_extra_configs = var.certification_manager_extra_configs
+}
