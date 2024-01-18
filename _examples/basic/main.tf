@@ -188,8 +188,9 @@ module "addons" {
   environment      = local.environment
   region           = local.region
 
-  cluster_autoscaler    = true
-  reloader              = true
-  ingress_nginx         = true
-  certification_manager = true
+  cluster_autoscaler    = false
+  reloader              = false
+  ingress_nginx         = false
+  certification_manager = false
+  keda                  = true
 }

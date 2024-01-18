@@ -107,3 +107,22 @@ variable "certification_manager_extra_configs" {
   type        = any
   default     = {}
 }
+
+#----------- KEDA ----------------------------
+variable "keda" {
+  description = "Enable Keda add-on"
+  type        = bool
+  default     = false
+}
+
+variable "keda_helm_config" {
+  description = "Path to override-values.yaml for Keda Helm Chart"
+  type        = any
+  default     = null
+}
+
+variable "keda_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
+}

@@ -1,5 +1,5 @@
 variable "helm_config" {
-  description = "Helm provider config for Cluster Autoscaler"
+  description = "Helm provider config for Keda"
   type        = any
   default     = {}
 }
@@ -9,7 +9,7 @@ variable "gke_cluster_name" {
   default = ""
 }
 
-variable "certification_manager_extra_configs" {
+variable "keda_extra_configs" {
   description = "Override attributes of helm_release terraform resource"
   type        = any
   default     = {}
@@ -49,11 +49,11 @@ variable "environment" {
 variable "GCP_GSA_NAME" {
   description = "Google Cloud Service Account name"
   type        = string
-  default     = "cert-manager"
+  default     = "keda"
 }
 
 variable "GCP_KSA_NAME" {
   description = "Google Kubernetes Service Account name"
   type        = string
-  default     = "cert-manager"
+  default     = "keda-operator"
 }

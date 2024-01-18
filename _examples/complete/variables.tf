@@ -25,3 +25,9 @@ variable "reloader_extra_configs" {
   type    = any
   default = {}
 }
+
+# ------------------ KEDA -----------------------------------------------------
+variable "keda_extra_configs" {
+  type    = any
+  default = {}
+}
