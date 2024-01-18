@@ -16,7 +16,7 @@ variable "cluster_autoscaler_extra_configs" {
 }
 
 variable "iampolicy_json_content" {
-  description = "Custom IAM Policy for ClusterAutoscaler IRSA"
+  description = "Custom IAM Policy for ClusterAutoscaler workload_identity"
   type        = string
   default     = null
 }
@@ -30,8 +30,8 @@ variable "addon_context" {
   })
 }
 
-variable "irsa_config" {
-  description = "Input configuration for IRSA module"
+variable "workload_identity_config" {
+  description = "Input configuration for workload identity module"
   type        = any
   default     = {}
 }

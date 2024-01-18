@@ -28,8 +28,8 @@ module "helm_addon" {
     }
   ]
 
-  # -- IRSA Configurations
-  irsa_config = {
+  # -- workload identity Configurations
+  workload_identity_config = {
     environment  = var.environment
     project_id   = var.project_id
     GCP_GSA_NAME = "${local.name}-sa"

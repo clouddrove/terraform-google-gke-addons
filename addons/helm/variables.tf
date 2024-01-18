@@ -22,14 +22,14 @@ variable "manage_via_gitops" {
   default     = false
 }
 
-variable "irsa_config" {
-  description = "Input configuration for IRSA module"
+variable "workload_identity_config" {
+  description = "Input configuration for workload identity module"
   type        = any
   default     = {}
 }
 
 variable "addon_context" {
-  description = "IRSA Input configuration for the addon"
+  description = "workload identity Input configuration for the addon"
   type        = any
 }
 

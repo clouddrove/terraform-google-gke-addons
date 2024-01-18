@@ -6,7 +6,7 @@ resource "helm_release" "addon" {
   version                    = try(var.helm_config["version"], null)
   timeout                    = try(var.helm_config["timeout"], 600)
   values                     = try(var.helm_config["values"], null)
-  create_namespace           = length(var.irsa_config) > 0 ? false : try(var.helm_config["create_namespace"], false)
+  create_namespace           = length(var.workload_identity_config) > 0 ? false : try(var.helm_config["create_namespace"], false)
   namespace                  = var.helm_config["namespace"]
   lint                       = try(var.helm_config["lint"], false)
   description                = try(var.helm_config["description"], "")
@@ -57,19 +57,19 @@ resource "helm_release" "addon" {
       type  = try(each_item.value.type, null)
     }
   }
-  depends_on = [module.irsa]
+  depends_on = [module.workload_identity]
 }
 
 
-module "irsa" {
-  source = "../../modules/irsa"
+module "workload_identity" {
+  source = "../../modules/workload_identity"
 
-  count = length(var.irsa_config) > 0 ? 1 : 0
+  count = length(var.workload_identity_config) > 0 ? 1 : 0
 
-  create_kubernetes_namespace = try(var.irsa_config.create_kubernetes_namespace, true)
-  environment                 = try(var.irsa_config.environment, null)
-  project_id                  = try(var.irsa_config.project_id, null)
-  GCP_GSA_NAME                = try(var.irsa_config.GCP_GSA_NAME, null)
-  GCP_KSA_NAME                = try(var.irsa_config.GCP_GSA_NAME, null)
-  namespace                   = try(var.irsa_config.namespace, null)
+  create_kubernetes_namespace = try(var.workload_identity_config.create_kubernetes_namespace, true)
+  environment                 = try(var.workload_identity_config.environment, null)
+  project_id                  = try(var.workload_identity_config.project_id, null)
+  GCP_GSA_NAME                = try(var.workload_identity_config.GCP_GSA_NAME, null)
+  GCP_KSA_NAME                = try(var.workload_identity_config.GCP_GSA_NAME, null)
+  namespace                   = try(var.workload_identity_config.namespace, null)
 }
