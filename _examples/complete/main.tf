@@ -113,7 +113,6 @@ module "gke" {
       preemptible                  = false
       initial_node_count           = 1
       enable_node_pool_autoscaling = true
-      tags                         = local.tags
     },
     {
       name                         = "critical"
