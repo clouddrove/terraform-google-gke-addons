@@ -1,14 +1,3 @@
-# variable "kubernetes_namespace" {
-#   description = "Kubernetes Namespace name"
-#   type        = string
-# }
-
-variable "create_kubernetes_namespace" {
-  description = "Should the module create the namespace"
-  type        = bool
-  default     = true
-}
-
 variable "project_id" {
   description = "GCP project ID"
   type        = string

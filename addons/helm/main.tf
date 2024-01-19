@@ -65,8 +65,7 @@ module "workload_identity" {
   source = "../../modules/workload_identity"
 
   count = length(var.workload_identity_config) > 0 ? 1 : 0
-
-  create_kubernetes_namespace = try(var.workload_identity_config.create_kubernetes_namespace, true)
+  
   project_id                  = try(var.workload_identity_config.project_id, null)
   GCP_GSA_NAME                = try(var.workload_identity_config.GCP_GSA_NAME, null)
   GCP_KSA_NAME                = try(var.workload_identity_config.GCP_GSA_NAME, null)
