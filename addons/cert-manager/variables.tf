@@ -10,13 +10,3 @@ variable "certification_manager_extra_configs" {
   default     = {}
 }
 
-variable "project_id" {
-  description = "GCP project ID"
-  type        = string
-}
-
-variable "environment" {
-  description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
-  type        = string
-}
-

@@ -10,36 +10,3 @@ variable "keda_extra_configs" {
   default     = {}
 }
 
-variable "workload_identity_config" {
-  description = "Input configuration for IRSA module"
-  type        = any
-  default     = {}
-}
-
-variable "project_id" {
-  description = "GCP project ID"
-  type        = string
-}
-
-variable "create_kubernetes_namespace" {
-  description = "Should the module create the namespace"
-  type        = bool
-  default     = true
-}
-
-variable "environment" {
-  description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
-  type        = string
-}
-
-variable "GCP_GSA_NAME" {
-  description = "Google Cloud Service Account name"
-  type        = string
-  default     = "keda"
-}
-
-variable "GCP_KSA_NAME" {
-  description = "Google Kubernetes Service Account name"
-  type        = string
-  default     = "keda-operator"
-}

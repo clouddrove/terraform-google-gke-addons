@@ -1,6 +1,6 @@
 resource "google_service_account" "gke" {
   project      = var.project_id
-  account_id   = format("%s-%s", var.environment, var.GCP_GSA_NAME)
+  account_id   = format("%s", var.GCP_GSA_NAME)
   display_name = "Service Account for Keda Scaler"
 }
 

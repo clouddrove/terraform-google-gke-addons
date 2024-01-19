@@ -4,16 +4,6 @@ variable "helm_config" {
   default     = {}
 }
 
-variable "project_id" {
-  description = "GCP project ID"
-  type        = string
-}
-
-variable "environment" {
-  description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
-  type        = string
-}
-
 variable "reloader_extra_configs" {
   description = "Override attributes of helm_release terraform resource"
   type        = any

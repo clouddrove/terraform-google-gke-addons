@@ -1,15 +1,3 @@
-variable "manage_via_gitops" {
-  type        = bool
-  default     = false
-  description = "Set this to `true` if managing addons via GitOps. Seting `true` will not create helm-release for addon."
-}
-
-variable "tags" {
-  description = "IRSA Input configuration for the addon_context"
-  type        = any
-  default     = {}
-}
-
 variable "project_id" {
   description = "GCP project ID"
   type        = string
@@ -18,11 +6,6 @@ variable "project_id" {
 variable "gke_cluster_name" {
   type    = string
   default = ""
-}
-
-variable "environment" {
-  description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
-  type        = string
 }
 
 variable "region" {

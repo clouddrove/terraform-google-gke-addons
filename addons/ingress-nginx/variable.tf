@@ -4,19 +4,10 @@ variable "helm_config" {
   default     = {}
 }
 
-variable "project_id" {
-  description = "GCP project ID"
-  type        = string
-}
-
 variable "ingress_nginx_extra_configs" {
   description = "Nginx ingress extra config"
   type        = any
   default     = {}
 }
 
-variable "environment" {
-  description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
-  type        = string
-}
 
