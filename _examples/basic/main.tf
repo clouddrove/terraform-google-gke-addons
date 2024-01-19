@@ -76,6 +76,7 @@ module "gke" {
   project_id                        = local.gcp_project_id
   name                              = local.cluster_name
   region                            = local.region
+  kubernetes_version                = local.cluster_version
   zones                             = []
   network                           = module.vpc.network_name
   subnetwork                        = "${local.name}-subnet-private-2"
