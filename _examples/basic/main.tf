@@ -168,12 +168,11 @@ module "gke" {
 
   node_pools_tags = {
     all = [
-      "${local.tags.Name}",
-      "${local.tags.Environment}",
-      "${local.tags.GithubRepo}",
-      "${local.tags.GithubOrg}"
+      local.tags.Name,
+      local.tags.Environment,
+      local.tags.GithubRepo,
+      local.tags.GithubOrg,
     ]
-
     default-node-pool = [
       "default-node-pool",
     ]
