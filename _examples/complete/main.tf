@@ -76,6 +76,7 @@ module "gke" {
   project_id                        = local.gcp_project_id
   name                              = local.cluster_name
   region                            = local.region
+  kubernetes_version                = local.cluster_version
   zones                             = []
   network                           = module.vpc.network_name
   subnetwork                        = "${local.name}-subnet-private-2"
@@ -112,6 +113,7 @@ module "gke" {
       preemptible                  = false
       initial_node_count           = 1
       enable_node_pool_autoscaling = true
+      tags                         = local.tags
     },
     {
       name                         = "critical"
@@ -133,6 +135,7 @@ module "gke" {
       preemptible                  = false
       initial_node_count           = 1
       enable_node_pool_autoscaling = false
+      tags                         = local.tags
     },
   ]
 
