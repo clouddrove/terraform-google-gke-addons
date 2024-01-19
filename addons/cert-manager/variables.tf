@@ -4,10 +4,6 @@ variable "helm_config" {
   default     = {}
 }
 
-variable "gke_cluster_name" {
-  type    = string
-  default = ""
-}
 
 variable "certification_manager_extra_configs" {
   description = "Override attributes of helm_release terraform resource"
@@ -24,21 +20,9 @@ variable "addon_context" {
   })
 }
 
-variable "workload_identity_config" {
-  description = "Input configuration for IRSA module"
-  type        = any
-  default     = {}
-}
-
 variable "project_id" {
   description = "GCP project ID"
   type        = string
-}
-
-variable "create_kubernetes_namespace" {
-  description = "Should the module create the namespace"
-  type        = bool
-  default     = true
 }
 
 variable "environment" {
@@ -46,14 +30,3 @@ variable "environment" {
   type        = string
 }
 
-variable "GCP_GSA_NAME" {
-  description = "Google Cloud Service Account name"
-  type        = string
-  default     = "cert-manager"
-}
-
-variable "GCP_KSA_NAME" {
-  description = "Google Kubernetes Service Account name"
-  type        = string
-  default     = "cert-manager"
-}

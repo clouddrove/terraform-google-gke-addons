@@ -4,11 +4,6 @@ variable "helm_config" {
   default     = {}
 }
 
-variable "gke_cluster_name" {
-  type    = string
-  default = ""
-}
-
 variable "addon_context" {
   description = "Input configuration for the addon"
   type = object({
@@ -16,12 +11,6 @@ variable "addon_context" {
     gke_cluster_id  = string
     tags            = map(string)
   })
-}
-
-variable "workload_identity_config" {
-  description = "Input configuration for IRSA module"
-  type        = any
-  default     = {}
 }
 
 variable "project_id" {
@@ -32,18 +21,6 @@ variable "project_id" {
 variable "environment" {
   description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
   type        = string
-}
-
-variable "GCP_GSA_NAME" {
-  description = "Google Cloud Service Account name"
-  type        = string
-  default     = "kube-system"
-}
-
-variable "GCP_KSA_NAME" {
-  description = "Google Kubernetes Service Account name"
-  type        = string
-  default     = "kube-system"
 }
 
 variable "reloader_extra_configs" {
