@@ -26,7 +26,6 @@ module "helm_addon" {
 
   # -- workload identity Configurations
   workload_identity_config = {
-    environment  = var.environment
     project_id   = var.project_id
     GCP_GSA_NAME = "${local.name}-sa"
     GCP_KSA_NAME = "${local.name}-sa"
@@ -40,7 +39,7 @@ resource "google_project_iam_member" "member-role" {
     "roles/iam.serviceAccountTokenCreator"
   ])
   role    = each.key
-  member  = "serviceAccount:${var.environment}-${local.name}-sa@${var.project_id}.iam.gserviceaccount.com"
+  member  = "serviceAccount:${local.name}-sa@${var.project_id}.iam.gserviceaccount.com"
   project = var.project_id
 }
 

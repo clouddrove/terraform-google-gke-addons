@@ -17,7 +17,6 @@ module "reloader" {
 module "ingress_nginx" {
   source                      = "./addons/ingress-nginx"
   count                       = var.ingress_nginx ? 1 : 0
-  project_id                  = var.project_id
   ingress_nginx_extra_configs = var.ingress_nginx_extra_configs
   helm_config                 = var.ingress_nginx_helm_config != null ? var.ingress_nginx_helm_config : { values = [local_file.ingress_nginx_helm_config[count.index].content] }
 }
