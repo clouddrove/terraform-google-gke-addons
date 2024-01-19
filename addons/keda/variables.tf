@@ -4,11 +4,6 @@ variable "helm_config" {
   default     = {}
 }
 
-variable "gke_cluster_name" {
-  type    = string
-  default = ""
-}
-
 variable "keda_extra_configs" {
   description = "Override attributes of helm_release terraform resource"
   type        = any

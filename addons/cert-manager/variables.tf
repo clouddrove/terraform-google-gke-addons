@@ -4,11 +4,6 @@ variable "helm_config" {
   default     = {}
 }
 
-variable "gke_cluster_name" {
-  type    = string
-  default = ""
-}
-
 variable "certification_manager_extra_configs" {
   description = "Override attributes of helm_release terraform resource"
   type        = any

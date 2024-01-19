@@ -14,7 +14,6 @@ module "reloader" {
   count                  = var.reloader ? 1 : 0
   environment            = var.environment
   project_id             = var.project_id
-  gke_cluster_name       = data.google_container_cluster.my_cluster.name
   addon_context          = local.addon_context
   reloader_extra_configs = var.reloader_extra_configs
   helm_config            = var.reloader_helm_config != null ? var.reloader_helm_config : { values = [local_file.reloader_helm_config[count.index].content] }
@@ -25,7 +24,6 @@ module "ingress_nginx" {
   count                       = var.ingress_nginx ? 1 : 0
   environment                 = var.environment
   project_id                  = var.project_id
-  gke_cluster_name            = data.google_container_cluster.my_cluster.name
   addon_context               = local.addon_context
   ingress_nginx_extra_configs = var.ingress_nginx_extra_configs
   helm_config                 = var.ingress_nginx_helm_config != null ? var.ingress_nginx_helm_config : { values = [local_file.ingress_nginx_helm_config[count.index].content] }
@@ -37,7 +35,6 @@ module "certification_manager" {
   count                               = var.certification_manager ? 1 : 0
   environment                         = var.environment
   project_id                          = var.project_id
-  gke_cluster_name                    = data.google_container_cluster.my_cluster.name
   addon_context                       = local.addon_context
   certification_manager_extra_configs = var.certification_manager_extra_configs
   helm_config                         = var.certification_manager_helm_config != null ? var.certification_manager_helm_config : { values = [local_file.certification_manager_helm_config[count.index].content] }
