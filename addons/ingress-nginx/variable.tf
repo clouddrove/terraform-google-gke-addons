@@ -4,6 +4,11 @@ variable "helm_config" {
   default     = {}
 }
 
+variable "gke_cluster_name" {
+  type    = string
+  default = ""
+}
+
 variable "project_id" {
   description = "GCP project ID"
   type        = string

@@ -4,6 +4,11 @@ variable "helm_config" {
   default     = {}
 }
 
+variable "gke_cluster_name" {
+  type    = string
+  default = ""
+}
+
 variable "addon_context" {
   description = "Input configuration for the addon"
   type = object({
