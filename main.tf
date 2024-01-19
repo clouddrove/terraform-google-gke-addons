@@ -31,7 +31,7 @@ module "certification_manager" {
   source                              = "./addons/cert-manager"
   count                               = var.certification_manager ? 1 : 0
   environment                         = var.environment
-  project_id                          = var.project_idt
+  project_id                          = var.project_id
   certification_manager_extra_configs = var.certification_manager_extra_configs
   helm_config                         = var.certification_manager_helm_config != null ? var.certification_manager_helm_config : { values = [local_file.certification_manager_helm_config[count.index].content] }
 }
