@@ -10,15 +10,6 @@ variable "certification_manager_extra_configs" {
   default     = {}
 }
 
-variable "addon_context" {
-  description = "Input configuration for the addon"
-  type = object({
-    gcp_region_name = string
-    gke_cluster_id  = string
-    tags            = map(string)
-  })
-}
-
 variable "project_id" {
   description = "GCP project ID"
   type        = string

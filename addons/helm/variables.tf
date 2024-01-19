@@ -28,11 +28,6 @@ variable "workload_identity_config" {
   default     = {}
 }
 
-variable "addon_context" {
-  description = "workload identity Input configuration for the addon"
-  type        = any
-}
-
 variable "project_id" {
   description = "GCP project ID"
   type        = string

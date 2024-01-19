@@ -10,15 +10,6 @@ variable "keda_extra_configs" {
   default     = {}
 }
 
-variable "addon_context" {
-  description = "Input configuration for the addon"
-  type = object({
-    gcp_region_name = string
-    gke_cluster_id  = string
-    tags            = map(string)
-  })
-}
-
 variable "workload_identity_config" {
   description = "Input configuration for IRSA module"
   type        = any
