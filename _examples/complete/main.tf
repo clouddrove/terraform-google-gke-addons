@@ -135,7 +135,6 @@ module "gke" {
       preemptible                  = false
       initial_node_count           = 1
       enable_node_pool_autoscaling = false
-      tags                         = local.tags
     },
   ]
 
@@ -169,7 +168,12 @@ module "gke" {
   }
 
   node_pools_tags = {
-    all = []
+    all = [
+      "${local.tags.Name}",
+      "${local.tags.Environment}",
+      "${local.tags.GithubRepo}",
+      "${local.tags.GithubOrg}"
+    ]
 
     default-node-pool = [
       "default-node-pool",
