@@ -4,7 +4,7 @@ permissions: write-all
 on:
   push:
     branches:
-      - master
+      - feat/addons
     paths-ignore:
       - '**/*README.md'
   workflow_dispatch:
