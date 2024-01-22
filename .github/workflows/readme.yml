@@ -1,16 +1,33 @@
 name: 'Create README.md file'
+permissions: write-all
+
 on:
   push:
     branches:
-      - feat/addons
+      - feat/readme
+    paths-ignore:
+      - '**/*README.md'
+  workflow_dispatch:
 
 jobs:
-  readme:
+
+  readme-create:
+
     name: 'readme-create'
     runs-on: ubuntu-latest
+
     steps:
-      - name: 'Checkout'
+      - name: Updating GitHub Token
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB }}
+        run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+
+      - name: checkout
         uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+          token: ${{ env.GH_TOKEN }}
 
       - name: 'Set up Python 3.7'
         uses: actions/setup-python@v5
@@ -23,7 +40,7 @@ jobs:
           actions_subcommand: 'readme'
           github_token: '${{ secrets.GITHUB }}'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB }}
 
 
       - name: 'pre-commit check errors'
@@ -40,7 +57,7 @@ jobs:
         with:
           actions_subcommand: 'push'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB }}
 
       - name: 'Slack Notification'
         uses: clouddrove/action-slack@v2
@@ -49,6 +66,36 @@ jobs:
           fields: repo,author
           author_name: 'CloudDrove'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+          GITHUB_TOKEN: ${{ secrets.GITHUB }} # required
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_TERRAFORM }} # required
         if: always()
+
+  # Create README for each Submodules
+  readme-create-addon:
+    name: 'Addon readme-create'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Updating GitHub Token
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB }}
+        run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+
+      - name: checkout
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+          token: ${{ env.GH_TOKEN }}
+
+      - name: Generate TF Docs
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+          working-dir: addons/cluster-autoscaler,addons/cert-manager,addons/ingress-nginx,addons/keda,addons/reloader
+          git-push: true
+          template: |-
+            <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+            {{ .Content }}
+            <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+          git-push-user-name: "clouddrove-ci"
+          git-push-user-email: 84795582+clouddrove-ci@users.noreply.github.com
+          git-commit-message: "readme: Update add-on's readme"
