@@ -11,25 +11,25 @@ license: "APACHE"
 # Canonical GitHub repo
 github_repo: clouddrove/terraform-google-gke-addons
 
-# Badges to display
-badges:
-  - name: "Latest Release"
-    image: "https://img.shields.io/github/release/clouddrove/terraform-google-gke-addons.svg"
-    url: "https://github.com/clouddrove/terraform-google-gke-addons/releases/latest"
-  - name: "tfsec"
-    image: "https://github.com/clouddrove/terraform-google-gke-addons/actions/workflows/tfsec.yml/badge.svg"
-    url: "https://github.com/clouddrove/terraform-google-gke-addons/actions/workflows/tfsec.yml"
-  - name: "Licence"
-    image: "https://img.shields.io/badge/License-APACHE-blue.svg"
-    url: "LICENSE.md"
+# # Badges to display
+# badges:
+#   - name: "Latest Release"
+#     image: "https://img.shields.io/github/release/clouddrove/terraform-google-gke-addons.svg"
+#     url: "https://github.com/clouddrove/terraform-google-gke-addons/releases/latest"
+#   - name: "tfsec"
+#     image: "https://github.com/clouddrove/terraform-google-gke-addons/actions/workflows/tfsec.yml/badge.svg"
+#     url: "https://github.com/clouddrove/terraform-google-gke-addons/actions/workflows/tfsec.yml"
+#   - name: "Licence"
+#     image: "https://img.shields.io/badge/License-APACHE-blue.svg"
+#     url: "LICENSE.md"
 
-prerequesties:
-  - name: Terraform 1.4.6
-    url: https://learn.hashicorp.com/terraform/getting-started/install.html
+# prerequesties:
+#   - name: Terraform 1.4.6
+#     url: https://learn.hashicorp.com/terraform/getting-started/install.html
     
-#  description of this project
-description: |-
-  A Terraform Addons module to customize & install widely used helmchart during or after creation of your AWS EKS cluster.
-# extra content
-include:
-  - "terraform.md"
+# #  description of this project
+# description: |-
+#   A Terraform Addons module to customize & install widely used helmchart during or after creation of your AWS EKS cluster.
+# # extra content
+# include:
+#   - "terraform.md"

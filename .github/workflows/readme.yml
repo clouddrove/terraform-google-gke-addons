@@ -5,8 +5,8 @@ on:
   push:
     branches:
       - feat/readme
-    # paths-ignore:
-    #   - '**/*README.md'
+    paths-ignore:
+      - '**/*README.md'
   workflow_dispatch:
 
 jobs:
