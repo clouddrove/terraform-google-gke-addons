@@ -1,0 +1,29 @@
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: "cloud.google.com/gke-nodepool"
+          operator: In
+          values:
+          - "critical"
+
+## Using limits and requests
+resourc_helm_configes:
+  limits:
+    cpu: 300m
+    memory: 250Mi
+  requests:
+    cpu: 50m
+    memory: 150Mi
+
+podAnnotations:
+  co.elastic.logs/enabled: "true"
+
+additionalLabels: {}
+affinity: {}
+
+cloudProvider: gce
+
+extraArgs:
+  leader-elect: false

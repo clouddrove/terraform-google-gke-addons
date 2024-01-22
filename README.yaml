@@ -2,25 +2,23 @@
 #
 # This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
-#
 
 # Name of this project
-name : Terraform Module Template
-
+name: Terraform GOOGLE GKE ADDONS
 # License of this project
 license: "APACHE"
 
 # Canonical GitHub repo
-github_repo: clouddrove/terraform-module-template
+github_repo: clouddrove/terraform-google-gke-addons
 
 # Badges to display
 badges:
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/clouddrove/terraform-module-template.svg"
-    url: "https://github.com/clouddrove/terraform-module-template/releases/latest"
+    image: "https://img.shields.io/github/release/clouddrove/terraform-google-gke-addons.svg"
+    url: "https://github.com/clouddrove/terraform-google-gke-addons/releases/latest"
   - name: "tfsec"
-    image: "https://github.com/clouddrove/terraform-module-template/actions/workflows/tfsec.yml/badge.svg"
-    url: ""
+    image: "https://github.com/clouddrove/terraform-google-gke-addons/actions/workflows/tfsec.yml/badge.svg"
+    url: "https://github.com/clouddrove/terraform-google-gke-addons/actions/workflows/tfsec.yml"
   - name: "Licence"
     image: "https://img.shields.io/badge/License-APACHE-blue.svg"
     url: "LICENSE.md"
@@ -31,14 +29,7 @@ prerequesties:
     
 #  description of this project
 description: |-
-  Terraform module template to create new modules using this as baseline
+  A Terraform Addons module to customize & install widely used helmchart during or after creation of your AWS EKS cluster.
 # extra content
 include:
   - "terraform.md"
-
-# How to use this project
-# How to use this project
-usage: |-
-  Here are some examples of how you can use this module in your inventory structure:
-  ```hcl
-    ```
