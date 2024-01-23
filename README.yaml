@@ -29,7 +29,7 @@ prerequesties:
     
 #  description of this project
 description: |-
-  A Terraform Addons module to customize & install widely used helmchart during or after creation of your AWS EKS cluster.
+  A Terraform Addons module to customize & install widely used helmchart during or after creation of your Google GKE cluster.
 # extra content
 include:
   - "terraform.md"
