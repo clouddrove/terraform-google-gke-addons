@@ -4,13 +4,15 @@ variable "project_id" {
 }
 
 variable "gke_cluster_name" {
-  type    = string
-  default = ""
+  description = "gke cluster name"
+  type        = string
+  default     = ""
 }
 
 variable "region" {
-  type    = string
-  default = ""
+  description = "cluster region"
+  type        = string
+  default     = ""
 }
 
 #-----------CLUSTER AUTOSCALER------------------
