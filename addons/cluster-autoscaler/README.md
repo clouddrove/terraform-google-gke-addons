@@ -1,3 +1,25 @@
+# Cluster Autoscaler Helm Chart
+
+Cluster Autoscaler is a tool that automatically adjusts the size of the Kubernetes cluster when one of the following conditions is true:
+- there are pods that failed to run in the cluster due to insufficient resources.
+- there are nodes in the cluster that have been underutilized for an extended period of time and their pods can be placed on other existing nodes.
+
+## Installation
+Below terraform script shows how to use Cluster Autoscaler Terraform Addon, A complete example is also given [here](https://github.com/clouddrove/terraform-google-gke-addons/blob/master/_examples/complete/main.tf).
+
+```hcl
+module "addons" {
+  source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+
+  depends_on       = [module.gke]
+  gke_cluster_name = module.gke.name
+  project_id       = local.gcp_project_id
+  region           = local.region
+
+  cluster_autoscaler    = true
+}
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

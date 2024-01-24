@@ -1,3 +1,23 @@
+# Certification Manager Helm Chart
+
+Certification Manager is a Kubernetes addon to automate the management and issuance of TLS certificates from various issuing sources.
+It will ensure certificates are valid and up to date periodically, and attempt to renew certificates at an appropriate time before expiry..
+
+## Installation
+Below terraform script shows how to use Certification Manager Terraform Addon, A complete example is also given [here](https://github.com/clouddrove/terraform-google-gke-addons/blob/master/_examples/complete/main.tf).
+
+```hcl
+    module "addons" {
+      source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+
+      depends_on       = [module.gke]
+      gke_cluster_name = module.gke.name
+      project_id       = local.gcp_project_id
+      region           = local.region
+
+      certification_manager   = true
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

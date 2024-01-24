@@ -1,3 +1,24 @@
+# Reloader Helm Chart
+
+Reloader manages the following AWS resources
+- A Kubernetes controller to watch changes in ConfigMap and Secrets and do rolling upgrades on Pods with their associated Deployment, StatefulSet, DaemonSet and DeploymentConfig 
+
+## Installation
+Below terraform script shows how to use Reloader Terraform Addon, A complete example is also given [here](https://github.com/clouddrove/terraform-google-gke-addons/blob/master/_examples/complete/main.tf).
+
+```bash
+module "addons" {
+  source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+
+  depends_on       = [module.gke]
+  gke_cluster_name = module.gke.name
+  project_id       = local.gcp_project_id
+  region           = local.region
+
+  reloader = true
+}
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
