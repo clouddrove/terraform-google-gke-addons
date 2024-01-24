@@ -68,7 +68,7 @@ variable "ingress_nginx_helm_config" {
 }
 
 variable "ingress_nginx" {
-  description = "Enable Reloader add-on"
+  description = "Enable Nginx ingress add-on"
   type        = bool
   default     = false
 }
