@@ -33,3 +33,57 @@ description: |-
 # extra content
 include:
   - "terraform.md"
+
+# How to use this project
+# How to use this project
+usage: |-
+  Here are some examples of how you can use this module in your inventory structure:
+
+  ### addons basic example
+  ```hcl
+    module "addons" {
+      source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+
+      depends_on       = [module.gke]
+      gke_cluster_name = module.gke.name
+      project_id       = local.gcp_project_id
+      region           = local.region
+
+      cluster_autoscaler    = true
+      reloader              = true
+      ingress_nginx         = true
+      certification_manager = true
+      keda                  = true
+    }
+  ```
+
+    ### addons complete example
+  ```hcl
+    module "addons" {
+      source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+
+      gke_cluster_name = module.gke.name
+      project_id       = local.gcp_project_id
+      region           = local.region
+
+      cluster_autoscaler    = false
+      reloader              = false
+      ingress_nginx         = false
+      certification_manager = false
+      keda                  = false
+
+      # -- Path of override-values.yaml file
+      cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
+      reloader_helm_config              = { values = [file("./config/reloader/override-reloader.yaml")] }
+      ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
+      certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
+      keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
+
+      # -- Override Helm Release attributes
+      cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
+      reloader_extra_configs              = var.reloader_extra_configs
+      ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
+      certification_manager_extra_configs = var.certification_manager_extra_configs
+      keda_extra_configs                  = var.keda_extra_configs
+    }
+  ```
