@@ -4,13 +4,15 @@ variable "project_id" {
 }
 
 variable "gke_cluster_name" {
-  type    = string
-  default = ""
+  description = "gke cluster name"
+  type        = string
+  default     = ""
 }
 
 variable "region" {
-  type    = string
-  default = ""
+  description = "cluster region"
+  type        = string
+  default     = ""
 }
 
 #-----------CLUSTER AUTOSCALER------------------
@@ -66,7 +68,7 @@ variable "ingress_nginx_helm_config" {
 }
 
 variable "ingress_nginx" {
-  description = "Enable Reloader add-on"
+  description = "Enable Nginx ingress add-on"
   type        = bool
   default     = false
 }

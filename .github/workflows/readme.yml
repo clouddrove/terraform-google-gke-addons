@@ -4,13 +4,12 @@ permissions: write-all
 on:
   push:
     branches:
-      - feat/addons
+      - master
     paths-ignore:
       - '**/*README.md'
   workflow_dispatch:
 
 jobs:
-
   readme-create:
     uses: clouddrove/github-shared-workflows/.github/workflows/readme.yml@master
     secrets:
