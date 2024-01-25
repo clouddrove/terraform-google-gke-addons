@@ -163,3 +163,39 @@ resourc_helm_configes:
   EOT
   filename = "${path.module}/override_values/keda.yaml"
 }
+
+#---------------------------- EXTERNAL DNS ---------------------------------
+resource "local_file" "external_dns_helm_config" {
+  count    = var.external_dns && (var.external_dns_helm_config == null) ? 1 : 0
+  content  = <<EOT
+
+nameOverride: external-dns-gcp
+
+sources:
+  - service
+  - ingress
+
+provider: google
+
+google:
+  project: "${var.project_id}"
+  serviceAccountSecret: "external-dns"
+  zoneVisibility: "public"
+
+domainFilters: ["external-dns-test.gcp.zalan.do"]
+
+registry: "txt"
+txtOwnerId: "k8s"
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: "cloud.google.com/gke-nodepool"
+          operator: In
+          values:
+          - "critical"
+  EOT
+  filename = "${path.module}/override_values/external_dns.yaml"
+}

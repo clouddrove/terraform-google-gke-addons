@@ -1,0 +1,25 @@
+sources:
+  - service
+  - ingress
+
+provider: google
+
+google:
+  project: "project_id"
+  serviceAccountSecret: "external-dns"
+  zoneVisibility: "public"
+
+domainFilters: ["test.example.com"]
+
+registry: "txt"
+txtOwnerId: "k8s"
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: "cloud.google.com/gke-nodepool"
+          operator: In
+          values:
+          - "critical"

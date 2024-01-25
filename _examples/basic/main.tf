@@ -117,7 +117,7 @@ module "gke" {
     {
       name                         = "critical"
       machine_type                 = "g1-small"
-      node_locations               = "${local.region}-b"
+      node_locations               = "${local.region}-c"
       min_count                    = 1
       max_count                    = 3
       local_ssd_count              = 0
@@ -192,9 +192,10 @@ module "addons" {
   project_id       = local.gcp_project_id
   region           = local.region
 
-  cluster_autoscaler    = true
-  reloader              = true
-  ingress_nginx         = true
-  certification_manager = true
-  keda                  = true
+  cluster_autoscaler    = false
+  reloader              = false
+  ingress_nginx         = false
+  certification_manager = false
+  keda                  = false
+  external_dns          = false
 }
