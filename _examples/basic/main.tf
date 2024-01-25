@@ -197,5 +197,5 @@ module "addons" {
   ingress_nginx         = false
   certification_manager = false
   keda                  = false
-  external_dns          = false
+  external_dns          = true
 }
