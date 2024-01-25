@@ -35,3 +35,14 @@ module "keda" {
   keda_extra_configs = var.keda_extra_configs
   helm_config        = var.keda_helm_config != null ? var.keda_helm_config : { values = [local_file.keda_helm_config[count.index].content] }
 }
+
+# External-Secrets
+module "external_secrets" {
+  source                   = "./addons/external-secrets"
+  count                    = var.external_secret_enabled ? 1 : 0
+  project_id               = var.project_id
+  name                     = var.name
+  environment              = var.environment
+  enable_service_monitor   = var.service_monitor_crd_enabled
+  external_secrets_version = var.external_secrets_version
+}

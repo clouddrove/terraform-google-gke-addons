@@ -96,7 +96,7 @@ module "gke" {
     {
       name                         = "general"
       machine_type                 = "g1-small"
-      node_locations               = "${local.region}-a"
+      node_locations               = "${local.region}-c"
       min_count                    = 1
       max_count                    = 5
       local_ssd_count              = 0
@@ -117,7 +117,7 @@ module "gke" {
     {
       name                         = "critical"
       machine_type                 = "g1-small"
-      node_locations               = "${local.region}-b"
+      node_locations               = "${local.region}-f"
       min_count                    = 1
       max_count                    = 3
       local_ssd_count              = 0
@@ -167,12 +167,8 @@ module "gke" {
   }
 
   node_pools_tags = {
-    all = [
-      local.tags.Name,
-      local.tags.Environment,
-      local.tags.GithubRepo,
-      local.tags.GithubOrg,
-    ]
+    all = []
+
     default-node-pool = [
       "default-node-pool",
     ]
@@ -189,12 +185,15 @@ module "addons" {
 
   depends_on       = [module.gke]
   gke_cluster_name = module.gke.name
+  environment      = local.environment
   project_id       = local.gcp_project_id
   region           = local.region
 
-  cluster_autoscaler    = true
-  reloader              = true
-  ingress_nginx         = true
-  certification_manager = true
-  keda                  = true
+  cluster_autoscaler      = false
+  reloader                = false
+  ingress_nginx           = false
+  certification_manager   = false
+  keda                    = true
+  external_secret_enabled = true
+
 }

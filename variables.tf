@@ -111,3 +111,47 @@ variable "keda_extra_configs" {
   type        = any
   default     = {}
 }
+
+#---------------EXTERNAL-SECRTE--------------------
+
+
+variable "external_secrets" {
+  description = "Enable or disable external-secrets deployment"
+  type        = bool
+  default     = false
+}
+
+variable "external_secrets_helm_config" {
+  description = "Enable or disable external-secrets deployment"
+  type        = bool
+  default     = false
+}
+
+variable "external_secret_enabled" {
+  description = "Enable or disable external-secrets deployment"
+  type        = bool
+  default     = false
+}
+
+variable "external_secrets_version" {
+  description = "Version of the external-secret operator"
+  type        = string
+  default     = "0.8.3"
+}
+
+variable "service_monitor_crd_enabled" {
+  description = "Enable or disable the installation of Custom Resource Definitions (CRDs) for Prometheus Service Monitor. "
+  default     = false
+  type        = bool
+}
+
+variable "name" {
+  description = "The suffix name for the resources being created."
+  type        = string
+  default     = "gke"
+}
+
+variable "environment" {
+  description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
+  type        = string
+}
