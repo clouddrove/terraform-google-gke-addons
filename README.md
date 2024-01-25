@@ -4,20 +4,20 @@
 
 
 <h1 align="center">
-    Terraform Module Template
+    Terraform GOOGLE GKE ADDONS
 </h1>
 
 <p align="center" style="font-size: 1.2rem;"> 
-    Terraform module template to create new modules using this as baseline
+    A Terraform Addons module to customize & install widely used helmchart during or after creation of your Google GKE cluster.
      </p>
 
 <p align="center">
 
-<a href="https://github.com/clouddrove/terraform-module-template/releases/latest">
-  <img src="https://img.shields.io/github/release/clouddrove/terraform-module-template.svg" alt="Latest Release">
+<a href="https://github.com/clouddrove/terraform-google-gke-addons/releases/latest">
+  <img src="https://img.shields.io/github/release/clouddrove/terraform-google-gke-addons.svg" alt="Latest Release">
 </a>
-<a href="">
-  <img src="https://github.com/clouddrove/terraform-module-template/actions/workflows/tfsec.yml/badge.svg" alt="tfsec">
+<a href="https://github.com/clouddrove/terraform-google-gke-addons/actions/workflows/tfsec.yml">
+  <img src="https://github.com/clouddrove/terraform-google-gke-addons/actions/workflows/tfsec.yml/badge.svg" alt="tfsec">
 </a>
 <a href="LICENSE.md">
   <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
@@ -27,13 +27,13 @@
 </p>
 <p align="center">
 
-<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/terraform-google-gke-addons'>
   <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
 </a>
-<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+Module+Template&url=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+GOOGLE+GKE+ADDONS&url=https://github.com/clouddrove/terraform-google-gke-addons'>
   <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
 </a>
-<a href='https://twitter.com/intent/tweet/?text=Terraform+Module+Template&url=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://twitter.com/intent/tweet/?text=Terraform+GOOGLE+GKE+ADDONS&url=https://github.com/clouddrove/terraform-google-gke-addons'>
   <img title="Share on Twitter" src="https://user-images.githubusercontent.com/50652676/62817740-4c69db00-bb59-11e9-8a79-3580fbbf6d5c.png" />
 </a>
 
@@ -64,12 +64,59 @@ This module has a few dependencies:
 ## Examples
 
 
-**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/terraform-module-template/releases).
+**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/terraform-google-gke-addons/releases).
 
 
 Here are some examples of how you can use this module in your inventory structure:
+
+### addons basic example
 ```hcl
-  ```
+  module "addons" {
+    source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+
+    depends_on       = [module.gke]
+    gke_cluster_name = module.gke.name
+    project_id       = local.gcp_project_id
+    region           = local.region
+
+    cluster_autoscaler    = true
+    reloader              = true
+    ingress_nginx         = true
+    certification_manager = true
+    keda                  = true
+  }
+```
+
+  ### addons complete example
+```hcl
+  module "addons" {
+    source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+
+    gke_cluster_name = module.gke.name
+    project_id       = local.gcp_project_id
+    region           = local.region
+
+    cluster_autoscaler    = false
+    reloader              = false
+    ingress_nginx         = false
+    certification_manager = false
+    keda                  = false
+
+    # -- Path of override-values.yaml file
+    cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
+    reloader_helm_config              = { values = [file("./config/reloader/override-reloader.yaml")] }
+    ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
+    certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
+    keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
+
+    # -- Override Helm Release attributes
+    cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
+    reloader_extra_configs              = var.reloader_extra_configs
+    ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
+    certification_manager_extra_configs = var.certification_manager_extra_configs
+    keda_extra_configs                  = var.keda_extra_configs
+  }
+```
 
 
 
@@ -80,13 +127,44 @@ Here are some examples of how you can use this module in your inventory structur
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| label\_order | Label order, e.g. `name`,`environment`. | `list(string)` | <pre>[<br>  "name",<br>  "environment"<br>]</pre> | no |
+| certification\_manager | Enable certification\_manager add-on | `bool` | `false` | no |
+| certification\_manager\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| certification\_manager\_helm\_config | Path to override-values.yaml for Certification Manager Chart | `any` | `null` | no |
+| cluster\_autoscaler | Enable Cluster Autoscaler add-on | `bool` | `false` | no |
+| cluster\_autoscaler\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| cluster\_autoscaler\_helm\_config | Path to override-values.yaml for Cluster Autoscaler Helm Chart | `any` | `null` | no |
+| gke\_cluster\_name | gke cluster name | `string` | `""` | no |
+| ingress\_nginx | Enable Nginx ingress add-on | `bool` | `false` | no |
+| ingress\_nginx\_extra\_configs | Nginx ingress extra config | `any` | `{}` | no |
+| ingress\_nginx\_helm\_config | Path to override-values.yaml for Ingress Nginx Helm Chart | `any` | `null` | no |
+| keda | Enable Keda add-on | `bool` | `false` | no |
+| keda\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| keda\_helm\_config | Path to override-values.yaml for Keda Helm Chart | `any` | `null` | no |
+| project\_id | GCP project ID | `string` | n/a | yes |
+| region | cluster region | `string` | `""` | no |
+| reloader | Enable Reloader add-on | `bool` | `false` | no |
+| reloader\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| reloader\_helm\_config | Path to override-values.yaml for Reloader Helm Chart | `any` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| label\_order | Label order. |
+| certification\_manager\_chart\_version | Chart version of the certification-manager Helm Chart. |
+| certification\_manager\_namespace | The namespace where certification-manager is deployed. |
+| certification\_manager\_repository | Helm chart repository of the certification-manager. |
+| cluster\_autoscaler\_chart\_version | chart version used for cluster-autoscaler helmchart |
+| cluster\_autoscaler\_namespace | Namespace where cluster-autoscaler is installed |
+| cluster\_autoscaler\_repository | helm repository url of cluster-autoscaler |
+| ingress-nginx\_chart\_version | chart version used for ingress-nginx helmchart |
+| ingress-nginx\_namespace | Namespace where ingress-nginx is installed |
+| ingress-nginx\_repository | helm repository url of ingress-nginx |
+| keda\_chart\_version | chart version used for keda helmchart |
+| keda\_namespace | Namespace where keda is installed |
+| keda\_repository | helm repository url of keda |
+| reloader\_chart\_version | Chart version of the reloader Helm Chart. |
+| reloader\_namespace | The namespace where reloader is deployed. |
+| reloader\_repository | Helm chart repository of the reloader. |
 
 
 
@@ -102,9 +180,9 @@ You need to run the following command in the testing folder:
 
 
 ## Feedback 
-If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/terraform-module-template/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
+If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/terraform-google-gke-addons/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 
-If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/terraform-module-template)!
+If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/terraform-google-gke-addons)!
 
 ## About us
 
