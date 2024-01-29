@@ -34,6 +34,6 @@ variable "keda_extra_configs" {
 
 #-------------------KUBECLARITY-------------------------------------------------
 variable "kubeclarity_extra_configs" {
-  type        = any
-  default     = {}
+  type    = any
+  default = {}
 }
