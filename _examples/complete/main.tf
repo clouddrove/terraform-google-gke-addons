@@ -206,8 +206,8 @@ module "addons" {
   ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
   certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
   keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
-  kubeclarity_helm_config           = { values = [file("./config/kubeclarity/override-kubeclarity.yaml")] }
-
+  kubeclarity_helm_config           = { values = [file("./config/override-kubeclarity.yaml")] }
+  
 
   # -- Override Helm Release attributes
   cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
