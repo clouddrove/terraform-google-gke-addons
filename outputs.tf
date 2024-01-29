@@ -70,14 +70,14 @@ output "keda_repository" {
 
 #-----------Kubeclarity-------------------
 output "namespace" {
-  value = local.default_helm_config.namespace
+  value = module.kubeclarity[*].namespace
 }
 
 output "chart_version" {
-  value = local.default_helm_config.version
+  value = module.kubeclarity[*].chart_version
 }
 
 output "repository" {
-  value = local.default_helm_config.repository
+  value = module.kubeclarity[*].repository
 }
 
