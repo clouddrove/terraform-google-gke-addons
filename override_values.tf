@@ -198,6 +198,7 @@ affinity:
           - "critical"
   EOT
   filename = "${path.module}/override_values/external_dns.yaml"
+}
 
 #----------------------- KUBECLARITY ------------------------------
 resource "local_file" "kubeclarity_helm_config" {

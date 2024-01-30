@@ -41,6 +41,7 @@ module "external_dns" {
   project_id                 = var.project_id
   external_dns_extra_configs = var.external_dns_extra_configs
   helm_config                = var.external_dns_helm_config != null ? var.external_dns_helm_config : { values = [local_file.external_dns_helm_config[count.index].content] }
+}
   
 module "kubeclarity" {
   source                    = "./addons/kubeclarity"
