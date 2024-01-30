@@ -197,4 +197,6 @@ module "addons" {
   ingress_nginx         = true
   certification_manager = true
   keda                  = true
+  kubeclarity           = true
+
 }

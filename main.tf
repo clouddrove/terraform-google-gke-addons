@@ -35,3 +35,10 @@ module "keda" {
   keda_extra_configs = var.keda_extra_configs
   helm_config        = var.keda_helm_config != null ? var.keda_helm_config : { values = [local_file.keda_helm_config[count.index].content] }
 }
+
+module "kubeclarity" {
+  source                    = "./addons/kubeclarity"
+  count                     = var.kubeclarity ? 1 : 0
+  helm_config               = var.kubeclarity_helm_config != null ? var.kubeclarity_helm_config : { values = [local_file.kubeclarity_helm_config[count.index].content] }
+  kubeclarity_extra_configs = var.kubeclarity_extra_configs
+}

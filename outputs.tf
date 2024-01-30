@@ -67,3 +67,17 @@ output "keda_repository" {
   value       = module.keda[*].repository
   description = "helm repository url of keda"
 }
+
+#-----------Kubeclarity-------------------
+output "namespace" {
+  value = module.kubeclarity[*].namespace
+}
+
+output "chart_version" {
+  value = module.kubeclarity[*].chart_version
+}
+
+output "repository" {
+  value = module.kubeclarity[*].repository
+}
+
