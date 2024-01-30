@@ -45,8 +45,8 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for Cluster Autoscaler | `any` | `{}` | no |
-| <a name="input_reloader_extra_configs"></a> [kubeclarity\_extra\_configs](#input\_kubeclarity\_extra\_configs) | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for Metrics Server | `any` | `{}` | no |
+| <a name="input_kubeclarity_extra_configs"></a> [kubeclarity\_extra\_configs](#input\_kubeclarity\_extra\_configs) | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 
 ## Outputs
 
@@ -55,7 +55,6 @@ No resources.
 | <a name="output_chart_version"></a> [chart\_version](#output\_chart\_version) | n/a |
 | <a name="output_namespace"></a> [namespace](#output\_namespace) | n/a |
 | <a name="output_repository"></a> [repository](#output\_repository) | n/a |
-| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Note:
