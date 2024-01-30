@@ -140,6 +140,9 @@ Here are some examples of how you can use this module in your inventory structur
 | keda | Enable Keda add-on | `bool` | `false` | no |
 | keda\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | keda\_helm\_config | Path to override-values.yaml for Keda Helm Chart | `any` | `null` | no |
+| kubeclarity | Enable Kubeclarity add-on | `bool` | `false` | no |
+| kubeclarity\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| kubeclarity\_helm\_config | Path to override-values.yaml for Kubeclarity Helm Chart | `any` | `null` | no |
 | project\_id | GCP project ID | `string` | n/a | yes |
 | region | cluster region | `string` | `""` | no |
 | reloader | Enable Reloader add-on | `bool` | `false` | no |
@@ -153,6 +156,7 @@ Here are some examples of how you can use this module in your inventory structur
 | certification\_manager\_chart\_version | Chart version of the certification-manager Helm Chart. |
 | certification\_manager\_namespace | The namespace where certification-manager is deployed. |
 | certification\_manager\_repository | Helm chart repository of the certification-manager. |
+| chart\_version | n/a |
 | cluster\_autoscaler\_chart\_version | chart version used for cluster-autoscaler helmchart |
 | cluster\_autoscaler\_namespace | Namespace where cluster-autoscaler is installed |
 | cluster\_autoscaler\_repository | helm repository url of cluster-autoscaler |
@@ -162,9 +166,11 @@ Here are some examples of how you can use this module in your inventory structur
 | keda\_chart\_version | chart version used for keda helmchart |
 | keda\_namespace | Namespace where keda is installed |
 | keda\_repository | helm repository url of keda |
+| namespace | -----------Kubeclarity------------------- |
 | reloader\_chart\_version | Chart version of the reloader Helm Chart. |
 | reloader\_namespace | The namespace where reloader is deployed. |
 | reloader\_repository | Helm chart repository of the reloader. |
+| repository | n/a |
 
 
 

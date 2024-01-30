@@ -130,3 +130,22 @@ variable "external_dns_extra_configs" {
   type        = any
   default     = {}
 }
+
+#-----------KUBECLARITY---------------------------
+variable "kubeclarity" {
+  description = "Enable Kubeclarity add-on"
+  type        = bool
+  default     = false
+}
+
+variable "kubeclarity_helm_config" {
+  description = "Path to override-values.yaml for Kubeclarity Helm Chart"
+  type        = any
+  default     = null
+}
+
+variable "kubeclarity_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
+}

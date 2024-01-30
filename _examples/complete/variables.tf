@@ -37,3 +37,8 @@ variable "external_dns_extra_configs" {
   type    = any
   default = {}
 }
+#-------------------KUBECLARITY-------------------------------------------------
+variable "kubeclarity_extra_configs" {
+  type    = any
+  default = {}
+}
