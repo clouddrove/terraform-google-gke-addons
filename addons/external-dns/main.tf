@@ -16,7 +16,7 @@ module "helm_addon" {
     },
     {
       name  = "google.serviceAccountSecret"
-      value = "${kubernetes_secret.external_dns_secret.metadata[0].name}"
+      value = kubernetes_secret.external_dns_secret.metadata[0].name
     },
   ]
   # -- workload identity Configurations
