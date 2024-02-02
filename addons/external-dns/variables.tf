@@ -1,5 +1,5 @@
 variable "helm_config" {
-  description = "Helm provider config for Cluster Autoscaler"
+  description = "Helm provider config for External DNS"
   type        = any
   default     = {}
 }

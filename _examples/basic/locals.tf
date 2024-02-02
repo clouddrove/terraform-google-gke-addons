@@ -4,7 +4,7 @@ locals {
   region          = "us-central1"
   cluster_version = "latest"
   gcp_project_id  = "dev-env-3b53"
-  cluster_name    = "addons-cluster"
+  cluster_name    = "${local.name}-cluster"
   tags = {
     Name        = local.name
     Environment = local.environment
