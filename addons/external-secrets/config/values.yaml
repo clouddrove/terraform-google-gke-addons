@@ -18,15 +18,15 @@ serviceMonitor:
   additionalLabels:
     release: "prometheus-operator"
 
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: "Addon-Services"
-          operator: In
-          values:
-          - "true"
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#       - matchExpressions:
+#         - key: "Addon-Services"
+#           operator: In
+#           values:
+#           - "true"
 
 podDisruptionBudget:
   enabled: true
@@ -45,7 +45,7 @@ webhook:
           - key: "Addon-Services"
             operator: In
             values:
-            - "true"
+            - "citical"
   resources: {}
   podAnnotations:
     co.elastic.logs/enabled: "true"
@@ -73,7 +73,7 @@ certController:
           - key: "Addon-Services"
             operator: In
             values:
-            - "true"
+            - "citical"
   resources: {}
   podAnnotations:
     co.elastic.logs/enabled: "true"

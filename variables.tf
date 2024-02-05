@@ -122,21 +122,27 @@ variable "external_secrets" {
 }
 
 variable "external_secrets_helm_config" {
-  description = "Enable or disable external-secrets deployment"
-  type        = bool
-  default     = false
+  description = "Path to override-values.yaml for External-Secrets Helm Chart"
+  type        = any
+  default     = null
+}
+
+variable "external_secrets_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
 }
 
 variable "external_secret_enabled" {
   description = "Enable or disable external-secrets deployment"
-  type        = bool
+  type        = any
   default     = false
 }
 
 variable "external_secrets_version" {
   description = "Version of the external-secret operator"
-  type        = string
-  default     = "0.8.3"
+  type        = any
+  default     = "0.9.11"
 }
 
 variable "service_monitor_crd_enabled" {

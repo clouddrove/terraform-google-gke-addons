@@ -5,8 +5,8 @@ locals {
     name                       = try(var.external_secrets_extra_configs.name, local.name)
     chart                      = try(var.external_secrets_extra_configs.chart, local.name)
     repository                 = try(var.external_secrets_extra_configs.repository, "https://charts.external-secrets.io/")
-    version                    = try(var.external_secrets_extra_configs.version, "0.9.2")
-    namespace                  = try(var.external_secrets_extra_configs.namespace, "kube-system")
+    version                    = try(var.external_secrets_extra_configs.version, "0.9.11")
+    namespace                  = try(var.external_secrets_extra_configs.namespace, "secret")
     create_namespace           = try(var.external_secrets_extra_configs.create_namespace, false)
     description                = "External Secrets helm Chart deployment configuration"
     timeout                    = try(var.external_secrets_extra_configs.timeout, "600")

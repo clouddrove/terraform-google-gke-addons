@@ -31,3 +31,11 @@ variable "keda_extra_configs" {
   type    = any
   default = {}
 }
+
+# ------------------ EXTERNAL SECRET -----------------------------------------------------
+
+variable "external_secrets_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
+}

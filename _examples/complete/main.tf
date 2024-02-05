@@ -191,12 +191,14 @@ module "addons" {
   gke_cluster_name = module.gke.name
   project_id       = local.gcp_project_id
   region           = local.region
+  environment     = "test"
 
   cluster_autoscaler    = false
   reloader              = false
   ingress_nginx         = false
   certification_manager = false
   keda                  = false
+  external_secrets      = true
 
   # -- Path of override-values.yaml file
   cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
@@ -204,6 +206,7 @@ module "addons" {
   ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
   certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
   keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
+  external_secrets_helm_config      = { values = [file("./config/override-externalsecret.yaml")] }
 
   # -- Override Helm Release attributes
   cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
@@ -211,4 +214,6 @@ module "addons" {
   ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
   certification_manager_extra_configs = var.certification_manager_extra_configs
   keda_extra_configs                  = var.keda_extra_configs
+  external_secrets_extra_configs      = var.external_secrets_extra_configs
+
 }

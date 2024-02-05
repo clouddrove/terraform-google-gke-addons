@@ -150,7 +150,7 @@ affinity:
         - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "general-1"
+          - "critical"
           
 ## Using limits and requests
 resourc_helm_configes:
@@ -176,16 +176,16 @@ affinity:
         - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "general-1"
+          - "critical"
           
 ## Using limits and requests
 resourc_helm_configes:
   limits:
-    cpu: 100m
-    memory: 512Mi
+    cpu: "100m"
+    memory: "512Mi"
   requests:
-    cpu: 10m
-    memory: 128Mi
+    cpu: "10m"
+    memory: "128Mi"
   EOT
   filename = "${path.module}/override_values/externalsecret.yaml"
 }

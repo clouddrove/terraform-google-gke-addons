@@ -40,13 +40,13 @@ variable "enable_service_monitor" {
 variable "external_secrets_version" {
   description = "Version of the external-secret operator"
   type        = string
-  default     = "latest"
+  default     = "0.9.11"
 }
 
 variable "name" {
   description = "The suffix name for the resources being created."
   type        = string
-  default     = "gke"
+  default     = "gke-test"
 }
 
 variable "helm_config" {
@@ -59,4 +59,11 @@ variable "external_secrets_extra_configs" {
   description = "Override attributes of helm_release terraform resource"
   type        = any
   default     = {}
+}
+
+
+variable "external_secrets_helm_config" {
+  description = "Enable or disable external-secrets deployment"
+  type        = any
+  default     = false
 }

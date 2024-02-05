@@ -38,11 +38,14 @@ module "keda" {
 
 # External-Secrets
 module "external_secrets" {
-  source                   = "./addons/external-secrets"
-  count                    = var.external_secret_enabled ? 1 : 0
-  project_id               = var.project_id
-  name                     = var.name
-  environment              = var.environment
-  enable_service_monitor   = var.service_monitor_crd_enabled
-  external_secrets_version = var.external_secrets_version
+  source                         = "./addons/external-secrets"
+  count                          = var.external_secret_enabled ? 1 : 0
+  external_secrets_extra_configs = var.external_secrets_extra_configs
+  project_id                     = var.project_id
+  name                           = var.name
+  environment                    = var.environment
+  enable_service_monitor         = var.service_monitor_crd_enabled
+  external_secrets_version       = var.external_secrets_version
+  helm_config                    = var.external_secrets_helm_config != null && var.external_secret_enabled ? { values = [local_file.external_secrets_helm_config[0].content] } : {}
+
 }
