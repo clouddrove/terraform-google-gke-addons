@@ -74,7 +74,7 @@ module "gke" {
   source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
   version                           = "29.0.0"
   project_id                        = local.gcp_project_id
-  name                              = local.cluster_name
+  name                              = "${local.name}-cluster"
   region                            = local.region
   kubernetes_version                = local.cluster_version
   zones                             = []
@@ -117,7 +117,7 @@ module "gke" {
     {
       name                         = "critical"
       machine_type                 = "g1-small"
-      node_locations               = "${local.region}-b"
+      node_locations               = "${local.region}-c"
       min_count                    = 1
       max_count                    = 3
       local_ssd_count              = 0
@@ -198,5 +198,5 @@ module "addons" {
   certification_manager = true
   keda                  = true
   kubeclarity           = true
-
+  external_dns          = true
 }

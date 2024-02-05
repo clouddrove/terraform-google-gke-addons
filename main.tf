@@ -21,7 +21,6 @@ module "ingress_nginx" {
   helm_config                 = var.ingress_nginx_helm_config != null ? var.ingress_nginx_helm_config : { values = [local_file.ingress_nginx_helm_config[count.index].content] }
 }
 
-
 module "certification_manager" {
   source                              = "./addons/cert-manager"
   count                               = var.certification_manager ? 1 : 0
@@ -34,6 +33,14 @@ module "keda" {
   count              = var.keda ? 1 : 0
   keda_extra_configs = var.keda_extra_configs
   helm_config        = var.keda_helm_config != null ? var.keda_helm_config : { values = [local_file.keda_helm_config[count.index].content] }
+}
+
+module "external_dns" {
+  source                     = "./addons/external-dns"
+  count                      = var.external_dns ? 1 : 0
+  project_id                 = var.project_id
+  external_dns_extra_configs = var.external_dns_extra_configs
+  helm_config                = var.external_dns_helm_config != null ? var.external_dns_helm_config : { values = [local_file.external_dns_helm_config[count.index].content] }
 }
 
 module "kubeclarity" {

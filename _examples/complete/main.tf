@@ -74,7 +74,7 @@ module "gke" {
   source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
   version                           = "29.0.0"
   project_id                        = local.gcp_project_id
-  name                              = local.cluster_name
+  name                              = "${local.name}-cluster"
   region                            = local.region
   kubernetes_version                = local.cluster_version
   zones                             = []
@@ -197,8 +197,8 @@ module "addons" {
   ingress_nginx         = false
   certification_manager = false
   keda                  = false
+  external_dns          = false
   kubeclarity           = false
-
 
   # -- Path of override-values.yaml file
   cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
@@ -206,8 +206,8 @@ module "addons" {
   ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
   certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
   keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
+  external_dns_helm_config          = { values = [file("./config/override-external-dns.yaml")] }
   kubeclarity_helm_config           = { values = [file("./config/override-kubeclarity.yaml")] }
-
 
   # -- Override Helm Release attributes
   cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
@@ -215,5 +215,6 @@ module "addons" {
   ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
   certification_manager_extra_configs = var.certification_manager_extra_configs
   keda_extra_configs                  = var.keda_extra_configs
+  external_dns_extra_configs          = var.external_dns_extra_configs
   kubeclarity_extra_configs           = var.kubeclarity_extra_configs
 }
