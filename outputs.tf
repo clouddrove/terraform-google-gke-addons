@@ -69,15 +69,15 @@ output "keda_repository" {
 }
 
 #-----------Kubeclarity-------------------
-output "Kubeclarity_namespace" {
+output "kubeclarity_namespace" {
   value = module.kubeclarity[*].namespace
 }
 
-output "Kubeclarity_chart_version" {
+output "kubeclarity_chart_version" {
   value = module.kubeclarity[*].chart_version
 }
 
-output "Kubeclarity_repository" {
+output "kubeclarity_repository" {
   value = module.kubeclarity[*].repository
 }
 
