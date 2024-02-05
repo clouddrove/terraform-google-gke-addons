@@ -37,3 +37,9 @@ variable "kubeclarity_extra_configs" {
   type    = any
   default = {}
 }
+
+# ------------------ ACTIONS-RUNNER-CONTROLLER -----------------------------------------------------
+variable "actions_runner_controller_extra_configs" {
+  type    = any
+  default = {}
+}

@@ -192,28 +192,33 @@ module "addons" {
   project_id       = local.gcp_project_id
   region           = local.region
 
-  cluster_autoscaler    = false
-  reloader              = false
-  ingress_nginx         = false
-  certification_manager = false
-  keda                  = false
-  kubeclarity           = false
+  cluster_autoscaler        = false
+  reloader                  = false
+  ingress_nginx             = false
+  certification_manager     = false
+  keda                      = false
+  kubeclarity               = false
+  actions_runner_controller = false
+
 
 
   # -- Path of override-values.yaml file
-  cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
-  reloader_helm_config              = { values = [file("./config/reloader/override-reloader.yaml")] }
-  ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
-  certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
-  keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
-  kubeclarity_helm_config           = { values = [file("./config/override-kubeclarity.yaml")] }
+  cluster_autoscaler_helm_config        = { values = [file("./config/override-cluster-autoscaler.yaml")] }
+  reloader_helm_config                  = { values = [file("./config/reloader/override-reloader.yaml")] }
+  ingress_nginx_helm_config             = { values = [file("./config/override-ingress-nginx.yaml")] }
+  certification_manager_helm_config     = { values = [file("./config/override-certification-manager.yaml")] }
+  keda_helm_config                      = { values = [file("./config/keda/override-keda.yaml")] }
+  kubeclarity_helm_config               = { values = [file("./config/override-kubeclarity.yaml")] }
+  actions_runner_controller_helm_config = { values = [file("./config/override-actions-runner-controller.yaml")] }
 
 
   # -- Override Helm Release attributes
-  cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
-  reloader_extra_configs              = var.reloader_extra_configs
-  ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
-  certification_manager_extra_configs = var.certification_manager_extra_configs
-  keda_extra_configs                  = var.keda_extra_configs
-  kubeclarity_extra_configs           = var.kubeclarity_extra_configs
+  cluster_autoscaler_extra_configs        = var.cluster_autoscaler_extra_configs
+  reloader_extra_configs                  = var.reloader_extra_configs
+  ingress_nginx_extra_configs             = var.ingress_nginx_extra_configs
+  certification_manager_extra_configs     = var.certification_manager_extra_configs
+  keda_extra_configs                      = var.keda_extra_configs
+  kubeclarity_extra_configs               = var.kubeclarity_extra_configs
+  actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
+
 }
