@@ -133,6 +133,9 @@ Here are some examples of how you can use this module in your inventory structur
 | cluster\_autoscaler | Enable Cluster Autoscaler add-on | `bool` | `false` | no |
 | cluster\_autoscaler\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | cluster\_autoscaler\_helm\_config | Path to override-values.yaml for Cluster Autoscaler Helm Chart | `any` | `null` | no |
+| external\_dns | Enable External DNS add-on | `bool` | `false` | no |
+| external\_dns\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| external\_dns\_helm\_config | Path to override-values.yaml for External DNS Helm Chart | `any` | `null` | no |
 | gke\_cluster\_name | gke cluster name | `string` | `""` | no |
 | ingress\_nginx | Enable Nginx ingress add-on | `bool` | `false` | no |
 | ingress\_nginx\_extra\_configs | Nginx ingress extra config | `any` | `{}` | no |
@@ -156,21 +159,24 @@ Here are some examples of how you can use this module in your inventory structur
 | certification\_manager\_chart\_version | Chart version of the certification-manager Helm Chart. |
 | certification\_manager\_namespace | The namespace where certification-manager is deployed. |
 | certification\_manager\_repository | Helm chart repository of the certification-manager. |
-| chart\_version | n/a |
 | cluster\_autoscaler\_chart\_version | chart version used for cluster-autoscaler helmchart |
 | cluster\_autoscaler\_namespace | Namespace where cluster-autoscaler is installed |
 | cluster\_autoscaler\_repository | helm repository url of cluster-autoscaler |
+| external\_dns\_chart\_version | n/a |
+| external\_dns\_namespace | -----------EXTERNAL DNS----------------- |
+| external\_dns\_repository | n/a |
 | ingress-nginx\_chart\_version | chart version used for ingress-nginx helmchart |
 | ingress-nginx\_namespace | Namespace where ingress-nginx is installed |
 | ingress-nginx\_repository | helm repository url of ingress-nginx |
 | keda\_chart\_version | chart version used for keda helmchart |
 | keda\_namespace | Namespace where keda is installed |
 | keda\_repository | helm repository url of keda |
-| namespace | -----------Kubeclarity------------------- |
+| kubeclarity\_chart\_version | n/a |
+| kubeclarity\_namespace | -----------Kubeclarity------------------- |
+| kubeclarity\_repository | n/a |
 | reloader\_chart\_version | Chart version of the reloader Helm Chart. |
 | reloader\_namespace | The namespace where reloader is deployed. |
 | reloader\_repository | Helm chart repository of the reloader. |
-| repository | n/a |
 
 
 
