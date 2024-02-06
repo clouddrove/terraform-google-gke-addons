@@ -230,3 +230,30 @@ kubeclarity:
   EOT
   filename = "${path.module}/override_values/kubeclarity.yaml"
 }
+
+
+#------------------------- EXTERNAL SECRETS -----------------------------
+resource "local_file" "external_secrets_helm_config" {
+  count    = var.external_secrets && (var.external_secrets_helm_config == null) ? 1 : 0
+  content  = <<EOT
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: "cloud.google.com/gke-nodepool"
+          operator: In
+          values:
+          - "critical"
+          
+## Using limits and requests
+resourc_helm_configes:
+  limits:
+    cpu: "100m"
+    memory: "512Mi"
+  requests:
+    cpu: "10m"
+    memory: "128Mi"
+  EOT
+  filename = "${path.module}/override_values/externalsecret.yaml"
+}
