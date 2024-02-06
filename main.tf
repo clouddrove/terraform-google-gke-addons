@@ -21,7 +21,6 @@ module "ingress_nginx" {
   helm_config                 = var.ingress_nginx_helm_config != null ? var.ingress_nginx_helm_config : { values = [local_file.ingress_nginx_helm_config[count.index].content] }
 }
 
-
 module "certification_manager" {
   source                              = "./addons/cert-manager"
   count                               = var.certification_manager ? 1 : 0
@@ -36,7 +35,6 @@ module "keda" {
   helm_config        = var.keda_helm_config != null ? var.keda_helm_config : { values = [local_file.keda_helm_config[count.index].content] }
 }
 
-# External-Secrets
 module "external_secrets" {
   source                         = "./addons/external-secrets"
   count                          = var.external_secret_enabled ? 1 : 0
@@ -47,5 +45,19 @@ module "external_secrets" {
   enable_service_monitor         = var.service_monitor_crd_enabled
   external_secrets_version       = var.external_secrets_version
   helm_config                    = var.external_secrets_helm_config != null && var.external_secret_enabled ? { values = [local_file.external_secrets_helm_config[0].content] } : {}
+}
+  
+module "external_dns" {
+  source                     = "./addons/external-dns"
+  count                      = var.external_dns ? 1 : 0
+  project_id                 = var.project_id
+  external_dns_extra_configs = var.external_dns_extra_configs
+  helm_config                = var.external_dns_helm_config != null ? var.external_dns_helm_config : { values = [local_file.external_dns_helm_config[count.index].content] }
+}
 
+module "kubeclarity" {
+  source                    = "./addons/kubeclarity"
+  count                     = var.kubeclarity ? 1 : 0
+  helm_config               = var.kubeclarity_helm_config != null ? var.kubeclarity_helm_config : { values = [local_file.kubeclarity_helm_config[count.index].content] }
+  kubeclarity_extra_configs = var.kubeclarity_extra_configs
 }

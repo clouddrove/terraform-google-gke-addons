@@ -32,10 +32,21 @@ variable "keda_extra_configs" {
   default = {}
 }
 
-# ------------------ EXTERNAL SECRET -----------------------------------------------------
-
+# ------------------ EXTERNAL SECRET ------------------------------------------
 variable "external_secrets_extra_configs" {
   description = "Override attributes of helm_release terraform resource"
   type        = any
   default     = {}
 }
+
+# ------------------ EXTERNAL DNS ---------------------------------------------
+variable "external_dns_extra_configs" {
+  type    = any
+  default = {}
+}
+#-------------------KUBECLARITY-------------------------------------------------
+variable "kubeclarity_extra_configs" {
+  type    = any
+  default = {}
+}
+

@@ -133,6 +133,9 @@ Here are some examples of how you can use this module in your inventory structur
 | cluster\_autoscaler | Enable Cluster Autoscaler add-on | `bool` | `false` | no |
 | cluster\_autoscaler\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | cluster\_autoscaler\_helm\_config | Path to override-values.yaml for Cluster Autoscaler Helm Chart | `any` | `null` | no |
+| external\_dns | Enable External DNS add-on | `bool` | `false` | no |
+| external\_dns\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| external\_dns\_helm\_config | Path to override-values.yaml for External DNS Helm Chart | `any` | `null` | no |
 | gke\_cluster\_name | gke cluster name | `string` | `""` | no |
 | ingress\_nginx | Enable Nginx ingress add-on | `bool` | `false` | no |
 | ingress\_nginx\_extra\_configs | Nginx ingress extra config | `any` | `{}` | no |
@@ -140,6 +143,9 @@ Here are some examples of how you can use this module in your inventory structur
 | keda | Enable Keda add-on | `bool` | `false` | no |
 | keda\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | keda\_helm\_config | Path to override-values.yaml for Keda Helm Chart | `any` | `null` | no |
+| kubeclarity | Enable Kubeclarity add-on | `bool` | `false` | no |
+| kubeclarity\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| kubeclarity\_helm\_config | Path to override-values.yaml for Kubeclarity Helm Chart | `any` | `null` | no |
 | project\_id | GCP project ID | `string` | n/a | yes |
 | region | cluster region | `string` | `""` | no |
 | reloader | Enable Reloader add-on | `bool` | `false` | no |
@@ -156,12 +162,18 @@ Here are some examples of how you can use this module in your inventory structur
 | cluster\_autoscaler\_chart\_version | chart version used for cluster-autoscaler helmchart |
 | cluster\_autoscaler\_namespace | Namespace where cluster-autoscaler is installed |
 | cluster\_autoscaler\_repository | helm repository url of cluster-autoscaler |
+| external\_dns\_chart\_version | n/a |
+| external\_dns\_namespace | -----------EXTERNAL DNS----------------- |
+| external\_dns\_repository | n/a |
 | ingress-nginx\_chart\_version | chart version used for ingress-nginx helmchart |
 | ingress-nginx\_namespace | Namespace where ingress-nginx is installed |
 | ingress-nginx\_repository | helm repository url of ingress-nginx |
 | keda\_chart\_version | chart version used for keda helmchart |
 | keda\_namespace | Namespace where keda is installed |
 | keda\_repository | helm repository url of keda |
+| kubeclarity\_chart\_version | n/a |
+| kubeclarity\_namespace | -----------Kubeclarity------------------- |
+| kubeclarity\_repository | n/a |
 | reloader\_chart\_version | Chart version of the reloader Helm Chart. |
 | reloader\_namespace | The namespace where reloader is deployed. |
 | reloader\_repository | Helm chart repository of the reloader. |

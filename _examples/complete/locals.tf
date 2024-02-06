@@ -1,5 +1,5 @@
 locals {
-  name            = "helm-addons-test-1"
+  name            = "helm-addons"
   environment     = "test"
   region          = "us-central1"
   cluster_version = "1.29.0-gke.1381000"
