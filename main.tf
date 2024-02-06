@@ -46,7 +46,7 @@ module "external_secrets" {
   external_secrets_version       = var.external_secrets_version
   helm_config                    = var.external_secrets_helm_config != null && var.external_secret_enabled ? { values = [local_file.external_secrets_helm_config[0].content] } : {}
 }
-  
+
 module "external_dns" {
   source                     = "./addons/external-dns"
   count                      = var.external_dns ? 1 : 0

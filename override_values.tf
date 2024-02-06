@@ -164,7 +164,6 @@ resourc_helm_configes:
   filename = "${path.module}/override_values/keda.yaml"
 }
 
-#------------------------- EXTERNAL SECRETS -----------------------------
 #----------------------------- CLUSTER AUTOSCALER ----------------------------
 resource "local_file" "cluster_autoscaler_helm_config" {
   count    = var.cluster_autoscaler && (var.cluster_autoscaler_helm_config == null) ? 1 : 0
@@ -399,9 +398,6 @@ resourc_helm_configes:
   requests:
     cpu: "10m"
     memory: "128Mi"
-  EOT
-  filename = "${path.module}/override_values/externalsecret.yaml"
-}
   EOT
   filename = "${path.module}/override_values/external_dns.yaml"
 }

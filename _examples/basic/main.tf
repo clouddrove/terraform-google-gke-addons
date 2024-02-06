@@ -196,13 +196,7 @@ module "addons" {
   certification_manager   = true
   keda                    = true
   external_secret_enabled = true
-
-  cluster_autoscaler    = true
-  reloader              = true
-  ingress_nginx         = true
-  certification_manager = true
-  keda                  = true
-  kubeclarity           = true
-  external_dns          = true
+  kubeclarity             = true
+  external_dns            = true
 
 }

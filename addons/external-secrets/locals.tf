@@ -2,9 +2,9 @@ locals {
   name = "external-secrets"
 
   default_helm_config = {
-    repository                 = try(var.external_secrets_extra_configs.repository, "https://charts.external-secrets.io/")
-    version                    = try(var.external_secrets_extra_configs.version, "0.9.11")
-    namespace                  = try(var.external_secrets_extra_configs.namespace, "secret")
+    repository = try(var.external_secrets_extra_configs.repository, "https://charts.external-secrets.io/")
+    version    = try(var.external_secrets_extra_configs.version, "0.9.11")
+    namespace  = try(var.external_secrets_extra_configs.namespace, "secret")
 
   }
 
