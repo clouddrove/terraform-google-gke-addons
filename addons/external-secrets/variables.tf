@@ -3,11 +3,6 @@ variable "project_id" {
   type        = string
 }
 
-# variable "name" {
-#   description = "The suffix name for the resources being created."
-#   type        = string
-# }
-
 variable "environment" {
   description = "Environment in which the infrastructure is being deployed (e.g., production, staging, development)"
   type        = string
@@ -19,11 +14,6 @@ variable "GCP_GSA_NAME" {
   default     = "es"
 }
 
-variable "gke_cluster_name" {
-  description = "gke cluster name"
-  type        = string
-  default     = ""
-}
 
 variable "GCP_KSA_NAME" {
   description = "Google Kubernetes Service Account name"
@@ -47,12 +37,6 @@ variable "name" {
   description = "The suffix name for the resources being created."
   type        = string
   default     = "gke-test"
-}
-
-variable "helm_config" {
-  description = "Helm provider config for Metrics Server"
-  type        = any
-  default     = {}
 }
 
 variable "external_secrets_extra_configs" {
