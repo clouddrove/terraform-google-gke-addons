@@ -27,19 +27,14 @@ resource "kubernetes_namespace" "external_secrets" {
     name = "secrets"
   }
 }
-#------------------------------------------------Test part
-# module "helm_addon" {
-#   source      = "../helm"
-#   helm_config = local.helm_config
-# }
-#------------------------------------------------------------
+
 resource "helm_release" "external_secrets" {
   depends_on = [kubernetes_namespace.external_secrets]
   name       = "external-secrets"
   repository = "https://charts.external-secrets.io"
   chart      = "external-secrets"
   namespace  = "secrets"
-  timeout    = 200
+  timeout    = 300
   version    = var.external_secrets_version
 
   values = [

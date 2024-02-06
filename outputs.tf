@@ -54,7 +54,7 @@ output "ingress-nginx_repository" {
   description = "helm repository url of ingress-nginx"
 }
 
-#----------- KEDA ---------------------
+#----------- KEDA ------------------------------------------
 output "keda_namespace" {
   value       = module.keda[*].namespace
   description = "Namespace where keda is installed"
@@ -65,5 +65,21 @@ output "keda_chart_version" {
 }
 output "keda_repository" {
   value       = module.keda[*].repository
+  description = "helm repository url of keda"
+}
+
+#------------------ EXTERNAL-SECRETS ----------------------------------
+output "external_secrets_namespace" {
+  value       = module.external_secrets[*].namespace
+  description = "Namespace where keda is installed"
+}
+
+output "external_secrets_chart_version" {
+  value       = module.external_secrets[*].chart_version
+  description = "chart version used for keda helmchart"
+}
+
+output "external_secrets_repository" {
+  value       = module.external_secrets[*].repository
   description = "helm repository url of keda"
 }

@@ -198,7 +198,7 @@ module "addons" {
   ingress_nginx         = false
   certification_manager = false
   keda                  = false
-  external_secrets      = true
+  external_secrets      = false
 
   # -- Path of override-values.yaml file
   cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }

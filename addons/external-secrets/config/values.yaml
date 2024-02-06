@@ -18,15 +18,8 @@ serviceMonitor:
   additionalLabels:
     release: "prometheus-operator"
 
-# affinity:
-#   nodeAffinity:
-#     requiredDuringSchedulingIgnoredDuringExecution:
-#       nodeSelectorTerms:
-#       - matchExpressions:
-#         - key: "Addon-Services"
-#           operator: In
-#           values:
-#           - "true"
+affinity: {}
+
 
 podDisruptionBudget:
   enabled: true
@@ -37,15 +30,7 @@ webhook:
   create: true
   certCheckInterval: "5m"
   replicaCount: 1
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: "Addon-Services"
-            operator: In
-            values:
-            - "citical"
+  affinity: {}         
   resources: {}
   podAnnotations:
     co.elastic.logs/enabled: "true"
@@ -65,15 +50,7 @@ webhook:
 certController:
   create: true
   requeueInterval: "5m"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: "Addon-Services"
-            operator: In
-            values:
-            - "citical"
+  affinity: {}
   resources: {}
   podAnnotations:
     co.elastic.logs/enabled: "true"

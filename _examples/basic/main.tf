@@ -193,7 +193,7 @@ module "addons" {
   reloader                = false
   ingress_nginx           = false
   certification_manager   = false
-  keda                    = true
-  external_secret_enabled = true
+  keda                    = false
+  external_secret_enabled = false
 
 }
