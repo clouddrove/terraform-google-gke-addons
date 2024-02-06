@@ -7,4 +7,8 @@ locals {
 
   }
 
+  helm_config = merge(
+    local.default_helm_config,
+    var.helm_config,
+  )
 }
