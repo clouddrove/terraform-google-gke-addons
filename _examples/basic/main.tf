@@ -189,14 +189,17 @@ module "addons" {
 
   depends_on       = [module.gke]
   gke_cluster_name = module.gke.name
+  environment      = local.environment
   project_id       = local.gcp_project_id
   region           = local.region
 
-  cluster_autoscaler    = true
-  reloader              = true
-  ingress_nginx         = true
-  certification_manager = true
-  keda                  = true
-  kubeclarity           = true
-  external_dns          = true
+  cluster_autoscaler      = true
+  reloader                = true
+  ingress_nginx           = true
+  certification_manager   = true
+  keda                    = true
+  kubeclarity             = true
+  external_dns            = true
+  external_secret_enabled = true
+
 }
