@@ -193,14 +193,14 @@ module "addons" {
   environment      = local.environment
   region           = local.region
 
-  cluster_autoscaler    = false
-  reloader              = false
-  ingress_nginx         = false
-  certification_manager = false
-  keda                  = false
-  external_dns          = false
-  kubeclarity           = false
-  external_secrets      = false
+  cluster_autoscaler    = true
+  reloader              = true
+  ingress_nginx         = true
+  certification_manager = true
+  keda                  = true
+  external_dns          = true
+  kubeclarity           = true
+  external_secrets      = true
 
 
   # -- Path of override-values.yaml file
