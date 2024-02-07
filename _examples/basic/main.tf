@@ -193,13 +193,13 @@ module "addons" {
   project_id       = local.gcp_project_id
   region           = local.region
 
-  cluster_autoscaler      = true
-  reloader                = true
-  ingress_nginx           = true
-  certification_manager   = true
-  keda                    = true
-  kubeclarity             = true
-  external_dns            = true
-  external_secrets        = true
+  cluster_autoscaler    = true
+  reloader              = true
+  ingress_nginx         = true
+  certification_manager = true
+  keda                  = true
+  kubeclarity           = true
+  external_dns          = true
+  external_secrets      = true
 
 }
