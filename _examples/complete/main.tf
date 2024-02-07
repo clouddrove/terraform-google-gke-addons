@@ -117,7 +117,7 @@ module "gke" {
     {
       name                         = "critical"
       machine_type                 = "g1-small"
-      node_locations               = "${local.region}-b"
+      node_locations               = "${local.region}-c"
       min_count                    = 1
       max_count                    = 3
       local_ssd_count              = 0

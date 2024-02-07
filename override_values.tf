@@ -150,7 +150,7 @@ affinity:
         - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "general-1"
+          - "critical"
           
 ## Using limits and requests
 resourc_helm_configes:

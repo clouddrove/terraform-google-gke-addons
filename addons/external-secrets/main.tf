@@ -1,3 +1,29 @@
+module "helm_addon" {
+  source      = "../helm"
+  helm_config = local.helm_config
+  set_values = [
+    {
+      name  = "templatefile"
+      value = "${path.module}/config/values.yaml"
+    },
+    {
+      name  = "enable_service_monitor"
+      value = "false"
+    },
+    {
+      name  = "service_account_email"
+      value = google_service_account.external_secrets.email
+    },
+  ]
+  # -- workload identity Configurations
+  workload_identity_config = {
+    project_id   = var.project_id
+    GCP_GSA_NAME = "${local.name}-sa"
+    GCP_KSA_NAME = "${local.name}-sa"
+    namespace    = local.default_helm_config.namespace
+  }
+}
+
 resource "google_service_account" "external_secrets" {
   project      = var.project_id
   account_id   = format("%s-%s-%s", var.environment, var.GCP_GSA_NAME, var.name)
@@ -22,25 +48,3 @@ resource "google_service_account_iam_member" "pod_identity" {
   service_account_id = google_service_account.external_secrets.name
 }
 
-resource "kubernetes_namespace" "external_secrets" {
-  metadata {
-    name = "secrets"
-  }
-}
-
-resource "helm_release" "external_secrets" {
-  depends_on = [kubernetes_namespace.external_secrets]
-  name       = "external-secrets"
-  repository = "https://charts.external-secrets.io"
-  chart      = "external-secrets"
-  namespace  = "secrets"
-  timeout    = 300
-  version    = var.external_secrets_version
-
-  values = [
-    templatefile("${path.module}/config/values.yaml", {
-      enable_service_monitor = var.enable_service_monitor,
-      service_account_email  = "${var.environment}-${var.GCP_GSA_NAME}-${var.name}@${var.project_id}.iam.gserviceaccount.com"
-    })
-  ]
-}
