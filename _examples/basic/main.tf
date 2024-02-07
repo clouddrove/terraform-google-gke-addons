@@ -200,6 +200,6 @@ module "addons" {
   keda                    = true
   kubeclarity             = true
   external_dns            = true
-  external_secret_enabled = true
+  external_secrets        = true
 
 }
