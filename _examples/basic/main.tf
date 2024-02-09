@@ -198,7 +198,7 @@ module "addons" {
   certification_manager     = true
   keda                      = true
   kubeclarity               = true
-  external_dns          = true
+  external_dns              = true
   actions_runner_controller = true
 
 }
