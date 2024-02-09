@@ -36,7 +36,7 @@ jobs:
       - name: Generate TF Docs
         uses: terraform-docs/gh-actions@v1.0.0
         with:
-          working-dir: addons/cluster-autoscaler,addons/cert-manager,addons/ingress-nginx,addons/keda,addons/reloader,addons/kubeclarity,addons/action-runner-controller
+          working-dir: addons/cluster-autoscaler,addons/cert-manager,addons/ingress-nginx,addons/keda,addons/reloader,addons/kubeclarity,addons/external-dns,addons/action-runner-controller
           git-push: true
           template: |-
             <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

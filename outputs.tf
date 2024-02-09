@@ -69,15 +69,27 @@ output "keda_repository" {
 }
 
 #-----------Kubeclarity-------------------
-output "namespace" {
+output "kubeclarity_namespace" {
   value = module.kubeclarity[*].namespace
 }
 
-output "chart_version" {
+output "kubeclarity_chart_version" {
   value = module.kubeclarity[*].chart_version
 }
 
-output "repository" {
+output "kubeclarity_repository" {
   value = module.kubeclarity[*].repository
 }
 
+#-----------EXTERNAL DNS-----------------
+output "external_dns_namespace" {
+  value = module.external_dns[*].namespace
+}
+
+output "external_dns_chart_version" {
+  value = module.external_dns[*].chart_version
+}
+
+output "external_dns_repository" {
+  value = module.external_dns[*].repository
+}

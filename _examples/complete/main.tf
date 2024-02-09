@@ -74,7 +74,7 @@ module "gke" {
   source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
   version                           = "29.0.0"
   project_id                        = local.gcp_project_id
-  name                              = local.cluster_name
+  name                              = "${local.name}-cluster"
   region                            = local.region
   kubernetes_version                = local.cluster_version
   zones                             = []
@@ -197,9 +197,9 @@ module "addons" {
   ingress_nginx             = true
   certification_manager     = true
   keda                      = true
+  external_dns              = false
   kubeclarity               = true
   actions_runner_controller = true
-
 
 
   # -- Path of override-values.yaml file
@@ -209,6 +209,7 @@ module "addons" {
   certification_manager_helm_config     = { values = [file("./config/override-certification-manager.yaml")] }
   keda_helm_config                      = { values = [file("./config/keda/override-keda.yaml")] }
   kubeclarity_helm_config               = { values = [file("./config/override-kubeclarity.yaml")] }
+  external_dns_helm_config              = { values = [file("./config/override-external-dns.yaml")] }
   actions_runner_controller_helm_config = { values = [file("./config/override-actions-runner-controller.yaml")] }
 
 
@@ -218,7 +219,7 @@ module "addons" {
   ingress_nginx_extra_configs             = var.ingress_nginx_extra_configs
   certification_manager_extra_configs     = var.certification_manager_extra_configs
   keda_extra_configs                      = var.keda_extra_configs
+  external_dns_extra_configs              = var.external_dns_extra_configs
   kubeclarity_extra_configs               = var.kubeclarity_extra_configs
   actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
-
 }

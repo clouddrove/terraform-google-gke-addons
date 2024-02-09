@@ -32,6 +32,11 @@ variable "keda_extra_configs" {
   default = {}
 }
 
+# ------------------ EXTERNAL DNS --------------------------------------------------
+variable "external_dns_extra_configs" {
+  type    = any
+  default = {}
+}
 #-------------------KUBECLARITY-------------------------------------------------
 variable "kubeclarity_extra_configs" {
   type    = any
