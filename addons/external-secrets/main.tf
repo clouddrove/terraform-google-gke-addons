@@ -35,7 +35,7 @@ resource "google_project_iam_member" "secretadmin" {
     "roles/secretmanager.admin",
     "roles/iam.serviceAccountTokenCreator"
   ])
-  role    = each.key
-  member  = "serviceAccount:${local.name}-sa@${var.project_id}.iam.gserviceaccount.com"
+  role   = each.key
+  member = "serviceAccount:${local.name}-sa@${var.project_id}.iam.gserviceaccount.com"
 }
 
