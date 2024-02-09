@@ -57,16 +57,14 @@ module "addons" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [gcp](#requirement\_aws) | >= 5.10.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.6 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.7.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | >= 5.10.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.10 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_gcp"></a> [gcp](#provider\_gcp) | >= 5.10.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | >= 5.10.0 |
 
 ## Modules
 
@@ -76,23 +74,23 @@ module "addons" {
 
 ## Resources
 
-No resources
+| Name | Type |
+|------|------|
+| [google_project_iam_member.secretadmin](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_project_id"></a> [project\_id](#input\_account\_id) | Project ID of GCP Account | `string` | n/a | yes |
 | <a name="input_external_secrets_extra_configs"></a> [external\_secrets\_extra\_configs](#input\_external\_secrets\_extra\_configs) | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for Metrics Server | `any` | `{}` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Google Cloud project ID | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_chart_version"></a> [chart\_version](#output\_chart\_version) | n/a |
-| <a name="output_iam_policy"></a> [iam\_policy](#output\_iam\_policy) | n/a |
 | <a name="output_namespace"></a> [namespace](#output\_namespace) | n/a |
 | <a name="output_repository"></a> [repository](#output\_repository) | n/a |
-| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
