@@ -14,9 +14,3 @@ variable "external_secrets_extra_configs" {
   type        = any
   default     = {}
 }
-
-variable "external_secrets_helm_config" {
-  description = "Enable or disable external-secrets deployment"
-  type        = any
-  default     = false
-}
