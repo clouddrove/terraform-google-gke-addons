@@ -190,7 +190,6 @@ module "addons" {
 
   gke_cluster_name = module.gke.name
   project_id       = local.gcp_project_id
-  environment      = local.environment
   region           = local.region
 
   cluster_autoscaler    = true

@@ -189,7 +189,6 @@ module "addons" {
 
   depends_on       = [module.gke]
   gke_cluster_name = module.gke.name
-  environment      = local.environment
   project_id       = local.gcp_project_id
   region           = local.region
 
