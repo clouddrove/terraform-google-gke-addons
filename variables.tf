@@ -33,6 +33,7 @@ variable "cluster_autoscaler_extra_configs" {
   type        = any
   default     = {}
 }
+
 #-----------RELOADER------------------
 
 variable "reloader" {

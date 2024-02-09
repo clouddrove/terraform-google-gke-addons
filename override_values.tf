@@ -223,8 +223,7 @@ kubeclarity:
   service:
     type: LoadBalancer
     port: 80
-    annotations: 
-        cloud.google.com/backend-config: '{"default": "my-backendconfig"}'
+    annotations: {}
 
   EOT
   filename = "${path.module}/override_values/kubeclarity.yaml"
