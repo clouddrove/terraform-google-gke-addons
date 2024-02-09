@@ -23,4 +23,4 @@ authSecret:
   create: false
   name: "controller-manager"
   annotations: {}
-  github_token: "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"          ## GitHub token is required to enable action-runner-controller-addon
+  github_token: ""          ## GitHub token is required to enable action-runner-controller-addon

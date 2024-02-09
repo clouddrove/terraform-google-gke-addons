@@ -1,10 +1,9 @@
 locals {
-  name            = "helm-addons-test"
+  name            = "helm-addons"
   environment     = "test"
   region          = "us-central1"
   cluster_version = "1.29.0-gke.1381000"
-  gcp_project_id  = "prod-env-888a"
-  cluster_name    = "test-cluster"
+  gcp_project_id  = "dev-env-3b53"
   tags = {
     Name        = local.name
     Environment = local.environment
