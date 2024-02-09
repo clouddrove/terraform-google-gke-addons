@@ -150,7 +150,7 @@ affinity:
         - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "general-1"
+          - "critical"
           
 ## Using limits and requests
 resourc_helm_configes:
@@ -187,9 +187,8 @@ kubeclarity:
   service:
     type: LoadBalancer
     port: 80
-    annotations: {}
-      # service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-      # service.beta.kubernetes.io/aws-load-balancer-name: "kubeclarity"
+    annotations: 
+        cloud.google.com/backend-config: '{"default": "my-backendconfig"}'
 
   EOT
   filename = "${path.module}/override_values/kubeclarity.yaml"

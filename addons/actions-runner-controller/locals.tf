@@ -5,7 +5,7 @@ locals {
     name                       = try(var.actions_runner_controller_extra_configs.name, local.name)
     chart                      = try(var.actions_runner_controller_extra_configs.chart, local.name)
     repository                 = try(var.actions_runner_controller_extra_configs.repository, "https://actions-runner-controller.github.io/actions-runner-controller")
-    version                    = try(var.actions_runner_controller_extra_configs.version, "0.23.5")
+    version                    = try(var.actions_runner_controller_extra_configs.version, "0.23.7")
     namespace                  = try(var.actions_runner_controller_extra_configs.namespace, "actions-runner-system")
     create_namespace           = try(var.actions_runner_controller_extra_configs.create_namespace, true)
     description                = "Actions Runner Controller helm Chart deployment configuration"
