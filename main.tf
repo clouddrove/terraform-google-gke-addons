@@ -49,3 +49,11 @@ module "kubeclarity" {
   helm_config               = var.kubeclarity_helm_config != null ? var.kubeclarity_helm_config : { values = [local_file.kubeclarity_helm_config[count.index].content] }
   kubeclarity_extra_configs = var.kubeclarity_extra_configs
 }
+
+module "external_secrets" {
+  source                         = "./addons/external-secrets"
+  count                          = var.external_secrets ? 1 : 0
+  external_secrets_extra_configs = var.external_secrets_extra_configs
+  project_id                     = var.project_id
+  helm_config                    = var.external_secrets_helm_config != null ? var.external_secrets_helm_config : { values = [local_file.external_secrets_helm_config[count.index].content] }
+}
