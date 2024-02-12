@@ -84,9 +84,6 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx         = true
     certification_manager = true
     keda                  = true
-    external_dns          = true
-    kubeclarity           = true
-    external_secrets      = true
   }
 ```
 
@@ -104,9 +101,6 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx         = true
     certification_manager = true
     keda                  = true
-    external_dns          = true
-    kubeclarity           = true
-    external_secrets      = true
 
     # -- Path of override-values.yaml file
     cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
@@ -124,9 +118,6 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
     certification_manager_extra_configs = var.certification_manager_extra_configs
     keda_extra_configs                  = var.keda_extra_configs
-    external_dns_extra_configs          = var.external_dns_extra_configs
-    kubeclarity_extra_configs           = var.kubeclarity_extra_configs
-    external_secrets_extra_configs      = var.external_secrets_extra_configs
   }
 ```
 
