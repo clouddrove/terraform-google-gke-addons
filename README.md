@@ -72,7 +72,7 @@ Here are some examples of how you can use this module in your inventory structur
 ### addons basic example
 ```hcl
   module "addons" {
-    source = "clouddrove/gke-addons/google"
+    source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
 
     depends_on       = [module.gke]
     gke_cluster_name = module.gke.name
@@ -90,17 +90,17 @@ Here are some examples of how you can use this module in your inventory structur
   ### addons complete example
 ```hcl
   module "addons" {
-    source = "clouddrove/gke-addons/google"
+    source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
 
     gke_cluster_name = module.gke.name
     project_id       = local.gcp_project_id
     region           = local.region
 
-    cluster_autoscaler    = true
-    reloader              = true
-    ingress_nginx         = true
-    certification_manager = true
-    keda                  = true
+    cluster_autoscaler    = false
+    reloader              = false
+    ingress_nginx         = false
+    certification_manager = false
+    keda                  = false
 
     # -- Path of override-values.yaml file
     cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
