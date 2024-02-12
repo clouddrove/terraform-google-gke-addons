@@ -9,7 +9,7 @@ External DNS manages the following AWS resources
 Below terraform script shows how to use External DNS Terraform Addon, A complete example is also given [here](https://github.com/clouddrove/terraform-helm-eks-addons/blob/master/_examples/complete/main.tf).
 ```hcl
 module "addons" {
-  source  = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+  source  = "clouddrove/gke-addons/google"
   
   depends_on       = [module.gke]
   gke_cluster_name = module.gke.name

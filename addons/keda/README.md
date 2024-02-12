@@ -7,7 +7,7 @@ Below terraform script shows how to use Keda Terraform Addon, A complete example
 
 ```bash
 module "addons" {
-  source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+  source = "clouddrove/gke-addons/google"
 
   depends_on       = [module.gke]
   gke_cluster_name = module.gke.name
