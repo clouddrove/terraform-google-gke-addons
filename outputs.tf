@@ -1,4 +1,4 @@
-#----------- CLUSTER AUTOSCALER ----------------
+#----------- CLUSTER-AUTOSCALER ----------------
 output "cluster_autoscaler_namespace" {
   value       = module.cluster_autoscaler[*].namespace
   description = "Namespace where cluster-autoscaler is installed"
@@ -68,7 +68,7 @@ output "keda_repository" {
   description = "helm repository url of keda"
 }
 
-#-----------Kubeclarity-------------------
+#----------- KUBECLARITY -------------------
 output "kubeclarity_namespace" {
   value = module.kubeclarity[*].namespace
 }
@@ -81,7 +81,7 @@ output "kubeclarity_repository" {
   value = module.kubeclarity[*].repository
 }
 
-#-----------EXTERNAL DNS-----------------
+#----------- EXTERNAL-DNS -----------------
 output "external_dns_namespace" {
   value = module.external_dns[*].namespace
 }
