@@ -108,9 +108,6 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
     certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
     keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
-    external_dns_helm_config          = { values = [file("./config/override-external-dns.yaml")] }
-    kubeclarity_helm_config           = { values = [file("./config/override-kubeclarity.yaml")] }
-    external_secrets_helm_config      = { values = [file("./config/override-externalsecret.yaml")] }
 
     # -- Override Helm Release attributes
     cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
