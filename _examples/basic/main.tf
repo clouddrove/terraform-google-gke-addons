@@ -199,6 +199,8 @@ module "addons" {
   keda                      = true
   kubeclarity               = true
   external_dns              = true
+  external_secrets          = true
   actions_runner_controller = true
+
 
 }

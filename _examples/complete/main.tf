@@ -192,14 +192,17 @@ module "addons" {
   project_id       = local.gcp_project_id
   region           = local.region
 
+
   cluster_autoscaler        = true
   reloader                  = true
   ingress_nginx             = true
   certification_manager     = true
   keda                      = true
-  external_dns              = false
+  external_dns              = true
   kubeclarity               = true
+  external_secrets          = true
   actions_runner_controller = true
+
 
 
   # -- Path of override-values.yaml file
@@ -208,9 +211,11 @@ module "addons" {
   ingress_nginx_helm_config             = { values = [file("./config/override-ingress-nginx.yaml")] }
   certification_manager_helm_config     = { values = [file("./config/override-certification-manager.yaml")] }
   keda_helm_config                      = { values = [file("./config/keda/override-keda.yaml")] }
-  kubeclarity_helm_config               = { values = [file("./config/override-kubeclarity.yaml")] }
   external_dns_helm_config              = { values = [file("./config/override-external-dns.yaml")] }
+  kubeclarity_helm_config               = { values = [file("./config/override-kubeclarity.yaml")] }
+  external_secrets_helm_config          = { values = [file("./config/override-externalsecret.yaml")] }
   actions_runner_controller_helm_config = { values = [file("./config/override-actions-runner-controller.yaml")] }
+
 
 
   # -- Override Helm Release attributes
@@ -221,5 +226,8 @@ module "addons" {
   keda_extra_configs                      = var.keda_extra_configs
   external_dns_extra_configs              = var.external_dns_extra_configs
   kubeclarity_extra_configs               = var.kubeclarity_extra_configs
+  external_secrets_extra_configs          = var.external_secrets_extra_configs
   actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
+
+
 }

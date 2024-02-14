@@ -50,6 +50,14 @@ module "kubeclarity" {
   kubeclarity_extra_configs = var.kubeclarity_extra_configs
 }
 
+module "external_secrets" {
+  source                         = "./addons/external-secrets"
+  count                          = var.external_secrets ? 1 : 0
+  external_secrets_extra_configs = var.external_secrets_extra_configs
+  project_id                     = var.project_id
+  helm_config                    = var.external_secrets_helm_config != null ? var.external_secrets_helm_config : { values = [local_file.external_secrets_helm_config[count.index].content] }
+}
+
 module "actions_runner_controller" {
   depends_on                              = [module.certification_manager]
   count                                   = var.actions_runner_controller ? 1 : 0

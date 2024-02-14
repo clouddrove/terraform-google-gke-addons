@@ -33,7 +33,6 @@ variable "cluster_autoscaler_extra_configs" {
   type        = any
   default     = {}
 }
-
 #-----------RELOADER------------------
 
 variable "reloader" {
@@ -146,6 +145,25 @@ variable "kubeclarity_helm_config" {
 }
 
 variable "kubeclarity_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
+}
+
+#---------------EXTERNAL-SECRET--------------------
+variable "external_secrets" {
+  description = "Enable or disable external-secrets deployment"
+  type        = bool
+  default     = false
+}
+
+variable "external_secrets_helm_config" {
+  description = "Path to override-values.yaml for External-Secrets Helm Chart"
+  type        = any
+  default     = null
+}
+
+variable "external_secrets_extra_configs" {
   description = "Override attributes of helm_release terraform resource"
   type        = any
   default     = {}
