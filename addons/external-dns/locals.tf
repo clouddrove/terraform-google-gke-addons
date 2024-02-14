@@ -5,10 +5,10 @@ locals {
     name                       = try(var.external_dns_extra_configs.name, local.name)
     chart                      = try(var.external_dns_extra_configs.chart, local.name)
     repository                 = try(var.external_dns_extra_configs.repository, "https://charts.bitnami.com/bitnami")
-    version                    = try(var.external_dns_extra_configs.version, "6.26.5")
+    version                    = try(var.external_dns_extra_configs.version, "9.11.0")
     namespace                  = try(var.external_dns_extra_configs.namespace, "kube-system")
     description                = "External DNS Chart deployment configuration"
-    timeout                    = try(var.external_dns_extra_configs.timeout, "600")
+    timeout                    = try(var.external_dns_extra_configs.timeout, "300")
     lint                       = try(var.external_dns_extra_configs.lint, "false")
     repository_key_file        = try(var.external_dns_extra_configs.repository_key_file, "")
     repository_cert_file       = try(var.external_dns_extra_configs.repository_cert_file, "")

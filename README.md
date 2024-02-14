@@ -136,6 +136,9 @@ Here are some examples of how you can use this module in your inventory structur
 | external\_dns | Enable External DNS add-on | `bool` | `false` | no |
 | external\_dns\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | external\_dns\_helm\_config | Path to override-values.yaml for External DNS Helm Chart | `any` | `null` | no |
+| external\_secrets | Enable or disable external-secrets deployment | `bool` | `false` | no |
+| external\_secrets\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| external\_secrets\_helm\_config | Path to override-values.yaml for External-Secrets Helm Chart | `any` | `null` | no |
 | gke\_cluster\_name | gke cluster name | `string` | `""` | no |
 | ingress\_nginx | Enable Nginx ingress add-on | `bool` | `false` | no |
 | ingress\_nginx\_extra\_configs | Nginx ingress extra config | `any` | `{}` | no |
@@ -165,6 +168,9 @@ Here are some examples of how you can use this module in your inventory structur
 | external\_dns\_chart\_version | n/a |
 | external\_dns\_namespace | -----------EXTERNAL DNS----------------- |
 | external\_dns\_repository | n/a |
+| external\_secrets\_chart\_version | chart version used for keda helmchart |
+| external\_secrets\_namespace | Namespace where keda is installed |
+| external\_secrets\_repository | helm repository url of keda |
 | ingress-nginx\_chart\_version | chart version used for ingress-nginx helmchart |
 | ingress-nginx\_namespace | Namespace where ingress-nginx is installed |
 | ingress-nginx\_repository | helm repository url of ingress-nginx |

@@ -204,7 +204,6 @@ module "addons" {
   actions_runner_controller = true
 
 
-
   # -- Path of override-values.yaml file
   cluster_autoscaler_helm_config        = { values = [file("./config/override-cluster-autoscaler.yaml")] }
   reloader_helm_config                  = { values = [file("./config/reloader/override-reloader.yaml")] }
@@ -217,7 +216,6 @@ module "addons" {
   actions_runner_controller_helm_config = { values = [file("./config/override-actions-runner-controller.yaml")] }
 
 
-
   # -- Override Helm Release attributes
   cluster_autoscaler_extra_configs        = var.cluster_autoscaler_extra_configs
   reloader_extra_configs                  = var.reloader_extra_configs
@@ -228,6 +226,5 @@ module "addons" {
   kubeclarity_extra_configs               = var.kubeclarity_extra_configs
   external_secrets_extra_configs          = var.external_secrets_extra_configs
   actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
-
 
 }

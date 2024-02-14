@@ -150,6 +150,7 @@ variable "kubeclarity_extra_configs" {
   default     = {}
 }
 
+
 #---------------EXTERNAL-SECRET--------------------
 variable "external_secrets" {
   description = "Enable or disable external-secrets deployment"

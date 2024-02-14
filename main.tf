@@ -65,3 +65,4 @@ module "actions_runner_controller" {
   helm_config                             = var.actions_runner_controller_helm_config != null ? var.actions_runner_controller_helm_config : { values = [local_file.actions_runner_controller_helm_config[count.index].content] }
   actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
 }
+

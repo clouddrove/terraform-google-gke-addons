@@ -123,3 +123,4 @@ output "actions_runner_controller_repository" {
   value       = module.actions_runner_controller[*].repository
   description = "Helm chart repository of the actions_runner_controller."
 }
+
