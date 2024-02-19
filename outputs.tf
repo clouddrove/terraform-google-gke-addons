@@ -68,7 +68,7 @@ output "keda_repository" {
   description = "helm repository url of keda"
 }
 
-#-----------Kubeclarity-------------------
+#----------- KUBECLARITY -------------------
 output "kubeclarity_namespace" {
   value = module.kubeclarity[*].namespace
 }
@@ -81,7 +81,7 @@ output "kubeclarity_repository" {
   value = module.kubeclarity[*].repository
 }
 
-#-----------EXTERNAL DNS-----------------
+#----------- EXTERNAL DNS -----------------
 output "external_dns_namespace" {
   value = module.external_dns[*].namespace
 }
@@ -93,6 +93,18 @@ output "external_dns_chart_version" {
 output "external_dns_repository" {
   value = module.external_dns[*].repository
 }
+
+#----------- FILEBEAT -----------------
+output "filebeat_namespace" {
+  value = module.filebeat[*].namespace
+}
+
+output "filebeat_chart_version" {
+  value = module.filebeat[*].chart_version
+}
+
+output "filebeat_repository" {
+  value = module.filebeat[*].repository
 
 #------------------ EXTERNAL-SECRETS ----------------------------------
 output "external_secrets_namespace" {
