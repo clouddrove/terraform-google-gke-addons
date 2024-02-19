@@ -200,4 +200,5 @@ module "addons" {
   kubeclarity           = true
   external_dns          = true
   filebeat              = true
+  external_secrets      = true
 }

@@ -37,14 +37,20 @@ variable "external_dns_extra_configs" {
   type    = any
   default = {}
 }
-#-------------------KUBECLARITY-------------------------------------------------
+#------------------- KUBECLARITY -------------------------------------------------
 variable "kubeclarity_extra_configs" {
   type    = any
   default = {}
 }
 
-#-------------------KUBECLARITY-------------------------------------------------
+#------------------- FILEBEAT -------------------------------------------------
 variable "filebeat_extra_configs" {
   type    = any
   default = {}
+
+# ------------------ EXTERNAL SECRET ------------------------------------------
+variable "external_secrets_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
 }

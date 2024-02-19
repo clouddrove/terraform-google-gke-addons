@@ -56,3 +56,11 @@ module "filebeat" {
   helm_config            = var.filebeat_helm_config != null ? var.filebeat_helm_config : { values = [local_file.filebeat_helm_config[count.index].content] }
   filebeat_extra_configs = var.filebeat_extra_configs
 }
+
+module "external_secrets" {
+  source                         = "./addons/external-secrets"
+  count                          = var.external_secrets ? 1 : 0
+  external_secrets_extra_configs = var.external_secrets_extra_configs
+  project_id                     = var.project_id
+  helm_config                    = var.external_secrets_helm_config != null ? var.external_secrets_helm_config : { values = [local_file.external_secrets_helm_config[count.index].content] }
+}

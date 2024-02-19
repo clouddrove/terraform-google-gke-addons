@@ -105,4 +105,19 @@ output "filebeat_chart_version" {
 
 output "filebeat_repository" {
   value = module.filebeat[*].repository
+
+#------------------ EXTERNAL-SECRETS ----------------------------------
+output "external_secrets_namespace" {
+  value       = module.external_secrets[*].namespace
+  description = "Namespace where keda is installed"
+}
+
+output "external_secrets_chart_version" {
+  value       = module.external_secrets[*].chart_version
+  description = "chart version used for keda helmchart"
+}
+
+output "external_secrets_repository" {
+  value       = module.external_secrets[*].repository
+  description = "helm repository url of keda"
 }
