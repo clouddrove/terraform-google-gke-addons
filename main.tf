@@ -49,3 +49,10 @@ module "kubeclarity" {
   helm_config               = var.kubeclarity_helm_config != null ? var.kubeclarity_helm_config : { values = [local_file.kubeclarity_helm_config[count.index].content] }
   kubeclarity_extra_configs = var.kubeclarity_extra_configs
 }
+
+module "filebeat" {
+  source                 = "./addons/filebeat"
+  count                  = var.filebeat ? 1 : 0
+  helm_config            = var.filebeat_helm_config != null ? var.filebeat_helm_config : { values = [local_file.filebeat_helm_config[count.index].content] }
+  filebeat_extra_configs = var.filebeat_extra_configs
+}

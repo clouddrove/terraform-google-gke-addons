@@ -192,13 +192,14 @@ module "addons" {
   project_id       = local.gcp_project_id
   region           = local.region
 
-  cluster_autoscaler    = false
-  reloader              = false
-  ingress_nginx         = false
-  certification_manager = false
-  keda                  = false
-  external_dns          = false
-  kubeclarity           = false
+  cluster_autoscaler    = true
+  reloader              = true
+  ingress_nginx         = true
+  certification_manager = true
+  keda                  = true
+  external_dns          = true
+  kubeclarity           = true
+  filebeat              = true
 
   # -- Path of override-values.yaml file
   cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
@@ -208,6 +209,8 @@ module "addons" {
   keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
   external_dns_helm_config          = { values = [file("./config/override-external-dns.yaml")] }
   kubeclarity_helm_config           = { values = [file("./config/override-kubeclarity.yaml")] }
+  filebeat_helm_config              = { values = [file("./config/overide-filebeat.yaml")] }
+
 
   # -- Override Helm Release attributes
   cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
@@ -217,4 +220,5 @@ module "addons" {
   keda_extra_configs                  = var.keda_extra_configs
   external_dns_extra_configs          = var.external_dns_extra_configs
   kubeclarity_extra_configs           = var.kubeclarity_extra_configs
+  filebeat_extra_configs              = var.filebeat_extra_configs
 }
