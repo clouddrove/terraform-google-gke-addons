@@ -277,6 +277,7 @@ deployment:
 
   EOT
   filename = "${path.module}/override_values/filebeat.yaml"
+}
 
 #------------------------- EXTERNAL SECRETS -----------------------------
 resource "local_file" "external_secrets_helm_config" {
