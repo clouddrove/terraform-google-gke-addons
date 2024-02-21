@@ -47,6 +47,7 @@ variable "kubeclarity_extra_configs" {
 variable "filebeat_extra_configs" {
   type    = any
   default = {}
+}
 
 # ------------------ EXTERNAL SECRET ------------------------------------------
 variable "external_secrets_extra_configs" {
