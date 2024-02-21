@@ -105,6 +105,7 @@ output "filebeat_chart_version" {
 
 output "filebeat_repository" {
   value = module.filebeat[*].repository
+}
 
 #------------------ EXTERNAL-SECRETS ----------------------------------
 output "external_secrets_namespace" {
