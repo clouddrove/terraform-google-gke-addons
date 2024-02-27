@@ -1,4 +1,3 @@
-
 provider "google" {
   project = local.gcp_project_id
 }
@@ -43,14 +42,14 @@ module "vpc" {
   secondary_ranges = {
     subnet-public-1 = [
       {
-        range_name    = "gke-helm-addons-cluster-pods-a7bee42e"
-        ip_cidr_range = "10.124.0.0/14"
+        range_name    = "${local.name}-subnet-private-1-secondary-01"
+        ip_cidr_range = "192.168.64.0/24"
       },
     ],
     subnet-public-2 = [
       {
-        range_name    = "gke-helm-addons-cluster-services-a7bee42e"
-        ip_cidr_range = "10.128.0.0/20"
+        range_name    = "${local.name}-subnet-private-2-secondary-01"
+        ip_cidr_range = "192.168.128.0/24"
       },
     ]
   }
@@ -199,6 +198,6 @@ module "addons" {
   keda                  = true
   kubeclarity           = true
   external_dns          = true
-  filebeat              = true
   external_secrets      = true
+
 }
