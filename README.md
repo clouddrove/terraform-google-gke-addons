@@ -72,7 +72,7 @@ Here are some examples of how you can use this module in your inventory structur
 ### addons basic example
 ```hcl
   module "addons" {
-    source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+    source = "clouddrove/gke-addons/google"
 
     depends_on       = [module.gke]
     gke_cluster_name = module.gke.name
@@ -84,23 +84,29 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx         = true
     certification_manager = true
     keda                  = true
+    external_dns          = true
+    kubeclarity           = true
+    external_secrets      = true
   }
 ```
 
   ### addons complete example
 ```hcl
   module "addons" {
-    source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+    source = "clouddrove/gke-addons/google"
 
     gke_cluster_name = module.gke.name
     project_id       = local.gcp_project_id
     region           = local.region
 
-    cluster_autoscaler    = false
-    reloader              = false
-    ingress_nginx         = false
-    certification_manager = false
-    keda                  = false
+    cluster_autoscaler    = true
+    reloader              = true
+    ingress_nginx         = true
+    certification_manager = true
+    keda                  = true
+    external_dns          = true
+    kubeclarity           = true
+    external_secrets      = true
 
     # -- Path of override-values.yaml file
     cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
@@ -108,6 +114,9 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
     certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
     keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
+    external_dns_helm_config          = { values = [file("./config/override-external-dns.yaml")] }
+    kubeclarity_helm_config           = { values = [file("./config/override-kubeclarity.yaml")] }
+    external_secrets_helm_config      = { values = [file("./config/override-externalsecret.yaml")] }
 
     # -- Override Helm Release attributes
     cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
@@ -115,6 +124,9 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
     certification_manager_extra_configs = var.certification_manager_extra_configs
     keda_extra_configs                  = var.keda_extra_configs
+    external_dns_extra_configs          = var.external_dns_extra_configs
+    kubeclarity_extra_configs           = var.kubeclarity_extra_configs
+    external_secrets_extra_configs      = var.external_secrets_extra_configs
   }
 ```
 
@@ -166,7 +178,7 @@ Here are some examples of how you can use this module in your inventory structur
 | cluster\_autoscaler\_namespace | Namespace where cluster-autoscaler is installed |
 | cluster\_autoscaler\_repository | helm repository url of cluster-autoscaler |
 | external\_dns\_chart\_version | n/a |
-| external\_dns\_namespace | -----------EXTERNAL DNS----------------- |
+| external\_dns\_namespace | ----------- EXTERNAL-DNS ----------------- |
 | external\_dns\_repository | n/a |
 | external\_secrets\_chart\_version | chart version used for keda helmchart |
 | external\_secrets\_namespace | Namespace where keda is installed |
@@ -178,7 +190,7 @@ Here are some examples of how you can use this module in your inventory structur
 | keda\_namespace | Namespace where keda is installed |
 | keda\_repository | helm repository url of keda |
 | kubeclarity\_chart\_version | n/a |
-| kubeclarity\_namespace | -----------Kubeclarity------------------- |
+| kubeclarity\_namespace | ----------- KUBECLARITY ------------------- |
 | kubeclarity\_repository | n/a |
 | reloader\_chart\_version | Chart version of the reloader Helm Chart. |
 | reloader\_namespace | The namespace where reloader is deployed. |
