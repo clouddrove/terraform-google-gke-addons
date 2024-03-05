@@ -1,4 +1,4 @@
-#----------- CLUSTER AUTOSCALER ----------------
+#----------- CLUSTER-AUTOSCALER ----------------
 output "cluster_autoscaler_namespace" {
   value       = module.cluster_autoscaler[*].namespace
   description = "Namespace where cluster-autoscaler is installed"
@@ -84,7 +84,7 @@ output "kubeclarity_repository" {
   description = "helm repository url of kubeclarity"
 }
 
-#----------- EXTERNAL DNS -----------------
+#----------- EXTERNAL-DNS -----------------
 output "external_dns_namespace" {
   value       = module.external_dns[*].namespace
   description = "Namespace where external DNS is installed"
