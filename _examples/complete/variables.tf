@@ -37,8 +37,14 @@ variable "external_dns_extra_configs" {
   type    = any
   default = {}
 }
-#-------------------KUBECLARITY-------------------------------------------------
+#------------------- KUBECLARITY -------------------------------------------------
 variable "kubeclarity_extra_configs" {
+  type    = any
+  default = {}
+}
+
+#------------------- FILEBEAT -------------------------------------------------
+variable "filebeat_extra_configs" {
   type    = any
   default = {}
 }

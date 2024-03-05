@@ -70,42 +70,64 @@ output "keda_repository" {
 
 #----------- KUBECLARITY -------------------
 output "kubeclarity_namespace" {
-  value = module.kubeclarity[*].namespace
+  value       = module.kubeclarity[*].namespace
+  description = "Namespace where kubeclarity is installed"
 }
 
 output "kubeclarity_chart_version" {
-  value = module.kubeclarity[*].chart_version
+  value       = module.kubeclarity[*].chart_version
+  description = "chart version used for kubeclarity helmchart"
 }
 
 output "kubeclarity_repository" {
-  value = module.kubeclarity[*].repository
+  value       = module.kubeclarity[*].repository
+  description = "helm repository url of kubeclarity"
 }
 
 #----------- EXTERNAL-DNS -----------------
 output "external_dns_namespace" {
-  value = module.external_dns[*].namespace
+  value       = module.external_dns[*].namespace
+  description = "Namespace where external DNS is installed"
 }
 
 output "external_dns_chart_version" {
-  value = module.external_dns[*].chart_version
+  value       = module.external_dns[*].chart_version
+  description = "chart version used for external DNS helmchart"
 }
 
 output "external_dns_repository" {
-  value = module.external_dns[*].repository
+  value       = module.external_dns[*].repository
+  description = "helm repository url of external DNS"
+}
+
+#----------- FILEBEAT -----------------
+output "filebeat_namespace" {
+  value       = module.filebeat[*].namespace
+  description = "Namespace where filebeat is installed"
+}
+
+output "filebeat_chart_version" {
+  value       = module.filebeat[*].chart_version
+  description = "chart version used for filebeat helmchart"
+}
+
+output "filebeat_repository" {
+  value       = module.filebeat[*].repository
+  description = "helm repository url of filebeat"
 }
 
 #------------------ EXTERNAL-SECRETS ----------------------------------
 output "external_secrets_namespace" {
   value       = module.external_secrets[*].namespace
-  description = "Namespace where keda is installed"
+  description = "Namespace where external secrets is installed"
 }
 
 output "external_secrets_chart_version" {
   value       = module.external_secrets[*].chart_version
-  description = "chart version used for keda helmchart"
+  description = "chart version used for external secrets helmchart"
 }
 
 output "external_secrets_repository" {
   value       = module.external_secrets[*].repository
-  description = "helm repository url of keda"
+  description = "helm repository url of external secrets"
 }
