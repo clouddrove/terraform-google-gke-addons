@@ -112,7 +112,7 @@ variable "keda_extra_configs" {
   default     = {}
 }
 
-#----------- EXTERNAL DNS ----------------------------
+#-----------EXTERNAL DNS----------------------------
 variable "external_dns" {
   description = "Enable External DNS add-on"
   type        = bool
@@ -150,6 +150,24 @@ variable "kubeclarity_extra_configs" {
   default     = {}
 }
 
+#-----------FILEBEAT---------------------------
+variable "filebeat" {
+  description = "Enable filebeat add-on"
+  type        = bool
+  default     = false
+}
+
+variable "filebeat_helm_config" {
+  description = "Path to override-values.yaml for filebeat Helm Chart"
+  type        = any
+  default     = null
+}
+
+variable "filebeat_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
+}
 
 #---------------EXTERNAL-SECRET--------------------
 variable "external_secrets" {

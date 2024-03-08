@@ -50,6 +50,13 @@ module "kubeclarity" {
   kubeclarity_extra_configs = var.kubeclarity_extra_configs
 }
 
+module "filebeat" {
+  source                 = "./addons/filebeat"
+  count                  = var.filebeat ? 1 : 0
+  helm_config            = var.filebeat_helm_config != null ? var.filebeat_helm_config : { values = [local_file.filebeat_helm_config[count.index].content] }
+  filebeat_extra_configs = var.filebeat_extra_configs
+}
+
 module "external_secrets" {
   source                         = "./addons/external-secrets"
   count                          = var.external_secrets ? 1 : 0
@@ -65,4 +72,5 @@ module "actions_runner_controller" {
   helm_config                             = var.actions_runner_controller_helm_config != null ? var.actions_runner_controller_helm_config : { values = [local_file.actions_runner_controller_helm_config[count.index].content] }
   actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
 }
+
 

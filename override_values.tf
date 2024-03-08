@@ -231,6 +231,53 @@ kubeclarity:
   filename = "${path.module}/override_values/kubeclarity.yaml"
 }
 
+#-------------------------- FILEBEAT --------------------------------------
+resource "local_file" "filebeat_helm_config" {
+  count    = var.filebeat && (var.filebeat_helm_config == null) ? 1 : 0
+  content  = <<EOT
+
+daemonset:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "cloud.google.com/gke-nodepool"
+            operator: In
+            values:
+            - "critical"
+  ## Using limits and requests
+  resources:
+    limits:
+      cpu: "300m"
+      memory: "200Mi"
+    requests:
+      cpu: 100m
+      memory: 100Mi
+
+deployment:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "cloud.google.com/gke-nodepool"
+            operator: In
+            values:
+            - "critical"
+
+  ## Using limits and requests
+  resources:
+    limits:
+      cpu: "300m"
+      memory: "200Mi"
+    requests:
+      cpu: 100m
+      memory: 100Mi
+
+  EOT
+  filename = "${path.module}/override_values/filebeat.yaml"
+}
 
 #------------------------- EXTERNAL SECRETS -----------------------------
 resource "local_file" "external_secrets_helm_config" {

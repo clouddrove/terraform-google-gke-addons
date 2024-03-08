@@ -72,7 +72,7 @@ Here are some examples of how you can use this module in your inventory structur
 ### addons basic example
 ```hcl
   module "addons" {
-    source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+    source = "clouddrove/gke-addons/google"
 
     depends_on       = [module.gke]
     gke_cluster_name = module.gke.name
@@ -84,23 +84,31 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx         = true
     certification_manager = true
     keda                  = true
+    filebeat              = true
+    external_dns          = true
+    kubeclarity           = true
+    external_secrets      = true
   }
 ```
 
   ### addons complete example
 ```hcl
   module "addons" {
-    source = "git::https://github.dev/clouddrove/terraform-google-gke-addons"
+    source = "clouddrove/gke-addons/google"
 
     gke_cluster_name = module.gke.name
     project_id       = local.gcp_project_id
     region           = local.region
-
-    cluster_autoscaler    = false
-    reloader              = false
-    ingress_nginx         = false
-    certification_manager = false
-    keda                  = false
+    
+    cluster_autoscaler    = true
+    reloader              = true
+    ingress_nginx         = true
+    certification_manager = true
+    keda                  = true
+    filebeat              = true
+    external_dns          = true
+    kubeclarity           = true
+    external_secrets      = true
 
     # -- Path of override-values.yaml file
     cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
@@ -108,6 +116,10 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
     certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
     keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
+    filebeat_helm_config              = { values = [file("./config/overide-filebeat.yaml")] }
+    external_dns_helm_config          = { values = [file("./config/override-external-dns.yaml")] }
+    kubeclarity_helm_config           = { values = [file("./config/override-kubeclarity.yaml")] }
+    external_secrets_helm_config      = { values = [file("./config/override-externalsecret.yaml")] }
 
     # -- Override Helm Release attributes
     cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
@@ -115,6 +127,10 @@ Here are some examples of how you can use this module in your inventory structur
     ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
     certification_manager_extra_configs = var.certification_manager_extra_configs
     keda_extra_configs                  = var.keda_extra_configs
+    filebeat_extra_configs              = var.filebeat_extra_configs
+    external_dns_extra_configs          = var.external_dns_extra_configs
+    kubeclarity_extra_configs           = var.kubeclarity_extra_configs
+    external_secrets_extra_configs      = var.external_secrets_extra_configs
   }
 ```
 
@@ -139,6 +155,9 @@ Here are some examples of how you can use this module in your inventory structur
 | external\_secrets | Enable or disable external-secrets deployment | `bool` | `false` | no |
 | external\_secrets\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | external\_secrets\_helm\_config | Path to override-values.yaml for External-Secrets Helm Chart | `any` | `null` | no |
+| filebeat | Enable filebeat add-on | `bool` | `false` | no |
+| filebeat\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| filebeat\_helm\_config | Path to override-values.yaml for filebeat Helm Chart | `any` | `null` | no |
 | gke\_cluster\_name | gke cluster name | `string` | `""` | no |
 | ingress\_nginx | Enable Nginx ingress add-on | `bool` | `false` | no |
 | ingress\_nginx\_extra\_configs | Nginx ingress extra config | `any` | `{}` | no |
@@ -165,21 +184,24 @@ Here are some examples of how you can use this module in your inventory structur
 | cluster\_autoscaler\_chart\_version | chart version used for cluster-autoscaler helmchart |
 | cluster\_autoscaler\_namespace | Namespace where cluster-autoscaler is installed |
 | cluster\_autoscaler\_repository | helm repository url of cluster-autoscaler |
-| external\_dns\_chart\_version | n/a |
-| external\_dns\_namespace | -----------EXTERNAL DNS----------------- |
-| external\_dns\_repository | n/a |
-| external\_secrets\_chart\_version | chart version used for keda helmchart |
-| external\_secrets\_namespace | Namespace where keda is installed |
-| external\_secrets\_repository | helm repository url of keda |
+| external\_dns\_chart\_version | chart version used for external DNS helmchart |
+| external\_dns\_namespace | Namespace where external DNS is installed |
+| external\_dns\_repository | helm repository url of external DNS |
+| external\_secrets\_chart\_version | chart version used for external secrets helmchart |
+| external\_secrets\_namespace | Namespace where external secrets is installed |
+| external\_secrets\_repository | helm repository url of external secrets |
+| filebeat\_chart\_version | chart version used for filebeat helmchart |
+| filebeat\_namespace | Namespace where filebeat is installed |
+| filebeat\_repository | helm repository url of filebeat |
 | ingress-nginx\_chart\_version | chart version used for ingress-nginx helmchart |
 | ingress-nginx\_namespace | Namespace where ingress-nginx is installed |
 | ingress-nginx\_repository | helm repository url of ingress-nginx |
 | keda\_chart\_version | chart version used for keda helmchart |
 | keda\_namespace | Namespace where keda is installed |
 | keda\_repository | helm repository url of keda |
-| kubeclarity\_chart\_version | n/a |
-| kubeclarity\_namespace | -----------Kubeclarity------------------- |
-| kubeclarity\_repository | n/a |
+| kubeclarity\_chart\_version | chart version used for kubeclarity helmchart |
+| kubeclarity\_namespace | Namespace where kubeclarity is installed |
+| kubeclarity\_repository | helm repository url of kubeclarity |
 | reloader\_chart\_version | Chart version of the reloader Helm Chart. |
 | reloader\_namespace | The namespace where reloader is deployed. |
 | reloader\_repository | Helm chart repository of the reloader. |
