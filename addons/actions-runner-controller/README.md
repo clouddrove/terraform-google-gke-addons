@@ -42,6 +42,7 @@ Refer to this link for Cert Manager Installation via Helm [certification manager
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | >= 5.10.0 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.10 |
 
 ## Providers
@@ -62,9 +63,8 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_action_runner_controller_extra_configs"></a> [action_runner\_controller\_extra\_configs](#input\_external\_dns\_extra\_configs) | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
-| <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for External DNS | `any` | `{}` | no |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | GCP project ID | `string` | n/a | yes |
+| <a name="input_actions_runner_controller_extra_configs"></a> [actions\_runner\_controller\_extra\_configs](#input\_actions\_runner\_controller\_extra\_configs) | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for Actions Runner Controller | `any` | `{}` | no |
 
 ## Outputs
 
