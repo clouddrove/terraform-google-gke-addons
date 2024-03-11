@@ -64,3 +64,13 @@ module "external_secrets" {
   project_id                     = var.project_id
   helm_config                    = var.external_secrets_helm_config != null ? var.external_secrets_helm_config : { values = [local_file.external_secrets_helm_config[count.index].content] }
 }
+
+module "actions_runner_controller" {
+  depends_on                              = [module.certification_manager]
+  count                                   = var.actions_runner_controller ? 1 : 0
+  source                                  = "./addons/actions-runner-controller"
+  helm_config                             = var.actions_runner_controller_helm_config != null ? var.actions_runner_controller_helm_config : { values = [local_file.actions_runner_controller_helm_config[count.index].content] }
+  actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
+}
+
+

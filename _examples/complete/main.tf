@@ -192,38 +192,42 @@ module "addons" {
   project_id       = local.gcp_project_id
   region           = local.region
 
-  cluster_autoscaler    = true
-  reloader              = true
-  ingress_nginx         = true
-  certification_manager = true
-  keda                  = true
-  external_dns          = true
-  kubeclarity           = true
-  filebeat              = true
-  external_secrets      = true
+
+  cluster_autoscaler        = true
+  reloader                  = true
+  ingress_nginx             = true
+  certification_manager     = true
+  keda                      = true
+  external_dns              = true
+  kubeclarity               = true
+  filebeat                  = true
+  external_secrets          = true
+  actions_runner_controller = true
 
 
   # -- Path of override-values.yaml file
-  cluster_autoscaler_helm_config    = { values = [file("./config/override-cluster-autoscaler.yaml")] }
-  reloader_helm_config              = { values = [file("./config/reloader/override-reloader.yaml")] }
-  ingress_nginx_helm_config         = { values = [file("./config/override-ingress-nginx.yaml")] }
-  certification_manager_helm_config = { values = [file("./config/override-certification-manager.yaml")] }
-  keda_helm_config                  = { values = [file("./config/keda/override-keda.yaml")] }
-  external_dns_helm_config          = { values = [file("./config/override-external-dns.yaml")] }
-  kubeclarity_helm_config           = { values = [file("./config/override-kubeclarity.yaml")] }
-  filebeat_helm_config              = { values = [file("./config/overide-filebeat.yaml")] }
-  external_secrets_helm_config      = { values = [file("./config/override-externalsecret.yaml")] }
+  cluster_autoscaler_helm_config        = { values = [file("./config/override-cluster-autoscaler.yaml")] }
+  reloader_helm_config                  = { values = [file("./config/reloader/override-reloader.yaml")] }
+  ingress_nginx_helm_config             = { values = [file("./config/override-ingress-nginx.yaml")] }
+  certification_manager_helm_config     = { values = [file("./config/override-certification-manager.yaml")] }
+  keda_helm_config                      = { values = [file("./config/keda/override-keda.yaml")] }
+  external_dns_helm_config              = { values = [file("./config/override-external-dns.yaml")] }
+  kubeclarity_helm_config               = { values = [file("./config/override-kubeclarity.yaml")] }
+  filebeat_helm_config                  = { values = [file("./config/overide-filebeat.yaml")] }
+  external_secrets_helm_config          = { values = [file("./config/override-externalsecret.yaml")] }
+  actions_runner_controller_helm_config = { values = [file("./config/override-actions-runner-controller.yaml")] }
 
 
   # -- Override Helm Release attributes
-  cluster_autoscaler_extra_configs    = var.cluster_autoscaler_extra_configs
-  reloader_extra_configs              = var.reloader_extra_configs
-  ingress_nginx_extra_configs         = var.ingress_nginx_extra_configs
-  certification_manager_extra_configs = var.certification_manager_extra_configs
-  keda_extra_configs                  = var.keda_extra_configs
-  external_dns_extra_configs          = var.external_dns_extra_configs
-  kubeclarity_extra_configs           = var.kubeclarity_extra_configs
-  filebeat_extra_configs              = var.filebeat_extra_configs
-  external_secrets_extra_configs      = var.external_secrets_extra_configs
+  cluster_autoscaler_extra_configs        = var.cluster_autoscaler_extra_configs
+  reloader_extra_configs                  = var.reloader_extra_configs
+  ingress_nginx_extra_configs             = var.ingress_nginx_extra_configs
+  certification_manager_extra_configs     = var.certification_manager_extra_configs
+  keda_extra_configs                      = var.keda_extra_configs
+  external_dns_extra_configs              = var.external_dns_extra_configs
+  kubeclarity_extra_configs               = var.kubeclarity_extra_configs
+  filebeat_extra_configs                  = var.filebeat_extra_configs
+  external_secrets_extra_configs          = var.external_secrets_extra_configs
+  actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
 
 }

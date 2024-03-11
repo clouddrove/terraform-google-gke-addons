@@ -21,3 +21,54 @@ resources:
 
 podAnnotations:
   co.elastic.logs/enabled: "true"
+
+service:
+    
+    # -- Enable controller services or not. This does not influence the creation of either the admission webhook or the metrics service.
+    enabled: true
+    external:
+      # -- Enable the external controller service or not. Useful for internal-only deployments.
+      enabled: true
+    # -- Annotations to be added to the external controller service. See `controller.service.internal.annotations` for annotations to be added to the internal controller service.
+    annotations: 
+      cloud.google.com/backend-config: '{"default": "my-backendconfig"}'
+    # -- Labels to be added to both controller services.
+    labels: {}
+    # -- Type of the external controller service.
+    # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+    type: LoadBalancer
+    # -- Pre-defined cluster internal IP address of the external controller service. Take care of collisions with existing services.
+    # This value is immutable. Set once, it can not be changed without deleting and re-creating the service.
+    # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#choosing-your-own-ip-address
+
+    ipFamilies:
+      - IPv4
+    # -- Enable the HTTP listener on both controller services or not.
+    enableHttp: true
+    # -- Enable the HTTPS listener on both controller services or not.
+    enableHttps: true
+    ports:
+      # -- Port the external HTTP listener is published with.
+      http: 80
+      # -- Port the external HTTPS listener is published with.
+      https: 443
+    targetPorts:
+      # -- Port of the ingress controller the external HTTP listener is mapped to.
+      http: http
+      # -- Port of the ingress controller the external HTTPS listener is mapped to.
+      https: https
+    # -- Declare the app protocol of the external HTTP and HTTPS listeners or not. Supersedes provider-specific annotations for declaring the backend protocol.
+    # Ref: https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol
+    appProtocol: true
+
+      # -- Represents the dual-stack capabilities of the internal controller service. Possible values are SingleStack, PreferDualStack or RequireDualStack.
+      # Fields `ipFamilies` and `clusterIP` depend on the value of this field.
+      # Ref: https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services
+      ipFamilyPolicy: SingleStack
+      # -- List of IP families (e.g. IPv4, IPv6) assigned to the internal controller service. This field is usually assigned automatically based on cluster configuration and the `ipFamilyPolicy` field.
+      # Ref: https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services
+      ipFamilies:
+        - IPv4
+
+      appProtocol: true
+
