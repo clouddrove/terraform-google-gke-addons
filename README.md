@@ -143,6 +143,9 @@ Here are some examples of how you can use this module in your inventory structur
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| actions\_runner\_controller | Enable actions\_runner\_controller add-on | `bool` | `false` | no |
+| actions\_runner\_controller\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| actions\_runner\_controller\_helm\_config | Path to override-values.yaml for actions\_runner\_controller Chart | `any` | `null` | no |
 | certification\_manager | Enable certification\_manager add-on | `bool` | `false` | no |
 | certification\_manager\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | certification\_manager\_helm\_config | Path to override-values.yaml for Certification Manager Chart | `any` | `null` | no |
@@ -178,6 +181,9 @@ Here are some examples of how you can use this module in your inventory structur
 
 | Name | Description |
 |------|-------------|
+| actions\_runner\_controller\_chart\_version | Chart version of the actions\_runner\_controller Helm Chart. |
+| actions\_runner\_controller\_namespace | The namespace where actions\_runner\_controller is deployed. |
+| actions\_runner\_controller\_repository | Helm chart repository of the actions\_runner\_controller. |
 | certification\_manager\_chart\_version | Chart version of the certification-manager Helm Chart. |
 | certification\_manager\_namespace | The namespace where certification-manager is deployed. |
 | certification\_manager\_repository | Helm chart repository of the certification-manager. |
