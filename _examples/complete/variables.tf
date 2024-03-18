@@ -61,3 +61,12 @@ variable "actions_runner_controller_extra_configs" {
   type    = any
   default = {}
 }
+
+# ------------------ REDIS --------------------------------------------------
+variable "redis_extra_configs" {
+  type = any
+  default = {
+    atomic  = true
+    timeout = 300
+  }
+}

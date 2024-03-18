@@ -3,7 +3,7 @@ locals {
   environment     = "test"
   region          = "us-central1"
   cluster_version = "1.29.0-gke.1381000"
-  gcp_project_id  = "dev-env-3b53"
+  gcp_project_id  = "cloud-crew-testing"
 
   tags = {
     Name        = local.name

@@ -331,3 +331,46 @@ resources:
   EOT
   filename = "${path.module}/override_values/actions_runner_controller.yaml"
 }
+
+#---------------------------- REDIS -----------------------------------------
+resource "local_file" "redis_helm_config" {
+  count    = var.redis && (var.redis_helm_config == null) ? 1 : 0
+  content  = <<EOT
+
+global:
+  storageClass: ""
+  redis:
+    password: "redisPassword"
+
+# -- master configuration parameters
+master:
+  count: 1
+  persistence:
+    size: 4Gi    
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "cloud.google.com/gke-nodepool"
+            operator: In
+            values:
+            - "critical"    
+
+# -- replicas configuration parameters
+replica:
+  replicaCount: 3
+  persistence:
+    size: 4Gi
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "cloud.google.com/gke-nodepool"
+            operator: In
+            values:
+            - "critical"     
+  EOT
+  filename = "${path.module}/override_vales/redis.yaml"
+}
