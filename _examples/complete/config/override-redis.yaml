@@ -20,7 +20,7 @@ master:
 
 # -- replicas configuration parameters
 replica:
-  replicaCount: 3
+  replicaCount: 2
   persistence:
     size: 4Gi
   affinity:

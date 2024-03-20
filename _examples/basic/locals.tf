@@ -2,7 +2,7 @@ locals {
   name            = "helm-addons"
   environment     = "test"
   region          = "us-central1"
-  cluster_version = "1.29.0-gke.1381000"
+  cluster_version = "1.29.1-gke.1589017"
   gcp_project_id  = "cloud-crew-testing"
 
   tags = {
