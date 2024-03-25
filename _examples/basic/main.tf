@@ -200,4 +200,6 @@ module "addons" {
   external_dns              = true
   external_secrets          = true
   actions_runner_controller = true
+  redis                     = true
+
 }

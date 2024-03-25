@@ -203,6 +203,7 @@ module "addons" {
   filebeat                  = true
   external_secrets          = true
   actions_runner_controller = true
+  redis                     = true
 
 
   # -- Path of override-values.yaml file
@@ -216,6 +217,7 @@ module "addons" {
   filebeat_helm_config                  = { values = [file("./config/overide-filebeat.yaml")] }
   external_secrets_helm_config          = { values = [file("./config/override-externalsecret.yaml")] }
   actions_runner_controller_helm_config = { values = [file("./config/override-actions-runner-controller.yaml")] }
+  redis_helm_config                     = { values = [file("./config/override-redis.yaml")] }
 
 
   # -- Override Helm Release attributes
@@ -229,5 +231,6 @@ module "addons" {
   filebeat_extra_configs                  = var.filebeat_extra_configs
   external_secrets_extra_configs          = var.external_secrets_extra_configs
   actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
+  redis_extra_configs                     = var.redis_extra_configs
 
 }

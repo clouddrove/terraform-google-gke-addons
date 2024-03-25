@@ -73,4 +73,9 @@ module "actions_runner_controller" {
   actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
 }
 
-
+module "redis" {
+  count               = var.redis ? 1 : 0
+  source              = "./addons/redis"
+  helm_config         = var.redis_helm_config != null ? var.redis_helm_config : { values = [local_file.redis_helm_config[count.index].content] }
+  redis_extra_configs = var.redis_extra_configs
+}
