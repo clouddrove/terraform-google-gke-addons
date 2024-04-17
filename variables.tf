@@ -225,3 +225,22 @@ variable "redis_extra_configs" {
   type        = any
   default     = {}
 }
+
+#-----------PROMETHEUS---------------------------
+variable "prometheus" {
+  description = "Enable prometheus add-on"
+  type        = bool
+  default     = false
+}
+
+variable "prometheus_helm_config" {
+  description = "Prometheus Helm Chart config"
+  type        = any
+  default     = null
+}
+
+variable "prometheus_extra_configs" {
+  description = "Override attributes of helm_release terraform resource"
+  type        = any
+  default     = {}
+}

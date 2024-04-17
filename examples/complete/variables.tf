@@ -70,3 +70,11 @@ variable "redis_extra_configs" {
     timeout = 300
   }
 }
+
+# ------------------ PROMETHEUS --------------------------------------------------
+variable "prometheus_extra_configs" {
+  type = any
+  default = {
+    atomic = true
+  }
+}

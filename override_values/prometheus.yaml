@@ -1,0 +1,13 @@
+server:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "cloud.google.com/gke-nodepool"
+            operator: In
+            values:
+            - "critical"
+
+  persistentVolume:
+    storageClass: standard-rwo
