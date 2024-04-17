@@ -32,8 +32,8 @@ prerequesties:
     version: ">= 1.0.0"
 
 providers:
-  - name: aws
-    url: https://aws.amazon.com/
+  - name: google
+    url: https://gcp.google.com/
     version: ">= 5.10.0"
 
 
