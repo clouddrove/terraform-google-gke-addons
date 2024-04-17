@@ -3,7 +3,7 @@
 [Prometheus](https://prometheus.io/docs/introduction/overview/) offers an open-source monitoring and alerting toolkit designed especially for microservices and containers. Prometheus monitoring lets you run flexible queries and configure real-time notifications.
 
 ## Prerequisites
-Persistent volume for Prometheus server and Alertmanager pods is disabled by default. Enable EBS or EFS CSI Driver from Addons or create EBS CSI driver manually from AWS EKS portal to enable Persistent volume for Prometheus server or Alertmanager.
+Persistent volume for Prometheus server and Alertmanager pods is disabled by default. Enable EBS or EFS CSI Driver from Addons or create EBS CSI driver manually from GCP portal to enable Persistent volume for Prometheus server or Alertmanager.(By Default Runs Now)
 
 ## Dependencies
 - [alertmanager](https://github.com/prometheus-community/helm-charts/tree/main/charts/alertmanager)
@@ -28,7 +28,7 @@ module "addons" {
 
 ## Configuration
 - Prometheus is a data scraper that will scrape the config from target and store it in Volume or Storge.
-- Prometheus is used for Monitoring and Logging with Grafana service. Checkout [this](https://github.com/clouddrove/terraform-aws-eks-addons/blob/master/_examples/complete/config/grafana/override-grafana.yaml) Grafana default configuration to add Prometheus URL as a data-source for Grafana dashboard.
+- Prometheus is used for Monitoring and Logging with Grafana service. Checkout [this](https://github.com/clouddrove/terraform-google-gke-addons/blob/master/_examples/complete/config/grafana/override-grafana.yaml) Grafana default configuration to add Prometheus URL as a data-source for Grafana dashboard.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -57,7 +57,7 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_addon_context"></a> [addon\_context](#input\_addon\_context) | Input configuration for the addon | <pre>object({<br>    
-| <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for AWS Load Balancer Controller | `any` | `{}` | no |
+| <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for GCP Load Balancer Controller | `any` | `{}` | no |
 | <a name="input_prometheus_extra_configs"></a> [prometheus\_extra\_configs](#input\_prometheus\_extra\_configs) | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 
 ## Outputs

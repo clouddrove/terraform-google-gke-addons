@@ -1,6 +1,6 @@
 
 variable "helm_config" {
-  description = "Helm provider config for AWS Load Balancer Controller"
+  description = "Helm provider config for GCP Load Balancer Controller"
   type        = any
   default     = {}
 }
