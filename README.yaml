@@ -33,7 +33,7 @@ prerequesties:
 
 providers:
   - name: google
-    url: https://gcp.google.com/
+    url: https://cloud.google.com
     version: ">= 5.10.0"
 
 
