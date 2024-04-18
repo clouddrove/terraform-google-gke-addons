@@ -5,7 +5,7 @@ locals {
     name                       = try(var.grafana_extra_configs.name, local.name)
     chart                      = try(var.grafana_extra_configs.chart, local.name)
     repository                 = try(var.grafana_extra_configs.repository, "https://grafana.github.io/helm-charts")
-    version                    = try(var.grafana_extra_configs.version, "7.3.7")
+    version                    = try(var.grafana_extra_configs.version, "7.3.9")
     namespace                  = try(var.grafana_extra_configs.namespace, "monitoring")
     create_namespace           = try(var.grafana_extra_configs.create_namespace, true)
     description                = "Grafana helm Chart deployment configuration"
