@@ -207,6 +207,11 @@ module "addons" {
   prometheus                = true
 
 
+  # Grafana Deployment
+  grafana           = true
+  grafana_manifests = var.grafana_manifests
+
+
   # -- Path of override-values.yaml file
   cluster_autoscaler_helm_config        = { values = [file("./config/override-cluster-autoscaler.yaml")] }
   reloader_helm_config                  = { values = [file("./config/reloader/override-reloader.yaml")] }
@@ -220,6 +225,8 @@ module "addons" {
   actions_runner_controller_helm_config = { values = [file("./config/override-actions-runner-controller.yaml")] }
   redis_helm_config                     = { values = [file("./config/override-redis.yaml")] }
   prometheus_helm_config                = { values = [file("./config/override-prometheus.yaml")] }
+  grafana_helm_config                   = { values = [file("./config/grafana/override-grafana.yaml")] }
+
 
 
   # -- Override Helm Release attributes
@@ -235,5 +242,6 @@ module "addons" {
   actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
   redis_extra_configs                     = var.redis_extra_configs
   prometheus_extra_configs                = var.prometheus_extra_configs
+  grafana_extra_configs                   = var.grafana_extra_configs
 
 }

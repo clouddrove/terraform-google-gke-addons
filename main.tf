@@ -86,3 +86,11 @@ module "prometheus" {
   helm_config              = var.prometheus_helm_config != null ? var.prometheus_helm_config : { values = [local_file.prometheus_helm_config[0].content] }
   prometheus_extra_configs = var.prometheus_extra_configs
 }
+
+module "grafana" {
+  count                 = var.grafana ? 1 : 0
+  source                = "./addons/grafana"
+  helm_config           = var.grafana_helm_config != null ? var.grafana_helm_config : { values = [local_file.grafana_helm_config[0].content] }
+  grafana_manifests     = var.grafana_manifests
+  grafana_extra_configs = var.grafana_extra_configs
+}
