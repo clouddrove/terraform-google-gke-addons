@@ -57,7 +57,7 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_addon_context"></a> [addon\_context](#input\_addon\_context) | Input configuration for the addon | <pre>object({<br>    
-| <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for GCP Load Balancer Controller | `any` | `{}` | no |
+| <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for prometheus | `any` | `{}` | no |
 | <a name="input_prometheus_extra_configs"></a> [prometheus\_extra\_configs](#input\_prometheus\_extra\_configs) | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 
 ## Outputs
