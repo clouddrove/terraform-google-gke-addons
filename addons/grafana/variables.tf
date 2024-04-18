@@ -1,13 +1,7 @@
 variable "helm_config" {
-  description = "Helm provider config for AWS Load Balancer Controller"
+  description = "Helm provider config for grafana"
   type        = any
   default     = {}
-}
-
-variable "manage_via_gitops" {
-  description = "Determines if the add-on should be managed via GitOps"
-  type        = bool
-  default     = false
 }
 
 variable "grafana_extra_configs" {
