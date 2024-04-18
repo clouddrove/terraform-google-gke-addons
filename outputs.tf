@@ -159,3 +159,18 @@ output "redis_repository" {
   value       = module.redis[*].repository
   description = "Helm chart repository of the Redis."
 }
+
+
+#----------- PROMETHEUS ------------------------
+output "prometheus_namespace" {
+  value       = module.prometheus[*].namespace
+  description = "The namespace where prometheus is deployed."
+}
+output "prometheus_chart_version" {
+  value       = module.prometheus[*].chart_version
+  description = "Chart version of the prometheus Helm Chart."
+}
+output "prometheus_repository" {
+  value       = module.prometheus[*].repository
+  description = "Helm chart repository of the prometheus."
+}

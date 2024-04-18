@@ -374,3 +374,25 @@ replica:
   EOT
   filename = "${path.module}/override_vales/redis.yaml"
 }
+
+#------------------------- PROMETHEUS -------------------------------
+resource "local_file" "prometheus_helm_config" {
+  count    = var.prometheus && (var.prometheus_helm_config == null) ? 1 : 0
+  content  = <<EOT
+server:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "cloud.google.com/gke-nodepool"
+            operator: In
+            values:
+            - "critical"  
+
+  persistentVolume:
+    storageClass: standard-rwo
+  EOT
+  filename = "${path.module}/override_vales/prometheus.yaml"
+}
+

@@ -22,17 +22,25 @@ badges:
   - name: "Licence"
     image: "https://img.shields.io/badge/License-APACHE-blue.svg"
     url: "LICENSE.md"
+  - name: "Changelog"
+    image: "https://img.shields.io/badge/Changelog-blue"
+    url: "CHANGELOG.md"
 
 prerequesties:
-  - name: Terraform 1.4.6
+  - name: Terraform
     url: https://learn.hashicorp.com/terraform/getting-started/install.html
+    version: ">= 1.0.0"
+
+providers:
+  - name: google
+    url: https://gcp.google.com/
+    version: ">= 5.10.0"
+
+
     
 #  description of this project
 description: |-
   A Terraform Addons module to customize & install widely used helmchart during or after creation of your Google GKE cluster.
-# extra content
-include:
-  - "terraform.md"
 
 # How to use this project
 # How to use this project

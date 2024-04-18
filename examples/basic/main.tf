@@ -1,4 +1,3 @@
-
 provider "google" {
   project = local.gcp_project_id
 }
@@ -96,9 +95,9 @@ module "gke" {
     {
       name                         = "general"
       machine_type                 = "g1-small"
-      node_locations               = "${local.region}-a"
+      node_locations               = "${local.region}-c"
       min_count                    = 1
-      max_count                    = 5
+      max_count                    = 3
       local_ssd_count              = 0
       spot                         = false
       disk_size_gb                 = 10
@@ -133,7 +132,7 @@ module "gke" {
       create_service_account       = true
       preemptible                  = false
       initial_node_count           = 1
-      enable_node_pool_autoscaling = false
+      enable_node_pool_autoscaling = true
     },
   ]
 
@@ -173,7 +172,6 @@ module "gke" {
       local.tags.GithubRepo,
       local.tags.GithubOrg,
     ]
-
     default-node-pool = [
       "default-node-pool",
     ]
@@ -188,49 +186,20 @@ module "gke" {
 module "addons" {
   source = "../../"
 
+  depends_on       = [module.gke]
   gke_cluster_name = module.gke.name
   project_id       = local.gcp_project_id
   region           = local.region
-
 
   cluster_autoscaler        = true
   reloader                  = true
   ingress_nginx             = true
   certification_manager     = true
   keda                      = true
-  external_dns              = true
   kubeclarity               = true
-  filebeat                  = true
+  external_dns              = true
   external_secrets          = true
   actions_runner_controller = true
   redis                     = true
-
-
-  # -- Path of override-values.yaml file
-  cluster_autoscaler_helm_config        = { values = [file("./config/override-cluster-autoscaler.yaml")] }
-  reloader_helm_config                  = { values = [file("./config/reloader/override-reloader.yaml")] }
-  ingress_nginx_helm_config             = { values = [file("./config/override-ingress-nginx.yaml")] }
-  certification_manager_helm_config     = { values = [file("./config/override-certification-manager.yaml")] }
-  keda_helm_config                      = { values = [file("./config/keda/override-keda.yaml")] }
-  external_dns_helm_config              = { values = [file("./config/override-external-dns.yaml")] }
-  kubeclarity_helm_config               = { values = [file("./config/override-kubeclarity.yaml")] }
-  filebeat_helm_config                  = { values = [file("./config/overide-filebeat.yaml")] }
-  external_secrets_helm_config          = { values = [file("./config/override-externalsecret.yaml")] }
-  actions_runner_controller_helm_config = { values = [file("./config/override-actions-runner-controller.yaml")] }
-  redis_helm_config                     = { values = [file("./config/override-redis.yaml")] }
-
-
-  # -- Override Helm Release attributes
-  cluster_autoscaler_extra_configs        = var.cluster_autoscaler_extra_configs
-  reloader_extra_configs                  = var.reloader_extra_configs
-  ingress_nginx_extra_configs             = var.ingress_nginx_extra_configs
-  certification_manager_extra_configs     = var.certification_manager_extra_configs
-  keda_extra_configs                      = var.keda_extra_configs
-  external_dns_extra_configs              = var.external_dns_extra_configs
-  kubeclarity_extra_configs               = var.kubeclarity_extra_configs
-  filebeat_extra_configs                  = var.filebeat_extra_configs
-  external_secrets_extra_configs          = var.external_secrets_extra_configs
-  actions_runner_controller_extra_configs = var.actions_runner_controller_extra_configs
-  redis_extra_configs                     = var.redis_extra_configs
-
+  prometheus                = true
 }

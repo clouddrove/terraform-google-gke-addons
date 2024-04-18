@@ -79,3 +79,10 @@ module "redis" {
   helm_config         = var.redis_helm_config != null ? var.redis_helm_config : { values = [local_file.redis_helm_config[count.index].content] }
   redis_extra_configs = var.redis_extra_configs
 }
+
+module "prometheus" {
+  count                    = var.prometheus ? 1 : 0
+  source                   = "./addons/prometheus"
+  helm_config              = var.prometheus_helm_config != null ? var.prometheus_helm_config : { values = [local_file.prometheus_helm_config[0].content] }
+  prometheus_extra_configs = var.prometheus_extra_configs
+}
