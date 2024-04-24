@@ -9,7 +9,7 @@ provider "google" {
 
 module "vpc" {
   source  = "terraform-google-modules/network/google"
-  version = "~> 8.1"
+  version = "~> 9.1"
 
   project_id   = local.gcp_project_id
   network_name = "${local.name}-vpc"
