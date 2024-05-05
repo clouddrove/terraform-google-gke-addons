@@ -21,6 +21,10 @@
 | filebeat\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
 | filebeat\_helm\_config | Path to override-values.yaml for filebeat Helm Chart | `any` | `null` | no |
 | gke\_cluster\_name | gke cluster name | `string` | `""` | no |
+| grafana | Enable Grafana add-on | `bool` | `false` | no |
+| grafana\_extra\_configs | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
+| grafana\_helm\_config | Grafana Helm Chart config | `any` | `null` | no |
+| grafana\_manifests | Path of virtual-service yaml manifests | <pre>object({<br>    grafana_virtualservice_file_path = string<br>  })</pre> | <pre>{<br>  "grafana_virtualservice_file_path": ""<br>}</pre> | no |
 | ingress\_nginx | Enable Nginx ingress add-on | `bool` | `false` | no |
 | ingress\_nginx\_extra\_configs | Nginx ingress extra config | `any` | `{}` | no |
 | ingress\_nginx\_helm\_config | Path to override-values.yaml for Ingress Nginx Helm Chart | `any` | `null` | no |
