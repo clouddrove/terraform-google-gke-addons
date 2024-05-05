@@ -202,4 +202,5 @@ module "addons" {
   actions_runner_controller = true
   redis                     = true
   prometheus                = true
+  grafana                   = true
 }
