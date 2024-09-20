@@ -48,7 +48,7 @@ module "addons" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_grafana_extra_configs"></a> [grafana\_extra\_configs](#input\_grafana\_extra\_configs) | Override attributes of helm\_release terraform resource | `any` | `{}` | no |
-| <a name="input_grafana_manifests"></a> [grafana\_manifests](#input\_grafana\_manifests) | n/a | <pre>object({<br>    grafana_virtualservice_file_path = string<br>  })</pre> | n/a | yes |
+| <a name="input_grafana_manifests"></a> [grafana\_manifests](#input\_grafana\_manifests) | n/a | <pre>object({<br/>    grafana_virtualservice_file_path = string<br/>  })</pre> | n/a | yes |
 | <a name="input_helm_config"></a> [helm\_config](#input\_helm\_config) | Helm provider config for grafana | `any` | `{}` | no |
 
 ## Outputs
