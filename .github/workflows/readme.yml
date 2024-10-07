@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Updating GitHub Token
-        env: 
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB }}
         run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
 
@@ -47,4 +47,4 @@ jobs:
           git-push-user-email: 84795582+clouddrove-ci@users.noreply.github.com
           git-commit-message: "readme: Update add-on's readme"
 
-          
+

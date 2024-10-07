@@ -7,7 +7,7 @@ Below terraform script shows how to use Grafana Terraform Addon, A complete exam
 ```hcl
 module "addons" {
   source  = "clouddrove/gke-addons/google"
-  
+
   depends_on       = [module.gke.cluster_id]
   gke_cluster_name = module.gke.cluster_name
 

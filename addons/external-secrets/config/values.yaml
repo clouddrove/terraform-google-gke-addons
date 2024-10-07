@@ -30,7 +30,7 @@ webhook:
   create: true
   certCheckInterval: "5m"
   replicaCount: 1
-  affinity: {}         
+  affinity: {}
   resources: {}
   podAnnotations:
     co.elastic.logs/enabled: "true"

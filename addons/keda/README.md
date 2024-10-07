@@ -1,6 +1,6 @@
 # Keda Helm Chart
 
-KEDA allows for fine grained autoscaling (including to/from zero) for event driven Kubernetes workloads. 
+KEDA allows for fine grained autoscaling (including to/from zero) for event driven Kubernetes workloads.
 
 ## Installation
 Below terraform script shows how to use Keda Terraform Addon, A complete example is also given [here](https://github.com/clouddrove/terraform-google-gke-addons/blob/master/_examples/complete/main.tf).
