@@ -42,4 +42,3 @@ resource "google_project_iam_member" "member-role" {
   member  = "serviceAccount:${local.name}-sa@${var.project_id}.iam.gserviceaccount.com"
   project = var.project_id
 }
-

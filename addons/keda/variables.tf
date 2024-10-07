@@ -9,4 +9,3 @@ variable "keda_extra_configs" {
   type        = any
   default     = {}
 }
-

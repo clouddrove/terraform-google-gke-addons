@@ -280,7 +280,7 @@ reloader:
     #     matchLabels:
     #       app.kubernetes.io/name: prometheus
     to: []
-    
+
   volumeMounts: []
 
   volumes: []

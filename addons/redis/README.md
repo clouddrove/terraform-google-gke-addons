@@ -11,7 +11,7 @@ Below terraform script shows how to use Redis Terraform Addon, A complete exampl
 module "addons" {
   source  = "clouddrove/gke-addons/google"
   version = "0.1.2"
-  
+
   depends_on       = [module.gke]
   gke_cluster_name = module.gke.cluster_name
 

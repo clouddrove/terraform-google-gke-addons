@@ -52,4 +52,3 @@ resource "kubernetes_secret" "external_dns_secret" {
     "credentials.json" = base64decode(google_service_account_key.external_dns_key.private_key)
   }
 }
-

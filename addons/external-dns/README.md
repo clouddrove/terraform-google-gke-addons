@@ -10,7 +10,7 @@ Below terraform script shows how to use External DNS Terraform Addon, A complete
 ```hcl
 module "addons" {
   source  = "clouddrove/gke-addons/google"
-  
+
   depends_on       = [module.gke]
   gke_cluster_name = module.gke.name
   project_id       = local.gcp_project_id

@@ -104,7 +104,7 @@ resources:
 
 podAnnotations:
   co.elastic.logs/enabled: "true"
-  
+
   EOT
   filename = "${path.module}/override_values/ingress_nginx.yaml"
 }
@@ -151,7 +151,7 @@ affinity:
           operator: In
           values:
           - "critical"
-          
+
 ## Using limits and requests
 resourc_helm_configes:
   limits:
@@ -292,7 +292,7 @@ affinity:
           operator: In
           values:
           - "critical"
-          
+
 ## Using limits and requests
 resourc_helm_configes:
   limits:
@@ -346,7 +346,7 @@ global:
 master:
   count: 1
   persistence:
-    size: 4Gi    
+    size: 4Gi
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -355,7 +355,7 @@ master:
           - key: "cloud.google.com/gke-nodepool"
             operator: In
             values:
-            - "critical"    
+            - "critical"
 
 # -- replicas configuration parameters
 replica:
@@ -370,7 +370,7 @@ replica:
           - key: "cloud.google.com/gke-nodepool"
             operator: In
             values:
-            - "critical"     
+            - "critical"
   EOT
   filename = "${path.module}/override_vales/redis.yaml"
 }
@@ -388,7 +388,7 @@ server:
           - key: "cloud.google.com/gke-nodepool"
             operator: In
             values:
-            - "critical"  
+            - "critical"
 
   persistentVolume:
     storageClass: standard-rwo
@@ -408,7 +408,7 @@ affinity:
         - key: "cloud.google.com/gke-nodepool"
           operator: In
           values:
-          - "critical"  
+          - "critical"
 resources:
   limits:
     cpu: 300m

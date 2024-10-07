@@ -38,4 +38,3 @@ resource "google_project_iam_member" "secretadmin" {
   role   = each.key
   member = "serviceAccount:${local.name}-sa@${var.project_id}.iam.gserviceaccount.com"
 }
-

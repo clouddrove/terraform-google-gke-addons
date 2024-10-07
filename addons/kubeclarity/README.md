@@ -1,6 +1,6 @@
 # Kubeclarity Helm Chart
 
-KubeClarity is a tool for detecting and managing Software Bill of Materials (SBOM) and vulnerabilities of container images and filesystems. It scans runtime Kubernetes clusters and CI/CD pipelines to generate SBOM documents and vulnerability reports for enhanced software supply chain security. 
+KubeClarity is a tool for detecting and managing Software Bill of Materials (SBOM) and vulnerabilities of container images and filesystems. It scans runtime Kubernetes clusters and CI/CD pipelines to generate SBOM documents and vulnerability reports for enhanced software supply chain security.
 
 ## Installation
 Below terraform script shows how to use Kubeclarity Terraform Addon, A complete example is also given [here](https://github.com/clouddrove/terraform-google-gke-addons/blob/master/_examples/complete/main.tf).

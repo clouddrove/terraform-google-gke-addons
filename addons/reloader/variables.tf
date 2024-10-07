@@ -9,5 +9,3 @@ variable "reloader_extra_configs" {
   type        = any
   default     = {}
 }
-
-

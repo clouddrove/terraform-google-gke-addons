@@ -8,7 +8,7 @@ Below terraform script shows how to use External Secret Terraform Addon, A compl
 ```hcl
 module "addons" {
   source  = "clouddrove/gke-addons/google"
-  
+
   depends_on       = [module.gke]
   gke_cluster_name = module.gke.name
   project_id       = local.gcp_project_id

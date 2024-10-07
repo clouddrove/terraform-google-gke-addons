@@ -86,4 +86,3 @@
 | reloader\_chart\_version | Chart version of the reloader Helm Chart. |
 | reloader\_namespace | The namespace where reloader is deployed. |
 | reloader\_repository | Helm chart repository of the reloader. |
-
