@@ -245,7 +245,6 @@ variable "prometheus_extra_configs" {
   default     = {}
 }
 
-
 #----------------------- GRAFANA -----------------------------
 variable "grafana" {
   description = "Enable Grafana add-on"
@@ -273,4 +272,23 @@ variable "grafana_manifests" {
   default = {
     grafana_virtualservice_file_path = ""
   }
+}
+
+#-----------ISTIO INGRESS---------------------------
+variable "istio_ingress" {
+  description = "Enable Istio Ingress add-on"
+  type        = bool
+  default     = false
+}
+
+variable "istio_ingress_helm_config" {
+  description = "Path to override-values.yaml for Istio Ingress  Helm Chart"
+  type        = any
+  default     = null
+}
+
+variable "manage_via_gitops" {
+  type        = bool
+  default     = false
+  description = "Set this to `true` if managing addons via GitOps. Seting `true` will not create helm-release for addon."
 }

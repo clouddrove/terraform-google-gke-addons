@@ -174,3 +174,17 @@ output "prometheus_repository" {
   value       = module.prometheus[*].repository
   description = "Helm chart repository of the prometheus."
 }
+
+#----------- ISTIO INGRESS ---------------------
+output "istio_ingress_namespace" {
+  value       = module.istio_ingress[*].namespace
+  description = "Namespace where istio-ingress is installed"
+}
+output "istio_ingress_chart_version" {
+  value       = module.istio_ingress[*].chart_version
+  description = "chart version used for istio-ingress helmchart"
+}
+output "istio_ingress_repository" {
+  value       = module.istio_ingress[*].repository
+  description = "helm repository url of istio-ingress"
+}

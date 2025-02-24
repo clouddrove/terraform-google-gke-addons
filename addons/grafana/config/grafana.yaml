@@ -502,7 +502,7 @@ extraSecretMounts: []
   #
   # for AWS EKS (cloudwatch) use the following (see also instruction in env: above)
   # - name: aws-iam-token
-  #   mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount
+  #   mountPath: /var/run/secrets//serviceaccount
   #   readOnly: true
   #   projected:
   #     defaultMode: 420

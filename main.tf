@@ -94,3 +94,10 @@ module "grafana" {
   grafana_manifests     = var.grafana_manifests
   grafana_extra_configs = var.grafana_extra_configs
 }
+
+module "istio_ingress" {
+  count                       = var.istio_ingress ? 1 : 0
+  source                      = "./addons/istio-ingress"
+  helm_config                 = var.istio_ingress_helm_config != null ? var.istio_ingress_helm_config : { values = [local_file.istio_ingress_helm_config[count.index].content] }
+  manage_via_gitops           = var.manage_via_gitops
+}

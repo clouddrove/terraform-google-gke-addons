@@ -21,37 +21,39 @@ module "vpc" {
       subnet_ip     = "10.10.10.0/24"
       subnet_region = "us-central1"
     },
-    {
-      subnet_name           = "${local.name}-subnet-private-1"
-      subnet_ip             = "10.10.20.0/24"
-      subnet_region         = "us-central1"
-      subnet_private_access = "true"
-      subnet_flow_logs      = "true"
-      description           = "This subnet has a description"
-    },
-    {
-      subnet_name           = "${local.name}-subnet-private-2"
-      subnet_ip             = "10.10.30.0/24"
-      subnet_region         = "us-central1"
-      subnet_private_access = "true"
-      subnet_flow_logs      = "true"
-      description           = "This subnet has used for GKE"
-    }
-  ]
 
-  secondary_ranges = {
-    subnet-public-1 = [
-      {
-        range_name    = "${local.name}-subnet-private-1-secondary-01"
-        ip_cidr_range = "192.168.64.0/24"
-      },
-    ],
-    subnet-public-2 = [
-      {
-        range_name    = "${local.name}-subnet-private-2-secondary-01"
-        ip_cidr_range = "192.168.128.0/24"
-      },
-    ]
+   {
+    subnet_name           = "${local.name}-subnet-private-1"
+    subnet_ip             = "10.10.20.0/24"
+    subnet_region         = "us-central1"
+    subnet_private_access = "true"
+    subnet_flow_logs      = "true"
+    description           = "This subnet has a description"
+   },
+
+  {
+    subnet_name           = "${local.name}-subnet-private-2"
+    subnet_ip             = "10.10.30.0/24"
+    subnet_region         = "us-central1"
+    subnet_private_access = "true"
+    subnet_flow_logs      = "true"
+    description           = "This subnet has used for GKE"
+  }
+]
+
+secondary_ranges = {
+  subnet-public-1 = [
+    {
+      range_name    = "${local.name}-subnet-private-1-secondary-01"
+      ip_cidr_range = "192.168.64.0/24"
+    },
+  ],
+  subnet-public-2 = [
+    {
+      range_name    = "${local.name}-subnet-private-2-secondary-01"
+      ip_cidr_range = "192.168.128.0/24"
+   },
+     ]
   }
 
   routes = [
@@ -62,7 +64,33 @@ module "vpc" {
       tags              = "egress-inet"
       next_hop_internet = "true"
     },
+
   ]
+}
+
+
+module "test-firewall-submodule" {
+  source                  = "terraform-google-modules/network/google//modules/fabric-net-firewall"
+  version                 = "~> 10.0"
+  project_id              = local.gcp_project_id
+  network                 = module.vpc.network_name
+  internal_ranges_enabled = true
+  internal_ranges         = module.vpc.subnets_ips
+
+  internal_allow = [
+    {
+      protocol = "icmp"
+    },
+    {
+      protocol = "tcp",
+      ports    = ["80", "22"]
+    },
+    {
+      protocol = "udp"
+      # all ports will be opened if `ports` key isn't specified
+    },
+  ]
+  custom_rules = local.custom_rules
 }
 
 ###############################################################################
@@ -78,14 +106,14 @@ module "gke" {
   kubernetes_version                = local.cluster_version
   zones                             = []
   network                           = module.vpc.network_name
-  subnetwork                        = "${local.name}-subnet-private-2"
+  subnetwork                        = "${local.name}-subnet-public-1"
   ip_range_pods                     = ""
   ip_range_services                 = ""
   horizontal_pod_autoscaling        = true
-  http_load_balancing               = true
-  filestore_csi_driver              = true
+  http_load_balancing               = false
+  filestore_csi_driver              = false
   istio                             = true
-  create_service_account            = true
+  create_service_account            = false
   remove_default_node_pool          = true
   disable_legacy_metadata_endpoints = false
   deletion_protection               = false
@@ -94,9 +122,9 @@ module "gke" {
 
     {
       name                         = "general"
-      machine_type                 = "g1-small"
+      machine_type                 = "e2-medium"
       node_locations               = "${local.region}-c"
-      min_count                    = 1
+      min_count                    = 3
       max_count                    = 3
       local_ssd_count              = 0
       spot                         = false
@@ -113,29 +141,29 @@ module "gke" {
       initial_node_count           = 1
       enable_node_pool_autoscaling = true
     },
-    {
-      name                         = "critical"
-      machine_type                 = "g1-small"
-      node_locations               = "${local.region}-c"
-      min_count                    = 1
-      max_count                    = 3
-      local_ssd_count              = 0
-      spot                         = false
-      disk_size_gb                 = 10
-      disk_type                    = "pd-standard"
-      image_type                   = "ubuntu_containerd"
-      enable_gcfs                  = false
-      enable_gvnic                 = false
-      logging_variant              = "DEFAULT"
-      auto_repair                  = true
-      auto_upgrade                 = true
-      create_service_account       = true
-      preemptible                  = false
-      initial_node_count           = 1
-      enable_node_pool_autoscaling = true
-    },
-  ]
 
+    {
+    name                         = "critical"
+    machine_type                 = "g1-small"
+    node_locations               = "${local.region}-c"
+    min_count                    = 1
+    max_count                    = 3
+    local_ssd_count              = 0
+    spot                         = false
+    disk_size_gb                 = 10
+    disk_type                    = "pd-standard"
+    image_type                   = "ubuntu_containerd"
+    enable_gcfs                  = false
+    enable_gvnic                 = false
+    logging_variant              = "DEFAULT"
+    auto_repair                  = true
+    auto_upgrade                 = true
+    create_service_account       = true
+    preemptible                  = false
+    initial_node_count           = 1
+    enable_node_pool_autoscaling = true
+     },
+  ]
 
   node_pools_labels = {
     all = {}
@@ -203,4 +231,7 @@ module "addons" {
   redis                     = true
   prometheus                = true
   grafana                   = true
+  istio_ingress             = true
 }
+
+

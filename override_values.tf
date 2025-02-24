@@ -221,7 +221,7 @@ kubeclarity:
 # Be careful when using ingress. As there is no authentication on Kubeclarity yet, your instance may be accessible.
 # Make sure the ingress remains internal if you decide to enable it.
   service:
-    type: LoadBalancer
+    type: NodePort
     port: 80
     annotations: {}
       # service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
@@ -419,3 +419,30 @@ resources:
   EOT
   filename = "${path.module}/override_vales/grafana.yaml"
 }
+
+#--------------------------- ISTIO INGRESS ----------------------------------
+resource "local_file" "istio_ingress_helm_config" {
+  count    = var.istio_ingress && (var.istio_ingress_helm_config == null) ? 1 : 0
+  content  = <<EOT
+global:
+  defaultNodeSelector:
+    "cloud.google.com/gke-nodepool" : "critical"
+
+service:
+  type: NodePort
+  EOT
+  filename = "${path.module}/override_values/istio_ingress.yaml"
+}
+
+
+resource "kubernetes_namespace" "default" {
+  metadata {
+    name = "istio-system"
+    
+    labels = {
+      istio-injection = "enabled"
+    }
+  }
+}
+
+
