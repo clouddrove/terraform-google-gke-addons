@@ -34,7 +34,7 @@ jobs:
           token: ${{ env.GH_TOKEN }}
 
       - name: Generate TF Docs
-        uses: terraform-docs/gh-actions@v1.3.0
+        uses: terraform-docs/gh-actions@v1.4.0
         with:
           working-dir: addons/cluster-autoscaler,addons/cert-manager,addons/ingress-nginx,addons/keda,addons/reloader,addons/kubeclarity,addons/external-dns,addons/external-secrets,addons/filebeat,addons/actions-runner-controller,addons/redis,addons/prometheus,addons/grafana
 
