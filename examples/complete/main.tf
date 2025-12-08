@@ -72,7 +72,7 @@ module "vpc" {
 
 module "gke" {
   source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
-  version                           = "40.0.0"
+  version                           = "42.0.0"
   project_id                        = local.gcp_project_id
   name                              = "${local.name}-cluster"
   region                            = local.region
